@@ -1,0 +1,4 @@
+test_local
+sdk.cfg
+*.py.bak-*
+.DS_Store

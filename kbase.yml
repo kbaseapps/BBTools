@@ -1,0 +1,15 @@
+module-name:
+    BBTools
+
+module-description:
+    A suite of sequence data anlysis tools
+
+service-language:
+    python
+
+module-version:
+    0.0.1
+
+owners:
+    [msneddon]
+

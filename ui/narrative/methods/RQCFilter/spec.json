@@ -1,0 +1,127 @@
+{
+    "ver": "0.0.1",
+    "authors": [
+        "msneddon"
+    ],
+    "contact": "",
+    "categories": ["reads"],
+    "widgets": {
+        "input": null,
+        "output": "no-display"
+    },
+    "parameters": [ 
+        {
+            "id": "read_library_ref",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "" ],
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types": [
+                    "KBaseFile.PairedEndLibrary",
+                    "KBaseFile.SingleEndLibrary",
+                    "KBaseAssembly.PairedEndLibrary",
+                    "KBaseAssembly.SingleEndLibrary"
+                ]
+            }
+        },
+        {
+            "id": "output_library_name",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": null,
+            "field_type": "text",
+            "text_options": {
+                "is_output_name": true,
+                "valid_ws_types": [
+                    "KBaseFile.PairedEndLibrary",
+                    "KBaseFile.SingleEndLibrary",
+                    "KBaseAssembly.PairedEndLibrary",
+                    "KBaseAssembly.SingleEndLibrary"
+                ]
+            }
+        },
+        {
+            "id" : "library",
+            "optional" : true,
+            "advanced" : false,
+            "allow_multiple" : false,
+            "default_values" : [ "" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [{
+                  "value": "frag",
+                  "display": "frag"
+                },
+                {
+                  "value": "clip",
+                  "display": "clip"
+                },
+                {
+                  "value": "lfpe",
+                  "display": "lfpe"
+                },
+                {
+                  "value": "clrs",
+                  "display": "clrs"
+                }
+              ]
+            }
+        },
+        {
+            "id": "rna",
+            "optional": false,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values":["0"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 0,
+                "unchecked_value": 0
+            }
+         }
+    ],
+    "behavior": {
+        "service-mapping": {
+            "url": "",
+            "name": "BBTools",
+            "method": "run_RQCFilter_app",
+            "input_mapping": [
+                {
+                    "narrative_system_variable": "workspace",
+                    "target_property": "output_workspace_name"
+                },
+                {
+                    "input_parameter": "read_library_ref",
+                    "target_property": "read_library_ref",
+                    "target_type_transform": "resolved-ref"
+                },
+                {
+                    "input_parameter": "output_library_name",
+                    "target_property": "output_library_name"
+                },
+                {
+                    "input_parameter": "library",
+                    "target_property": "library"
+                },
+                {
+                    "input_parameter": "rna",
+                    "target_property": "rna"
+                }
+            ],
+            "output_mapping": [
+                {
+                    "service_method_output_path": [0, "report_name"],
+                    "target_property": "report_name"
+                },
+                {
+                    "service_method_output_path": [0, "report_ref"],
+                    "target_property": "report_ref"
+                }
+            ]
+        }
+    },
+    "job_id_output_field": "docker"
+}

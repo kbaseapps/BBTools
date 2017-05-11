@@ -1,0 +1,60 @@
+#
+# define display information
+#
+name: Run the JGI RQCFilter pipleline (BBTools v37.22)
+
+tooltip: |
+    Runs the JGI reads data preprocessing pipeline 
+
+screenshots: []
+
+icon: JGI_logo_stacked_RGB.png
+
+#
+# define a set of similar methods that might be useful to the user
+#
+suggestions:
+    apps:
+        related:
+            []
+        next:
+            []
+    methods:
+        related:
+            []
+        next:
+            []
+
+#
+# Configure the display and description of parameters
+#
+parameters :
+    read_library_ref :
+        ui-name : |
+            Reads Library
+        short-hint : |
+            Input reads library
+
+    output_library_name:
+        ui-name : |
+            Output Library
+        short-hint : |
+            Name for the new processed reads library
+
+    library:
+        ui-name : |
+            library option
+        short-hint : |
+            Set the RQCFilter library option
+
+    rna:
+        ui-name : |
+            Remove RNA-specific artifacts?
+        short-hint : |
+            Remove reads containing RNA-specific artifacts
+
+
+
+
+description : |
+    see: http://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/data-preprocessing/
