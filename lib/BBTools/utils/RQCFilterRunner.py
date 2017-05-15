@@ -37,12 +37,12 @@ class RQCFilterRunner:
         reads_info = self._stage_input(params)
 
         options = []
+
         # setup input/output paths
         options.append('in=' + str(reads_info['files']['fwd']))
         options.append('path=' + str(output_dir))
 
-        # used to override invalid barcode in input
-        options.append('barcodefilter=f')
+        # parse user specified options
 
         if 'library' in params:
             options.append('library=' + str(params['library']))
@@ -52,6 +52,12 @@ class RQCFilterRunner:
                 options.append('rna=t')
             if str(params['rna']) in ['0', 'f']:
                 options.append('rna=f')
+
+        # used to override invalid barcode in input
+        options.append('barcodefilter=f')
+
+        # make sure that the pipeline does not call out to the external sketch servers
+        options.append('sketch=f')
 
         return options
 
