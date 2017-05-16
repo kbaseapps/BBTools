@@ -102,13 +102,10 @@
             "optional" : true,
             "advanced" : false,
             "allow_multiple" : false,
-            "default_values" : [ "f" ],
+            "default_values" : [ "" ],
             "field_type" : "dropdown",
             "dropdown_options":{
               "options": [{
-                  "value": "None",
-                  "display": "f"
-                },{
                   "value": "Trim both ends",
                   "display": "rl"
                 },
@@ -188,7 +185,7 @@
 
         {
             "id": "taxlist",
-            "optional": false,
+            "optional": true,
             "advanced": false,
             "allow_multiple": true,
             "default_values":[""],
@@ -198,7 +195,7 @@
 
         {
             "id": "dedupe",
-            "optional": false,
+            "optional": true,
             "advanced": false,
             "allow_multiple": false,
             "default_values":["0"],
