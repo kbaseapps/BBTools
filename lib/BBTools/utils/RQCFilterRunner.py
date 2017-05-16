@@ -29,6 +29,22 @@ class RQCFilterRunner:
         bbtools.run(self.RQCFILTER_CMD, options)
         return self._save_output_to_kbase(params, output_dir)
 
+
+    def _process_boolean_parameter(self, params, param_name, options, opt_name=None):
+        ''' looks for params[param_name], if set, set options[opt_name] appropriately '''
+        if not opt_name:
+            opt_name = param_name
+        if param_name in params and params[param_name]:
+            value = str(params[param_name])
+            if value in ['1', 't']:
+                options.append(opt_name + '=t')
+            elif value in ['0', 'f']:
+                options.append(opt_name + '=f')
+            else:
+                print('WARNING: ignoring parameter ' + param_name + ', was set to "' + value + '", but' +
+                      'must be: 0 | 1 | "t" | "f", so will be ignored')
+
+
     def _process_app_params_to_cli(self, params, output_dir):
         ''' given the parameters passed into the KBase App, validate them, stage the input
             and create the set of options that will be passed to rqcfilter.sh '''
@@ -44,14 +60,31 @@ class RQCFilterRunner:
 
         # parse user specified options
 
-        if 'library' in params:
+        if 'library' in params and params['library']:
             options.append('library=' + str(params['library']))
 
-        if 'rna' in params:
-            if str(params['rna']) in ['1', 't']:
-                options.append('rna=t')
-            if str(params['rna']) in ['0', 'f']:
-                options.append('rna=f')
+        self._process_boolean_parameter(params, 'rna', options)
+
+        self._process_boolean_parameter(params, 'trimfragadapter', options)
+
+        if 'qtrim' in params and params['qtrim']:
+            if str(params['qtrim']) in ['rl', 'r', 'l', 'f']:
+                options.append('qtrim=' + str(params['qtrim']))
+
+        self._process_boolean_parameter(params, 'removemouse', options)
+        self._process_boolean_parameter(params, 'removecat', options)
+        self._process_boolean_parameter(params, 'removedog', options)
+        self._process_boolean_parameter(params, 'removehuman', options)
+        self._process_boolean_parameter(params, 'removemicrobes', options)
+
+        self._process_boolean_parameter(params, 'dedupe', options)
+        self._process_boolean_parameter(params, 'opticaldupes', options)
+
+        if 'taxlist' in params and params['taxlist']:
+            formatted_list = []
+            for taxa_name in enumerate(params['taxlist']):
+                formatted_list.append(taxa_name.strip().replace(' ', '_'))
+            options.append('tax_list=' + ','.join(formatted_list))
 
         # used to override invalid barcode in input
         options.append('barcodefilter=f')
