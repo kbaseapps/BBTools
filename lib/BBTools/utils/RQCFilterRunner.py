@@ -82,7 +82,7 @@ class RQCFilterRunner:
 
         if 'taxlist' in params and params['taxlist']:
             formatted_list = []
-            for taxa_name in enumerate(params['taxlist']):
+            for taxa_name in params['taxlist']:
                 formatted_list.append(taxa_name.strip().replace(' ', '_'))
             options.append('tax_list=' + ','.join(formatted_list))
 
