@@ -48,7 +48,7 @@
             "optional" : true,
             "advanced" : false,
             "allow_multiple" : false,
-            "default_values" : [ "" ],
+            "default_values" : [ "frag" ],
             "field_type" : "dropdown",
             "dropdown_options":{
               "options": [{
@@ -70,10 +70,11 @@
               ]
             }
         },
+
         {
             "id": "rna",
             "optional": false,
-            "advanced": true,
+            "advanced": false,
             "allow_multiple": false,
             "default_values":["0"],
             "field_type" : "checkbox",
@@ -81,7 +82,144 @@
                 "checked_value": 0,
                 "unchecked_value": 0
             }
-         }
+        },
+
+        {
+            "id": "trimfragadapter",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["0"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 0,
+                "unchecked_value": 0
+            }
+        },
+
+        {
+            "id" : "qtrim",
+            "optional" : true,
+            "advanced" : false,
+            "allow_multiple" : false,
+            "default_values" : [ "f" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [{
+                  "value": "None",
+                  "display": "f"
+                },{
+                  "value": "Trim both ends",
+                  "display": "rl"
+                },
+                {
+                  "value": "Trim right ends only",
+                  "display": "r"
+                },
+                {
+                  "value": "Trim left ends only",
+                  "display": "l"
+                }
+              ]
+            }
+        },
+
+
+        {
+            "id": "removemouse",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["0"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 0,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "removecat",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["0"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 0,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "removedog",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["0"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 0,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "removehuman",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["0"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 0,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "removemicrobes",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["0"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 0,
+                "unchecked_value": 0
+            }
+        },
+
+        {
+            "id": "taxlist",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": true,
+            "default_values":[""],
+            "field_type" : "text",
+            "text_options": { }
+        },
+
+        {
+            "id": "dedupe",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["0"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 0,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "opticaldupes",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["0"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 0,
+                "unchecked_value": 0
+            }
+        }
     ],
     "behavior": {
         "service-mapping": {
@@ -103,12 +241,52 @@
                     "target_property": "output_library_name"
                 },
                 {
+                    "input_parameter": "rna",
+                    "target_property": "rna"
+                },
+                {
                     "input_parameter": "library",
                     "target_property": "library"
                 },
                 {
-                    "input_parameter": "rna",
-                    "target_property": "rna"
+                    "input_parameter": "trimfragadapter",
+                    "target_property": "trimfragadapter"
+                },
+                {
+                    "input_parameter": "qtrim",
+                    "target_property": "qtrim"
+                },
+                {
+                    "input_parameter": "removemouse",
+                    "target_property": "removemouse"
+                },
+                {
+                    "input_parameter": "removecat",
+                    "target_property": "removecat"
+                },
+                {
+                    "input_parameter": "removedog",
+                    "target_property": "removedog"
+                },
+                {
+                    "input_parameter": "removehuman",
+                    "target_property": "removehuman"
+                },
+                {
+                    "input_parameter": "removemicrobes",
+                    "target_property": "removemicrobes"
+                },
+                {
+                    "input_parameter": "taxlist",
+                    "target_property": "taxlist"
+                },
+                {
+                    "input_parameter": "dedupe",
+                    "target_property": "dedupe"
+                },
+                {
+                    "input_parameter": "opticaldupes",
+                    "target_property": "opticaldupes"
                 }
             ],
             "output_mapping": [

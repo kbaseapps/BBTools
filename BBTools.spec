@@ -19,6 +19,20 @@ module BBTools {
 
         string library;
         boolean rna;
+
+        boolean trimfragadapter;
+        string qtrim;
+        boolean removemouse;
+        boolean removecat;
+        boolean removedog;
+        boolean removehuman;
+        boolean removemicrobes;
+
+        list <string> taxlist;
+
+        boolean dedupe;
+        boolean opticaldupes;
+
     } RQCFilterAppParams;
 
 
