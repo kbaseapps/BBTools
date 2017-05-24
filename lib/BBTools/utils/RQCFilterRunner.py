@@ -92,6 +92,15 @@ class RQCFilterRunner:
         # make sure that the pipeline does not call out to the external sketch servers
         options.append('sketch=f')
 
+        # set the reference file locations
+        options.append('humanpath=/data/hg19/')
+        options.append('catpath=/data/cat_genome/')
+        options.append('dogpath=/data/dog_genome/')
+        options.append('mousepath=/data/mouse_genome/')
+        options.append('microberef=/data/commonMicrobes/')
+
+        # missing ability to set mouseCatDogHumanPath
+
         return options
 
 
