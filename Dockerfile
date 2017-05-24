@@ -34,6 +34,10 @@ RUN BBMAP=BBMap_37.22.tar.gz \
     && tar -xf $BBMAP \
     && rm $BBMAP
 
+# build BBTools small C-lib
+RUN cd /kb/module/bbmap/jni \
+    && make -f makefile.linux
+
 # copy local ref files
 RUN mkdir /global
 COPY data/rqc_data/global /global
