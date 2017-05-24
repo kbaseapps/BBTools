@@ -29,7 +29,7 @@ if [ $fail -eq 1 ] ; then
     exit 1
 fi
 
-# date
+date
 # get_file 'cat.tar'
 # check_exists 'cat_genome'
 # if [ $fail -eq 1 ] ; then
