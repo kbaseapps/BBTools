@@ -23,7 +23,8 @@ fail=0
 date
 get_file 'commonMicrobes.tar'
 mv global/projectb/sandbox/gaag/bbtools/commonMicrobes .
-check_exists 'global'
+rm -rf global
+check_exists 'commonMicrobes'
 if [ $fail -eq 1 ] ; then
     exit 1
 fi
