@@ -8,8 +8,10 @@ service-language:
     python
 
 module-version:
-    0.0.2
+    0.0.3
 
 owners:
     [msneddon]
 
+data-version:
+    0.1
