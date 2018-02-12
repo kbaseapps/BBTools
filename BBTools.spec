@@ -41,8 +41,13 @@ module BBTools {
         string report_ref;
     } RQCFilterAppOutput;
 
+    typedef structure {
+
+    } RQCFilterLocalOutput;
 
     funcdef run_RQCFilter_app(RQCFilterAppParams params) returns (RQCFilterAppOutput output)
         authentication required;
 
+    funcdef run_RQCFilter_local(RQCFilterAppParams params) returns (RQCFilterLocalOutput output)
+        authentication required;
 };
