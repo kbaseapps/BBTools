@@ -8,10 +8,10 @@ service-language:
     python
 
 module-version:
-    0.0.3
+    0.1.0
 
 owners:
-    [msneddon]
+    [msneddon, wjriehl]
 
 data-version:
     0.1
