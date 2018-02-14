@@ -1,4 +1,4 @@
-FROM kbase/kbase:sdkbase.latest
+FROM kbase/sdkbase:latest
 MAINTAINER KBase Developer
 # -----------------------------------------
 # In this section, you can install any system dependencies required
@@ -14,12 +14,20 @@ MAINTAINER KBase Developer
 RUN pip install coverage
 
 # update security libraries in the base image
-RUN pip install cffi --upgrade \
-    && pip install pyopenssl --upgrade \
-    && pip install ndg-httpsclient --upgrade \
+
+RUN apt-get -y update && apt-get install -y python-dev libffi-dev libssl-dev ca-certificates
+RUN pip install cffi ndg-httpsclient pyopenssl==17.03 cryptography==2.0.3 --upgrade \
     && pip install pyasn1 --upgrade \
     && pip install requests --upgrade \
-    && pip install 'requests[security]' --upgrade
+    && pip install 'requests[security]' --upgrade \
+    && pip install coverage
+
+#RUN pip install cffi --upgrade \
+#    && pip install pyopenssl --upgrade \
+#    && pip install ndg-httpsclient --upgrade \
+#    && pip install pyasn1 --upgrade \
+#    && pip install requests --upgrade \
+#    && pip install 'requests[security]' --upgrade
 
 # -----------------------------------------
 
