@@ -101,7 +101,6 @@ class BBToolsTest(unittest.TestCase):
     def getContext(self):
         return self.__class__.ctx
 
-
     def test_basic_app(self):
         # get the test reads library
         lib_info = self.getPairedEndLibInfo()
@@ -116,4 +115,36 @@ class BBToolsTest(unittest.TestCase):
 
         print('result:')
         pprint(res)
-        pass
+
+    def test_run_local_reads_upa(self):
+        lib_info = self.getPairedEndLibInfo()
+        print(lib_info)
+
+        params = {
+            "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
+        }
+        bbtools = self.getImpl()
+        res = bbtools.run_RQCFilter_local(self.ctx, params)[0]
+        print('result:')
+        pprint(res)
+        self.assertIn('output_directory', res)
+        self.assertTrue(os.path.exists(res['output_directory']))
+        self.assertIn('filtered_fastq_file', res)
+        self.assertTrue(os.path.exists(res['filtered_fastq_file']))
+
+    def test_run_local_reads_file(self):
+        test_fastq_file_local = os.path.join('data', 'interleaved.fastq')
+        test_fastq_file_scratch = os.path.join(self.scratch, os.path.basename(test_fastq_file_local))
+        shutil.copy(test_fastq_file_local, test_fastq_file_scratch)
+
+        params = {
+            "reads_file": test_fastq_file_scratch
+        }
+        bbtools = self.getImpl()
+        res = bbtools.run_RQCFilter_local(self.ctx, params)[0]
+        print('result:')
+        pprint(res)
+        self.assertIn('output_directory', res)
+        self.assertTrue(os.path.exists(res['output_directory']))
+        self.assertIn('filtered_fastq_file', res)
+        self.assertTrue(os.path.exists(res['filtered_fastq_file']))

@@ -1,0 +1,21 @@
+{
+    "name" : "Run RQCFilter",
+    "short_description" : "Runs RQCFilter on a reads file or object.",
+    "long_description" : "Filters reads from either a given single file (expected to be interleaved if it's paired-end), or from a reads object UPA. Generates a directory of output files, and explicitly returns that directory path as well as the path to the zipped, filtered reads file.",
+    "tags" : {
+        "categories" : ["reads"],
+        "input": {
+            "file_types": ["FASTQ"],
+            "kb_types": [
+                "KBaseFile.SingleEndLibrary",
+                "KBaseFile.PairedEndLibrary",
+                "KBaseAssembly.SingleEndLibrary",
+                "KBaseAssembly.PairedEndLibrary"
+            ]
+        },
+        "output": {
+            "file_types": [],
+            "kb_types": []
+        }
+    }
+}
