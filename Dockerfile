@@ -6,12 +6,8 @@ MAINTAINER KBase Developer
 # install line here, a git checkout to download code, or run any other
 # installation scripts.
 
-# RUN apt-get update
-
 # Here we install a python coverage tool and an
 # https library that is out of date in the base image.
-
-RUN pip install coverage
 
 # update security libraries in the base image
 
@@ -21,13 +17,6 @@ RUN pip install cffi ndg-httpsclient pyopenssl==17.03 cryptography==2.0.3 --upgr
     && pip install requests --upgrade \
     && pip install 'requests[security]' --upgrade \
     && pip install coverage
-
-#RUN pip install cffi --upgrade \
-#    && pip install pyopenssl --upgrade \
-#    && pip install ndg-httpsclient --upgrade \
-#    && pip install pyasn1 --upgrade \
-#    && pip install requests --upgrade \
-#    && pip install 'requests[security]' --upgrade
 
 # -----------------------------------------
 
