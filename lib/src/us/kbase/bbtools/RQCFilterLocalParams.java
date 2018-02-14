@@ -13,16 +13,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * <p>Original spec-file type: RQCFilterAppParams</p>
- * 
+ * <p>Original spec-file type: RQCFilterLocalParams</p>
+ * <pre>
+ * Parameters for local version of RQCFilter.
+ * read_library_ref - UPA for the read library to filter.
+ * -OR-
+ * reads_file - path to the reads file to filter. Expects an interleaved file, if it's paired end.
+ * The rest is as above for the App version.
+ * </pre>
  * 
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
 @JsonPropertyOrder({
     "read_library_ref",
-    "output_workspace_name",
-    "output_library_name",
+    "reads_file",
     "library",
     "rna",
     "trimfragadapter",
@@ -36,14 +41,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "dedupe",
     "opticaldupes"
 })
-public class RQCFilterAppParams {
+public class RQCFilterLocalParams {
 
     @JsonProperty("read_library_ref")
     private java.lang.String readLibraryRef;
-    @JsonProperty("output_workspace_name")
-    private java.lang.String outputWorkspaceName;
-    @JsonProperty("output_library_name")
-    private java.lang.String outputLibraryName;
+    @JsonProperty("reads_file")
+    private java.lang.String readsFile;
     @JsonProperty("library")
     private java.lang.String library;
     @JsonProperty("rna")
@@ -80,38 +83,23 @@ public class RQCFilterAppParams {
         this.readLibraryRef = readLibraryRef;
     }
 
-    public RQCFilterAppParams withReadLibraryRef(java.lang.String readLibraryRef) {
+    public RQCFilterLocalParams withReadLibraryRef(java.lang.String readLibraryRef) {
         this.readLibraryRef = readLibraryRef;
         return this;
     }
 
-    @JsonProperty("output_workspace_name")
-    public java.lang.String getOutputWorkspaceName() {
-        return outputWorkspaceName;
+    @JsonProperty("reads_file")
+    public java.lang.String getReadsFile() {
+        return readsFile;
     }
 
-    @JsonProperty("output_workspace_name")
-    public void setOutputWorkspaceName(java.lang.String outputWorkspaceName) {
-        this.outputWorkspaceName = outputWorkspaceName;
+    @JsonProperty("reads_file")
+    public void setReadsFile(java.lang.String readsFile) {
+        this.readsFile = readsFile;
     }
 
-    public RQCFilterAppParams withOutputWorkspaceName(java.lang.String outputWorkspaceName) {
-        this.outputWorkspaceName = outputWorkspaceName;
-        return this;
-    }
-
-    @JsonProperty("output_library_name")
-    public java.lang.String getOutputLibraryName() {
-        return outputLibraryName;
-    }
-
-    @JsonProperty("output_library_name")
-    public void setOutputLibraryName(java.lang.String outputLibraryName) {
-        this.outputLibraryName = outputLibraryName;
-    }
-
-    public RQCFilterAppParams withOutputLibraryName(java.lang.String outputLibraryName) {
-        this.outputLibraryName = outputLibraryName;
+    public RQCFilterLocalParams withReadsFile(java.lang.String readsFile) {
+        this.readsFile = readsFile;
         return this;
     }
 
@@ -125,7 +113,7 @@ public class RQCFilterAppParams {
         this.library = library;
     }
 
-    public RQCFilterAppParams withLibrary(java.lang.String library) {
+    public RQCFilterLocalParams withLibrary(java.lang.String library) {
         this.library = library;
         return this;
     }
@@ -140,7 +128,7 @@ public class RQCFilterAppParams {
         this.rna = rna;
     }
 
-    public RQCFilterAppParams withRna(Long rna) {
+    public RQCFilterLocalParams withRna(Long rna) {
         this.rna = rna;
         return this;
     }
@@ -155,7 +143,7 @@ public class RQCFilterAppParams {
         this.trimfragadapter = trimfragadapter;
     }
 
-    public RQCFilterAppParams withTrimfragadapter(Long trimfragadapter) {
+    public RQCFilterLocalParams withTrimfragadapter(Long trimfragadapter) {
         this.trimfragadapter = trimfragadapter;
         return this;
     }
@@ -170,7 +158,7 @@ public class RQCFilterAppParams {
         this.qtrim = qtrim;
     }
 
-    public RQCFilterAppParams withQtrim(java.lang.String qtrim) {
+    public RQCFilterLocalParams withQtrim(java.lang.String qtrim) {
         this.qtrim = qtrim;
         return this;
     }
@@ -185,7 +173,7 @@ public class RQCFilterAppParams {
         this.removemouse = removemouse;
     }
 
-    public RQCFilterAppParams withRemovemouse(Long removemouse) {
+    public RQCFilterLocalParams withRemovemouse(Long removemouse) {
         this.removemouse = removemouse;
         return this;
     }
@@ -200,7 +188,7 @@ public class RQCFilterAppParams {
         this.removecat = removecat;
     }
 
-    public RQCFilterAppParams withRemovecat(Long removecat) {
+    public RQCFilterLocalParams withRemovecat(Long removecat) {
         this.removecat = removecat;
         return this;
     }
@@ -215,7 +203,7 @@ public class RQCFilterAppParams {
         this.removedog = removedog;
     }
 
-    public RQCFilterAppParams withRemovedog(Long removedog) {
+    public RQCFilterLocalParams withRemovedog(Long removedog) {
         this.removedog = removedog;
         return this;
     }
@@ -230,7 +218,7 @@ public class RQCFilterAppParams {
         this.removehuman = removehuman;
     }
 
-    public RQCFilterAppParams withRemovehuman(Long removehuman) {
+    public RQCFilterLocalParams withRemovehuman(Long removehuman) {
         this.removehuman = removehuman;
         return this;
     }
@@ -245,7 +233,7 @@ public class RQCFilterAppParams {
         this.removemicrobes = removemicrobes;
     }
 
-    public RQCFilterAppParams withRemovemicrobes(Long removemicrobes) {
+    public RQCFilterLocalParams withRemovemicrobes(Long removemicrobes) {
         this.removemicrobes = removemicrobes;
         return this;
     }
@@ -260,7 +248,7 @@ public class RQCFilterAppParams {
         this.taxlist = taxlist;
     }
 
-    public RQCFilterAppParams withTaxlist(List<String> taxlist) {
+    public RQCFilterLocalParams withTaxlist(List<String> taxlist) {
         this.taxlist = taxlist;
         return this;
     }
@@ -275,7 +263,7 @@ public class RQCFilterAppParams {
         this.dedupe = dedupe;
     }
 
-    public RQCFilterAppParams withDedupe(Long dedupe) {
+    public RQCFilterLocalParams withDedupe(Long dedupe) {
         this.dedupe = dedupe;
         return this;
     }
@@ -290,7 +278,7 @@ public class RQCFilterAppParams {
         this.opticaldupes = opticaldupes;
     }
 
-    public RQCFilterAppParams withOpticaldupes(Long opticaldupes) {
+    public RQCFilterLocalParams withOpticaldupes(Long opticaldupes) {
         this.opticaldupes = opticaldupes;
         return this;
     }
@@ -307,7 +295,7 @@ public class RQCFilterAppParams {
 
     @Override
     public java.lang.String toString() {
-        return ((((((((((((((((((((((((((((((((("RQCFilterAppParams"+" [readLibraryRef=")+ readLibraryRef)+", outputWorkspaceName=")+ outputWorkspaceName)+", outputLibraryName=")+ outputLibraryName)+", library=")+ library)+", rna=")+ rna)+", trimfragadapter=")+ trimfragadapter)+", qtrim=")+ qtrim)+", removemouse=")+ removemouse)+", removecat=")+ removecat)+", removedog=")+ removedog)+", removehuman=")+ removehuman)+", removemicrobes=")+ removemicrobes)+", taxlist=")+ taxlist)+", dedupe=")+ dedupe)+", opticaldupes=")+ opticaldupes)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((((((((((((((((((((((((((("RQCFilterLocalParams"+" [readLibraryRef=")+ readLibraryRef)+", readsFile=")+ readsFile)+", library=")+ library)+", rna=")+ rna)+", trimfragadapter=")+ trimfragadapter)+", qtrim=")+ qtrim)+", removemouse=")+ removemouse)+", removecat=")+ removecat)+", removedog=")+ removedog)+", removehuman=")+ removehuman)+", removemicrobes=")+ removemicrobes)+", taxlist=")+ taxlist)+", dedupe=")+ dedupe)+", opticaldupes=")+ opticaldupes)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }
