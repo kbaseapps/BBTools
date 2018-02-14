@@ -47,6 +47,7 @@ module BBTools {
         read_library_ref - UPA for the read library to filter.
         -OR-
         reads_file - path to the reads file to filter. Expects an interleaved file, if it's paired end.
+        If both of the above are given, the read_library_ref takes precedence.
 
         The rest is as above for the App version.
     */
