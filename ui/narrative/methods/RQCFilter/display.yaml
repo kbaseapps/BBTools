@@ -1,10 +1,10 @@
 #
 # define display information
 #
-name: Run the JGI RQCFilter pipleline (BBTools v37.22)
+name: Run the JGI RQCFilter pipleline (BBTools v37.90)
 
 tooltip: |
-    Runs the JGI reads data preprocessing pipeline 
+    Runs the JGI reads data preprocessing pipeline
 
 screenshots: []
 
@@ -48,11 +48,11 @@ parameters :
     trimfragadapter:
         ui-name    : Trim Illumina adapter sequences, including TruSeq and Nextera
         short-hint : Sets the trimfragadapter option (trimfragadapter=t|f)
-            
+
     qtrim:
         ui-name    : Trim low quality bases read ends to remove bases with quality below minq
         short-hint : Trim read ends to remove bases with quality below minq.  Performed AFTER looking for kmers. (qtrim=f|rl|r|l)
-    
+
     removemouse:
         ui-name    : Remove mouse reads via mapping
         short-hint : Sets the RQCFilter flag (removemouse=t|f)
@@ -83,7 +83,7 @@ parameters :
         short-hint : Sets the RQCFilter flag (dedupe=t|f)
 
     opticaldupes:
-        ui-name    : Remove optical duplicates 
+        ui-name    : Remove optical duplicates
         short-hint : Sets the RQCFilter flag (opticaldupes=t|f) (Clumpify optical flag)
 
 
