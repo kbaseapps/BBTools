@@ -110,7 +110,7 @@ sub new
 
 =head2 run_RQCFilter_app
 
-  $output = $obj->run_RQCFilter_app($params)
+  $output = $obj->run_RQCFilter_app($io_params, $run_params)
 
 =over 4
 
@@ -119,24 +119,34 @@ sub new
 =begin html
 
 <pre>
-$params is a BBTools.RQCFilterAppParams
+$io_params is a BBTools.RQCFilterAppParams
+$run_params is a BBTools.RQCFilterParams
 $output is a BBTools.RQCFilterAppOutput
 RQCFilterAppParams is a reference to a hash where the following keys are defined:
 	read_library_ref has a value which is a string
 	output_workspace_name has a value which is a string
 	output_library_name has a value which is a string
+RQCFilterParams is a reference to a hash where the following keys are defined:
 	library has a value which is a string
-	rna has a value which is a BBTools.boolean
 	trimfragadapter has a value which is a BBTools.boolean
 	qtrim has a value which is a string
+	trimq has a value which is an int
+	maxns has a value which is an int
+	minavgquality has a value which is an int
+	minlength has a value which is an int
+	mlf has a value which is a float
 	removemouse has a value which is a BBTools.boolean
 	removecat has a value which is a BBTools.boolean
 	removedog has a value which is a BBTools.boolean
 	removehuman has a value which is a BBTools.boolean
 	removemicrobes has a value which is a BBTools.boolean
 	taxlist has a value which is a reference to a list where each element is a string
+	rna has a value which is a BBTools.boolean
+	phix has a value which is a BBTools.boolean
+	clumpify has a value which is a BBTools.boolean
 	dedupe has a value which is a BBTools.boolean
 	opticaldupes has a value which is a BBTools.boolean
+	khist has a value which is a BBTools.boolean
 boolean is an int
 RQCFilterAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
@@ -148,24 +158,34 @@ RQCFilterAppOutput is a reference to a hash where the following keys are defined
 
 =begin text
 
-$params is a BBTools.RQCFilterAppParams
+$io_params is a BBTools.RQCFilterAppParams
+$run_params is a BBTools.RQCFilterParams
 $output is a BBTools.RQCFilterAppOutput
 RQCFilterAppParams is a reference to a hash where the following keys are defined:
 	read_library_ref has a value which is a string
 	output_workspace_name has a value which is a string
 	output_library_name has a value which is a string
+RQCFilterParams is a reference to a hash where the following keys are defined:
 	library has a value which is a string
-	rna has a value which is a BBTools.boolean
 	trimfragadapter has a value which is a BBTools.boolean
 	qtrim has a value which is a string
+	trimq has a value which is an int
+	maxns has a value which is an int
+	minavgquality has a value which is an int
+	minlength has a value which is an int
+	mlf has a value which is a float
 	removemouse has a value which is a BBTools.boolean
 	removecat has a value which is a BBTools.boolean
 	removedog has a value which is a BBTools.boolean
 	removehuman has a value which is a BBTools.boolean
 	removemicrobes has a value which is a BBTools.boolean
 	taxlist has a value which is a reference to a list where each element is a string
+	rna has a value which is a BBTools.boolean
+	phix has a value which is a BBTools.boolean
+	clumpify has a value which is a BBTools.boolean
 	dedupe has a value which is a BBTools.boolean
 	opticaldupes has a value which is a BBTools.boolean
+	khist has a value which is a BBTools.boolean
 boolean is an int
 RQCFilterAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
@@ -188,16 +208,17 @@ RQCFilterAppOutput is a reference to a hash where the following keys are defined
 
 # Authentication: required
 
-    if ((my $n = @args) != 1)
+    if ((my $n = @args) != 2)
     {
 	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
-							       "Invalid argument count for function run_RQCFilter_app (received $n, expecting 1)");
+							       "Invalid argument count for function run_RQCFilter_app (received $n, expecting 2)");
     }
     {
-	my($params) = @args;
+	my($io_params, $run_params) = @args;
 
 	my @_bad_arguments;
-        (ref($params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"params\" (value was \"$params\")");
+        (ref($io_params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"io_params\" (value was \"$io_params\")");
+        (ref($run_params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 2 \"run_params\" (value was \"$run_params\")");
         if (@_bad_arguments) {
 	    my $msg = "Invalid arguments passed to run_RQCFilter_app:\n" . join("", map { "\t$_\n" } @_bad_arguments);
 	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
@@ -232,7 +253,7 @@ RQCFilterAppOutput is a reference to a hash where the following keys are defined
 
 =head2 run_RQCFilter_local
 
-  $output = $obj->run_RQCFilter_local($params)
+  $output = $obj->run_RQCFilter_local($io_params, $run_params)
 
 =over 4
 
@@ -241,23 +262,33 @@ RQCFilterAppOutput is a reference to a hash where the following keys are defined
 =begin html
 
 <pre>
-$params is a BBTools.RQCFilterLocalParams
+$io_params is a BBTools.RQCFilterLocalParams
+$run_params is a BBTools.RQCFilterParams
 $output is a BBTools.RQCFilterLocalOutput
 RQCFilterLocalParams is a reference to a hash where the following keys are defined:
 	read_library_ref has a value which is a string
 	reads_file has a value which is a string
+RQCFilterParams is a reference to a hash where the following keys are defined:
 	library has a value which is a string
-	rna has a value which is a BBTools.boolean
 	trimfragadapter has a value which is a BBTools.boolean
 	qtrim has a value which is a string
+	trimq has a value which is an int
+	maxns has a value which is an int
+	minavgquality has a value which is an int
+	minlength has a value which is an int
+	mlf has a value which is a float
 	removemouse has a value which is a BBTools.boolean
 	removecat has a value which is a BBTools.boolean
 	removedog has a value which is a BBTools.boolean
 	removehuman has a value which is a BBTools.boolean
 	removemicrobes has a value which is a BBTools.boolean
 	taxlist has a value which is a reference to a list where each element is a string
+	rna has a value which is a BBTools.boolean
+	phix has a value which is a BBTools.boolean
+	clumpify has a value which is a BBTools.boolean
 	dedupe has a value which is a BBTools.boolean
 	opticaldupes has a value which is a BBTools.boolean
+	khist has a value which is a BBTools.boolean
 boolean is an int
 RQCFilterLocalOutput is a reference to a hash where the following keys are defined:
 	output_directory has a value which is a string
@@ -269,23 +300,33 @@ RQCFilterLocalOutput is a reference to a hash where the following keys are defin
 
 =begin text
 
-$params is a BBTools.RQCFilterLocalParams
+$io_params is a BBTools.RQCFilterLocalParams
+$run_params is a BBTools.RQCFilterParams
 $output is a BBTools.RQCFilterLocalOutput
 RQCFilterLocalParams is a reference to a hash where the following keys are defined:
 	read_library_ref has a value which is a string
 	reads_file has a value which is a string
+RQCFilterParams is a reference to a hash where the following keys are defined:
 	library has a value which is a string
-	rna has a value which is a BBTools.boolean
 	trimfragadapter has a value which is a BBTools.boolean
 	qtrim has a value which is a string
+	trimq has a value which is an int
+	maxns has a value which is an int
+	minavgquality has a value which is an int
+	minlength has a value which is an int
+	mlf has a value which is a float
 	removemouse has a value which is a BBTools.boolean
 	removecat has a value which is a BBTools.boolean
 	removedog has a value which is a BBTools.boolean
 	removehuman has a value which is a BBTools.boolean
 	removemicrobes has a value which is a BBTools.boolean
 	taxlist has a value which is a reference to a list where each element is a string
+	rna has a value which is a BBTools.boolean
+	phix has a value which is a BBTools.boolean
+	clumpify has a value which is a BBTools.boolean
 	dedupe has a value which is a BBTools.boolean
 	opticaldupes has a value which is a BBTools.boolean
+	khist has a value which is a BBTools.boolean
 boolean is an int
 RQCFilterLocalOutput is a reference to a hash where the following keys are defined:
 	output_directory has a value which is a string
@@ -308,16 +349,17 @@ RQCFilterLocalOutput is a reference to a hash where the following keys are defin
 
 # Authentication: required
 
-    if ((my $n = @args) != 1)
+    if ((my $n = @args) != 2)
     {
 	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
-							       "Invalid argument count for function run_RQCFilter_local (received $n, expecting 1)");
+							       "Invalid argument count for function run_RQCFilter_local (received $n, expecting 2)");
     }
     {
-	my($params) = @args;
+	my($io_params, $run_params) = @args;
 
 	my @_bad_arguments;
-        (ref($params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"params\" (value was \"$params\")");
+        (ref($io_params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"io_params\" (value was \"$io_params\")");
+        (ref($run_params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 2 \"run_params\" (value was \"$run_params\")");
         if (@_bad_arguments) {
 	    my $msg = "Invalid arguments passed to run_RQCFilter_local:\n" . join("", map { "\t$_\n" } @_bad_arguments);
 	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
@@ -469,10 +511,145 @@ an int
 
 
 
+=head2 RQCFilterParams
+
+=over 4
+
+
+
+=item Description
+
+Contains all parameters for the RQCFilter program, EXCEPT for the inputs and outputs.
+Those are added specifically by each function. This lets us describe them separately for the
+local function that works mainly against the file system and the app that mainly works against
+the Workspace.
+
+This doesn't cover all of the 110+ parameters provided by rqcfilter. Those not listed here
+are left as default values, except sketch=f (as that sends data to JGI servers for processing).
+
+Notes below are taken from the help output from rqcfilter.sh ver 37.90
+
+Parameters (format = param name - default - description):
+---------------------------------------------------------
+library - frag - should be one of 'frag', 'clip', 'lfpe', or 'clrs'.
+
+Adapter trimming parameters:
+----------------------------
+trimfragadapter - f - Trim all known Illumina adapter sequences, including TruSeq and Nextera.
+
+Quality trimming parameters:
+----------------------------
+qtrim - f - Trim read ends to remove bases with quality below minq. Performed AFTER looking for kmers.
+        Values: rl (trim both ends), f (neither end), r (right end only), l (left end only).
+trimq - 10 - Trim quality threshold.  Must also set qtrim for direction, will be ignored if qtrim=f
+maxns - 0 - Reads with more Ns than this will be discarded.
+minavgquality - 5 - (maq) Reads with average quality (before trimming) below this will be discarded.
+minlength - 45 - (ml) Reads shorter than this after trimming will be discarded.  Pairs will be discarded only if both are shorter.
+mlf - 0.333 - (minlengthfraction) Reads shorter than this fraction of original length after trimming will be discarded.
+
+
+Mapping parameters (for vertebrate contaminants):
+-------------------------------------------------
+removemouse - f - (mouse) Remove mouse reads via mapping.
+removecat - f - (cat) Remove cat reads via mapping.
+removedog - f - (dog) Remove dog reads via mapping.
+removehuman - f - (human) Remove human reads via mapping.
+
+Microbial contaminant removal parameters:
+-----------------------------------------
+removemicrobes - f - (microbes) Remove common contaminant microbial reads via mapping, and place them in a separate file.
+taxlist - emptylist - (tax) Remove these taxa from the database before filtering.  Typically, this would be the organism name or NCBI ID, or a comma-delimited list.  Organism names should have underscores instead of spaces, such as Escherichia_coli.
+
+Filtering parameters (for artificial and microbial contaminants):
+-----------------------------------------------------------------
+rna - f - Remove reads containing RNA-specific artifacts.
+phix - t - Remove reads containing phiX kmers.
+
+Clumpify parameters:
+--------------------
+clumpify - f - Run clumpify.
+dedupe - f - Remove duplicate reads.
+opticaldupes - f - Remove optical duplicates (Clumpify optical flag).
+
+Other processing parameters:
+----------------------------
+khist - f - Set to true to generate a kmer-frequency histogram of the output data. (included in report in the app, as a file in local function)
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+library has a value which is a string
+trimfragadapter has a value which is a BBTools.boolean
+qtrim has a value which is a string
+trimq has a value which is an int
+maxns has a value which is an int
+minavgquality has a value which is an int
+minlength has a value which is an int
+mlf has a value which is a float
+removemouse has a value which is a BBTools.boolean
+removecat has a value which is a BBTools.boolean
+removedog has a value which is a BBTools.boolean
+removehuman has a value which is a BBTools.boolean
+removemicrobes has a value which is a BBTools.boolean
+taxlist has a value which is a reference to a list where each element is a string
+rna has a value which is a BBTools.boolean
+phix has a value which is a BBTools.boolean
+clumpify has a value which is a BBTools.boolean
+dedupe has a value which is a BBTools.boolean
+opticaldupes has a value which is a BBTools.boolean
+khist has a value which is a BBTools.boolean
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+library has a value which is a string
+trimfragadapter has a value which is a BBTools.boolean
+qtrim has a value which is a string
+trimq has a value which is an int
+maxns has a value which is an int
+minavgquality has a value which is an int
+minlength has a value which is an int
+mlf has a value which is a float
+removemouse has a value which is a BBTools.boolean
+removecat has a value which is a BBTools.boolean
+removedog has a value which is a BBTools.boolean
+removehuman has a value which is a BBTools.boolean
+removemicrobes has a value which is a BBTools.boolean
+taxlist has a value which is a reference to a list where each element is a string
+rna has a value which is a BBTools.boolean
+phix has a value which is a BBTools.boolean
+clumpify has a value which is a BBTools.boolean
+dedupe has a value which is a BBTools.boolean
+opticaldupes has a value which is a BBTools.boolean
+khist has a value which is a BBTools.boolean
+
+
+=end text
+
+=back
+
+
+
 =head2 RQCFilterAppParams
 
 =over 4
 
+
+
+=item Description
+
+Parameters for the Narrative App version of RQCFilter.
+read_library_ref - UPA for the read library to filter.
+output_workspace_name - name of the workspace to put the output reads library and report.
+output_library_name - name of the Reads library object produced by the app.
 
 
 =item Definition
@@ -484,18 +661,6 @@ a reference to a hash where the following keys are defined:
 read_library_ref has a value which is a string
 output_workspace_name has a value which is a string
 output_library_name has a value which is a string
-library has a value which is a string
-rna has a value which is a BBTools.boolean
-trimfragadapter has a value which is a BBTools.boolean
-qtrim has a value which is a string
-removemouse has a value which is a BBTools.boolean
-removecat has a value which is a BBTools.boolean
-removedog has a value which is a BBTools.boolean
-removehuman has a value which is a BBTools.boolean
-removemicrobes has a value which is a BBTools.boolean
-taxlist has a value which is a reference to a list where each element is a string
-dedupe has a value which is a BBTools.boolean
-opticaldupes has a value which is a BBTools.boolean
 
 </pre>
 
@@ -507,18 +672,6 @@ a reference to a hash where the following keys are defined:
 read_library_ref has a value which is a string
 output_workspace_name has a value which is a string
 output_library_name has a value which is a string
-library has a value which is a string
-rna has a value which is a BBTools.boolean
-trimfragadapter has a value which is a BBTools.boolean
-qtrim has a value which is a string
-removemouse has a value which is a BBTools.boolean
-removecat has a value which is a BBTools.boolean
-removedog has a value which is a BBTools.boolean
-removehuman has a value which is a BBTools.boolean
-removemicrobes has a value which is a BBTools.boolean
-taxlist has a value which is a reference to a list where each element is a string
-dedupe has a value which is a BBTools.boolean
-opticaldupes has a value which is a BBTools.boolean
 
 
 =end text
@@ -571,8 +724,7 @@ Parameters for local version of RQCFilter.
 read_library_ref - UPA for the read library to filter.
 -OR-
 reads_file - path to the reads file to filter. Expects an interleaved file, if it's paired end.
-
-The rest is as above for the App version.
+If both of the above are given, the read_library_ref takes precedence.
 
 
 =item Definition
@@ -583,18 +735,6 @@ The rest is as above for the App version.
 a reference to a hash where the following keys are defined:
 read_library_ref has a value which is a string
 reads_file has a value which is a string
-library has a value which is a string
-rna has a value which is a BBTools.boolean
-trimfragadapter has a value which is a BBTools.boolean
-qtrim has a value which is a string
-removemouse has a value which is a BBTools.boolean
-removecat has a value which is a BBTools.boolean
-removedog has a value which is a BBTools.boolean
-removehuman has a value which is a BBTools.boolean
-removemicrobes has a value which is a BBTools.boolean
-taxlist has a value which is a reference to a list where each element is a string
-dedupe has a value which is a BBTools.boolean
-opticaldupes has a value which is a BBTools.boolean
 
 </pre>
 
@@ -605,18 +745,6 @@ opticaldupes has a value which is a BBTools.boolean
 a reference to a hash where the following keys are defined:
 read_library_ref has a value which is a string
 reads_file has a value which is a string
-library has a value which is a string
-rna has a value which is a BBTools.boolean
-trimfragadapter has a value which is a BBTools.boolean
-qtrim has a value which is a string
-removemouse has a value which is a BBTools.boolean
-removecat has a value which is a BBTools.boolean
-removedog has a value which is a BBTools.boolean
-removehuman has a value which is a BBTools.boolean
-removemicrobes has a value which is a BBTools.boolean
-taxlist has a value which is a reference to a list where each element is a string
-dedupe has a value which is a BBTools.boolean
-opticaldupes has a value which is a BBTools.boolean
 
 
 =end text

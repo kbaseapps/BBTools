@@ -106,12 +106,14 @@ class BBToolsTest(unittest.TestCase):
         lib_info = self.getPairedEndLibInfo()
         print(lib_info)
 
-        params = {'read_library_ref': str(lib_info[6]) + '/' + str(lib_info[0]) + '/' + str(lib_info[4]),
-                  'output_workspace_name': self.getWsName(),
-                  'output_library_name': 'filtered.reads'
-                  }
+        io_params = {
+            'read_library_ref': str(lib_info[6]) + '/' + str(lib_info[0]) + '/' + str(lib_info[4]),
+            'output_workspace_name': self.getWsName(),
+            'output_library_name': 'filtered.reads'
+        }
+        run_params = {}
         bbtools = self.getImpl()
-        res = bbtools.run_RQCFilter_app(self.ctx, params)
+        res = bbtools.run_RQCFilter_app(self.ctx, io_params, run_params)
 
         print('result:')
         pprint(res)
@@ -120,11 +122,12 @@ class BBToolsTest(unittest.TestCase):
         lib_info = self.getPairedEndLibInfo()
         print(lib_info)
 
-        params = {
+        io_params = {
             "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
         }
+        run_params = {}
         bbtools = self.getImpl()
-        res = bbtools.run_RQCFilter_local(self.ctx, params)[0]
+        res = bbtools.run_RQCFilter_local(self.ctx, io_params, run_params)[0]
         print('result:')
         pprint(res)
         self.assertIn('output_directory', res)
@@ -137,11 +140,12 @@ class BBToolsTest(unittest.TestCase):
         test_fastq_file_scratch = os.path.join(self.scratch, os.path.basename(test_fastq_file_local))
         shutil.copy(test_fastq_file_local, test_fastq_file_scratch)
 
-        params = {
+        io_params = {
             "reads_file": test_fastq_file_scratch
         }
+        run_params = {}
         bbtools = self.getImpl()
-        res = bbtools.run_RQCFilter_local(self.ctx, params)[0]
+        res = bbtools.run_RQCFilter_local(self.ctx, io_params, run_params)[0]
         print('result:')
         pprint(res)
         self.assertIn('output_directory', res)
