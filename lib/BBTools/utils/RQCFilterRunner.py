@@ -59,6 +59,27 @@ class RQCFilterRunner:
                 print('WARNING: ignoring parameter ' + param_name + ', was set to "' + value + '", but' +
                       'must be: 0 | 1 | "t" | "f", so will be ignored')
 
+    def _process_numerical_parameter(self, params, param_name, options, opt_name=None, allow_neg=False, is_float=False):
+        ''' looks for params[param_name], if set, set options[opt_name] appropriately '''
+        if not opt_name:
+            opt_name = param_name
+        if param_name in params and params[param_name]:
+            str_value = params[param_name]
+            try:
+                if is_float:
+                    value = float(str_value)
+                else:
+                    value = int(str_value)
+            except:
+                print('WARNING: ignoring parameter ' + param_name + ', was set to "' + str_value + '", but ' +
+                      'must be a numerical value!')
+                return
+            if not allow_neg and value < 0:
+                print('WARNING: ignoring parameter ' + param_name + ', was set to "' + value + '", but ' +
+                      'must be greater than 0!')
+                return
+            options.append(opt_name + '=' + value)
+
     def _process_app_params_to_cli(self, params, output_dir, is_app):
         ''' given the parameters passed into the KBase App, validate them, stage the input
             and create the set of options that will be passed to rqcfilter.sh '''
@@ -81,7 +102,8 @@ class RQCFilterRunner:
             options.append('library=' + str(params['library']))
 
         self._process_boolean_parameter(params, 'rna', options)
-
+        self._process_boolean_parameter(params, 'phix', options)
+        self._process_boolean_parameter(params, 'khist', options)
         self._process_boolean_parameter(params, 'trimfragadapter', options)
 
         if 'qtrim' in params and params['qtrim']:
@@ -94,8 +116,15 @@ class RQCFilterRunner:
         self._process_boolean_parameter(params, 'removehuman', options)
         self._process_boolean_parameter(params, 'removemicrobes', options)
 
+        self._process_boolean_parameter(params, 'clumpify', options)
         self._process_boolean_parameter(params, 'dedupe', options)
         self._process_boolean_parameter(params, 'opticaldupes', options)
+
+        self._process_numerical_parameter(params, 'trimq', options)
+        self._process_numerical_parameter(params, 'maxns', options)
+        self._process_numerical_parameter(params, 'minavgquality', options)
+        self._process_numerical_parameter(params, 'minlength', options)
+        self._process_numerical_parameter(params, 'mlf', options, is_float=True)
 
         if 'taxlist' in params and params['taxlist']:
             formatted_list = []
@@ -117,7 +146,6 @@ class RQCFilterRunner:
         options.append('microberef=/data/commonMicrobes/')
 
         # missing ability to set mouseCatDogHumanPath
-
         return options
 
     def _validate(self, params, is_app):
@@ -130,7 +158,6 @@ class RQCFilterRunner:
             if 'read_library_ref' not in params and 'reads_file' not in params:
                 raise ValueError('Error running RQCFilter local: either read_library_ref or reads_file is required')
 
-
     def _stage_input(self, params):
         ru = ReadsUtils(self.callback_url)
         reads_info = ru.download_reads({'read_libraries': [params['read_library_ref']],
@@ -138,7 +165,6 @@ class RQCFilterRunner:
                                         'gzipped': None
                                         })['files'][params['read_library_ref']]
         return reads_info
-
 
     def _save_output_to_kbase(self, params, output_dir):
 
