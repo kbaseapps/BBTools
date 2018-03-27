@@ -165,14 +165,16 @@ public class BBToolsClient {
      * <p>Original spec-file function name: run_RQCFilter_app</p>
      * <pre>
      * </pre>
-     * @param   params   instance of type {@link us.kbase.bbtools.RQCFilterAppParams RQCFilterAppParams}
+     * @param   ioParams   instance of type {@link us.kbase.bbtools.RQCFilterAppParams RQCFilterAppParams}
+     * @param   runParams   instance of type {@link us.kbase.bbtools.RQCFilterParams RQCFilterParams}
      * @return   parameter "output" of type {@link us.kbase.bbtools.RQCFilterAppOutput RQCFilterAppOutput}
      * @throws IOException if an IO exception occurs
      * @throws JsonClientException if a JSON RPC exception occurs
      */
-    public RQCFilterAppOutput runRQCFilterApp(RQCFilterAppParams params, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+    public RQCFilterAppOutput runRQCFilterApp(RQCFilterAppParams ioParams, RQCFilterParams runParams, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
         List<Object> args = new ArrayList<Object>();
-        args.add(params);
+        args.add(ioParams);
+        args.add(runParams);
         TypeReference<List<RQCFilterAppOutput>> retType = new TypeReference<List<RQCFilterAppOutput>>() {};
         List<RQCFilterAppOutput> res = caller.jsonrpcCall("BBTools.run_RQCFilter_app", args, retType, true, true, jsonRpcContext, this.serviceVersion);
         return res.get(0);
@@ -182,14 +184,16 @@ public class BBToolsClient {
      * <p>Original spec-file function name: run_RQCFilter_local</p>
      * <pre>
      * </pre>
-     * @param   params   instance of type {@link us.kbase.bbtools.RQCFilterLocalParams RQCFilterLocalParams}
+     * @param   ioParams   instance of type {@link us.kbase.bbtools.RQCFilterLocalParams RQCFilterLocalParams}
+     * @param   runParams   instance of type {@link us.kbase.bbtools.RQCFilterParams RQCFilterParams}
      * @return   parameter "output" of type {@link us.kbase.bbtools.RQCFilterLocalOutput RQCFilterLocalOutput}
      * @throws IOException if an IO exception occurs
      * @throws JsonClientException if a JSON RPC exception occurs
      */
-    public RQCFilterLocalOutput runRQCFilterLocal(RQCFilterLocalParams params, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+    public RQCFilterLocalOutput runRQCFilterLocal(RQCFilterLocalParams ioParams, RQCFilterParams runParams, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
         List<Object> args = new ArrayList<Object>();
-        args.add(params);
+        args.add(ioParams);
+        args.add(runParams);
         TypeReference<List<RQCFilterLocalOutput>> retType = new TypeReference<List<RQCFilterLocalOutput>>() {};
         List<RQCFilterLocalOutput> res = caller.jsonrpcCall("BBTools.run_RQCFilter_local", args, retType, true, true, jsonRpcContext, this.serviceVersion);
         return res.get(0);

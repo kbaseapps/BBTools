@@ -9,7 +9,7 @@
         "input": null,
         "output": "no-display"
     },
-    "parameters": [ 
+    "parameters": [
         {
             "id": "read_library_ref",
             "optional": false,
@@ -226,64 +226,79 @@
             "input_mapping": [
                 {
                     "narrative_system_variable": "workspace",
-                    "target_property": "output_workspace_name"
+                    "target_property": "output_workspace_name",
+                    "target_argument_position": 0
                 },
                 {
                     "input_parameter": "read_library_ref",
                     "target_property": "read_library_ref",
-                    "target_type_transform": "resolved-ref"
+                    "target_type_transform": "resolved-ref",
+                    "target_argument_position": 0
                 },
                 {
                     "input_parameter": "output_library_name",
-                    "target_property": "output_library_name"
+                    "target_property": "output_library_name",
+                    "target_argument_position": 0
                 },
                 {
                     "input_parameter": "rna",
-                    "target_property": "rna"
+                    "target_property": "rna",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "library",
-                    "target_property": "library"
+                    "target_property": "library",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "trimfragadapter",
-                    "target_property": "trimfragadapter"
+                    "target_property": "trimfragadapter",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "qtrim",
-                    "target_property": "qtrim"
+                    "target_property": "qtrim",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "removemouse",
-                    "target_property": "removemouse"
+                    "target_property": "removemouse",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "removecat",
-                    "target_property": "removecat"
+                    "target_property": "removecat",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "removedog",
-                    "target_property": "removedog"
+                    "target_property": "removedog",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "removehuman",
-                    "target_property": "removehuman"
+                    "target_property": "removehuman",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "removemicrobes",
-                    "target_property": "removemicrobes"
+                    "target_property": "removemicrobes",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "taxlist",
-                    "target_property": "taxlist"
+                    "target_property": "taxlist",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "dedupe",
-                    "target_property": "dedupe"
+                    "target_property": "dedupe",
+                    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "opticaldupes",
-                    "target_property": "opticaldupes"
+                    "target_property": "opticaldupes",
+                    "target_argument_position": 1
                 }
             ],
             "output_mapping": [

@@ -335,11 +335,11 @@ class Application(object):
         self.method_authentication = dict()
         self.rpc_service.add(impl_BBTools.run_RQCFilter_app,
                              name='BBTools.run_RQCFilter_app',
-                             types=[dict])
+                             types=[dict, dict])
         self.method_authentication['BBTools.run_RQCFilter_app'] = 'required'  # noqa
         self.rpc_service.add(impl_BBTools.run_RQCFilter_local,
                              name='BBTools.run_RQCFilter_local',
-                             types=[dict])
+                             types=[dict, dict])
         self.method_authentication['BBTools.run_RQCFilter_local'] = 'required'  # noqa
         self.rpc_service.add(impl_BBTools.status,
                              name='BBTools.status',
