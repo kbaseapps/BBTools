@@ -101,7 +101,7 @@ class BBToolsTest(unittest.TestCase):
     def getContext(self):
         return self.__class__.ctx
 
-    @unittest.skip('skip')
+    # @unittest.skip('skip')
     def test_basic_app(self):
         # get the test reads library
         lib_info = self.getPairedEndLibInfo()
@@ -157,7 +157,7 @@ class BBToolsTest(unittest.TestCase):
     def test_app_missing_parameters(self):
         pass
 
-    @unittest.skip('skip')
+    # @unittest.skip('skip')
     def test_run_local_reads_upa(self):
         lib_info = self.getPairedEndLibInfo()
         print(lib_info)
@@ -175,7 +175,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('filtered_fastq_file', res)
         self.assertTrue(os.path.exists(res['filtered_fastq_file']))
 
-    @unittest.skip('skip')
+    # @unittest.skip('skip')
     def test_run_local_reads_file(self):
         test_fastq_file_local = os.path.join('data', 'interleaved.fastq')
         test_fastq_file_scratch = os.path.join(self.scratch, os.path.basename(test_fastq_file_local))

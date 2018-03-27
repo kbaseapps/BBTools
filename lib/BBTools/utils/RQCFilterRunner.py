@@ -1,13 +1,11 @@
 import os.path
 import time
 import uuid
-
+import zipfile
 from pprint import pprint
 
 from BBTools.utils.BBToolsRunner import BBToolsRunner
-
 from KBaseReport.KBaseReportClient import KBaseReport
-
 from commandbuilder import build_options
 from file_util import (
     download_interleaved_reads,
@@ -26,14 +24,15 @@ class RQCFilterRunner:
         self.scratch_dir = scratch_dir
 
     def run_app(self, io_params, app_params):
-        output_dir = self._run(io_params, app_params, is_app=True)
-        return self._save_output_to_kbase(io_params, app_params, output_dir)
+        output_dir, run_log = self._run(io_params, app_params, is_app=True)
+        return self._save_output_to_kbase(io_params, app_params, output_dir, run_log)
 
     def run_local(self, io_params, app_params):
-        output_dir = self._run(io_params, app_params, is_app=False)
+        output_dir, run_log = self._run(io_params, app_params, is_app=False)
         file_lookup = self._read_outputfile(os.path.join(output_dir, 'file-list.txt'))
         result = {
             'output_directory': output_dir,
+            'run_log': run_log,
             'filtered_fastq_file': None
         }
         if 'filtered_fastq' in file_lookup:
@@ -43,16 +42,17 @@ class RQCFilterRunner:
         return result
 
     def _run(self, io_params, app_params, is_app=True):
-        print('Running RQCFilter.  Params=')
+        print('Running RQCFilter. Params=')
         pprint(io_params)
         pprint(app_params)
         output_dir = os.path.join(self.scratch_dir, 'rqcfilter_output_' + str(int(time.time() * 1000)))
-        options = self._process_app_params_to_cli(io_params, app_params, output_dir, is_app)
+        run_log = os.path.join(output_dir, 'run_log.txt')
+        options = self._process_app_params_to_cli(io_params, app_params, output_dir, run_log, is_app)
         bbtools = BBToolsRunner(self.scratch_dir)
         bbtools.run(self.RQCFILTER_CMD, options)
-        return output_dir
+        return output_dir, run_log
 
-    def _process_app_params_to_cli(self, io_params, app_params, output_dir, is_app):
+    def _process_app_params_to_cli(self, io_params, app_params, output_dir, run_log, is_app):
         ''' given the parameters passed into the KBase App, validate them, stage the input
             and create the set of options that will be passed to rqcfilter.sh '''
 
@@ -109,7 +109,7 @@ class RQCFilterRunner:
         # missing ability to set mouseCatDogHumanPath
 
         # finally, route stderr (a log file) to a file in the output dir
-        options = options + ['2>', os.path.join(output_dir, 'run_log.txt')]
+        options = options + ['2>', run_log]
         return options
 
     def _validate_file_inputs(self, params, is_app):
@@ -122,7 +122,7 @@ class RQCFilterRunner:
             if 'read_library_ref' not in params and 'reads_file' not in params:
                 raise ValueError('Error running RQCFilter local: either read_library_ref or reads_file is required')
 
-    def _save_output_to_kbase(self, io_params, app_params, output_dir):
+    def _save_output_to_kbase(self, io_params, app_params, output_dir, run_log):
         # read the output file list
         file_lookup = self._read_outputfile(os.path.join(output_dir, 'file-list.txt'))
 
@@ -145,25 +145,41 @@ class RQCFilterRunner:
             }]
         # build the HTML report
         html_zipped = self._build_html_report(io_params.get('read_library_ref'), output_dir, file_lookup)
-
-        # loop over the other available files, select some to package in an output bundle
-        # TODO: implement and pick which files to save
-
+        file_links = self._build_file_report(output_dir, run_log)
         # save the report
-        report_params = {'message': '',
-                         'objects_created': objects_created,
-                         'direct_html_link_index': 0,
-                         'html_links': [html_zipped],
-                         #'file_links': output_packages,
-                         'report_object_name': 'bbtools_rqcfilter_report_' + str(uuid.uuid4()),
-                         'workspace_name': io_params['output_workspace_name']
-                         }
+        report_params = {
+            'message': '',
+            'objects_created': objects_created,
+            'direct_html_link_index': 0,
+            'html_links': [html_zipped],
+            'file_links': file_links,
+            'report_object_name': 'bbtools_rqcfilter_report_' + str(uuid.uuid4()),
+            'workspace_name': io_params['output_workspace_name']
+        }
 
         kr = KBaseReport(self.callback_url)
         report_output = kr.create_extended_report(report_params)
 
         return {'report_name': report_output['name'],
                 'report_ref': report_output['ref']}
+
+    def _build_file_report(self, output_dir, run_log):
+        # list of files = start with everything that's unzipped (or not .fq.gz) in output_dir
+        file_list = os.listdir(output_dir)
+        result_file = os.path.join(output_dir, 'rqcfilter_report.zip')
+        with zipfile.ZipFile(result_file, 'w', zipfile.ZIP_DEFLATED, allowZip64=True) as report_zip:
+            for file_name in file_list:
+                if file_name.endswith('.gz') or file_name.endswith('.fastq'):
+                    continue
+                zipped_file_name = file_name
+                report_zip.write(os.path.join(output_dir, file_name), zipped_file_name)
+        file_links = [{
+            'path': result_file,
+            'name': os.path.basename(result_file),
+            'label': 'RQCFilter_report',
+            'description': 'RQCFilter report files'
+        }]
+        return file_links
 
     def _read_outputfile(self, file_path):
         filedata = {}
