@@ -2,6 +2,8 @@
 File utility functions.
 Fetching data, re-uploading from file, zipping files into a report, etc.
 """
+import os
+import errno
 from ReadsUtils.ReadsUtilsClient import ReadsUtils
 from DataFileUtil.DataFileUtilClient import DataFileUtil
 
@@ -50,3 +52,13 @@ def pack_and_upload_folder(callback_url, folder_path, zip_file_name, zip_file_de
     return {'shock_id': output['shock_id'],
             'name': zip_file_name,
             'description': zip_file_description}
+
+
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as e:
+        if e.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise

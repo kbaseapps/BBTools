@@ -101,6 +101,7 @@ class BBToolsTest(unittest.TestCase):
     def getContext(self):
         return self.__class__.ctx
 
+    @unittest.skip('skip')
     def test_basic_app(self):
         # get the test reads library
         lib_info = self.getPairedEndLibInfo()
@@ -118,7 +119,7 @@ class BBToolsTest(unittest.TestCase):
         print('result:')
         pprint(res)
 
-    def test_app_all_parameters(self):
+    def test_app_jgi_parameters(self):
         lib_info = self.getPairedEndLibInfo()
         io_params = {
             'read_library_ref': "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
@@ -126,25 +127,29 @@ class BBToolsTest(unittest.TestCase):
             'output_library_name': 'filtered_reads_all_params'
         }
         run_params = {
+            'rna': 0,
+            'trimfragadapter': 1,
             'qtrim': 'r',
-            'trimq': 10,
-            'maxns': 5,
-            'minavgquality': 5,
-            'minlength': 45,
+            'trimq': 0,
+            'maxns': 3,
+            'minavgquality': 3,
+            'minlength': 51,
             'mlf': 0.333,
-            'removemouse': 1,
-            'removecat': 1,
-            'removedog': 1,
-            'removehuman': 1,
-            'removemicrobes': 1,
-            'taxlist': None,
-            'rna': 1,
             'phix': 1,
-            'clumpify': 1,
-            'dedupe': 1,
-            'opticaldupes': 1,
-            'khist': 1
+            'removehuman': 1,
+            'removedog': 1,
+            'removecat': 1,
+            'removemouse': 1,
+            'khist': 1,
+            'removemicrobes': 1,
+            'clumpify': 1
         }
+        bbtools = self.getImpl()
+        res = bbtools.run_RQCFilter_app(self.ctx, io_params, run_params)[0]
+        print('result:')
+        pprint(res)
+        self.assertIn('report_name', res)
+        self.assertIn('report_ref', res)
 
     def test_app_bad_parameters(self):
         pass
@@ -152,6 +157,7 @@ class BBToolsTest(unittest.TestCase):
     def test_app_missing_parameters(self):
         pass
 
+    @unittest.skip('skip')
     def test_run_local_reads_upa(self):
         lib_info = self.getPairedEndLibInfo()
         print(lib_info)
@@ -169,6 +175,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('filtered_fastq_file', res)
         self.assertTrue(os.path.exists(res['filtered_fastq_file']))
 
+    @unittest.skip('skip')
     def test_run_local_reads_file(self):
         test_fastq_file_local = os.path.join('data', 'interleaved.fastq')
         test_fastq_file_scratch = os.path.join(self.scratch, os.path.basename(test_fastq_file_local))

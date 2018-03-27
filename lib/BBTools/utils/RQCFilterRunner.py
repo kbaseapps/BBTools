@@ -6,15 +6,14 @@ from pprint import pprint
 
 from BBTools.utils.BBToolsRunner import BBToolsRunner
 
-from ReadsUtils.ReadsUtilsClient import ReadsUtils
-from DataFileUtil.DataFileUtilClient import DataFileUtil
 from KBaseReport.KBaseReportClient import KBaseReport
 
 from commandbuilder import build_options
 from file_util import (
     download_interleaved_reads,
     upload_interleaved_reads,
-    pack_and_upload_folder
+    pack_and_upload_folder,
+    mkdir_p
 )
 
 
@@ -92,6 +91,7 @@ class RQCFilterRunner:
         # setup input/output paths
         options.append('in={}'.format(reads_file))
         options.append('path={}'.format(output_dir))
+        mkdir_p(output_dir)
 
         # used to override invalid barcode in input
         options.append('barcodefilter=f')
@@ -107,6 +107,9 @@ class RQCFilterRunner:
         options.append('microberef=/data/commonMicrobes/')
 
         # missing ability to set mouseCatDogHumanPath
+
+        # finally, route stderr (a log file) to a file in the output dir
+        options = options + ['2>', os.path.join(output_dir, 'run_log.txt')]
         return options
 
     def _validate_file_inputs(self, params, is_app):
