@@ -26,10 +26,6 @@ class BBTools:
     GIT_COMMIT_HASH = "a81d6dd89a75067df44343d492fd030b1b733612"
 
     #BEGIN_CLASS_HEADER
-    def _merge_params(self, p1, p2):
-        params = p1.copy()
-        params.update(p2)
-        return params
     #END_CLASS_HEADER
 
     # config contains contents of config file in a hash or None if it couldn't
@@ -130,7 +126,7 @@ class BBTools:
         # return variables are: output
         #BEGIN run_RQCFilter_app
         rqcfilter = RQCFilterRunner(self.callback_url, self.scratch_dir)
-        output = rqcfilter.run_app(self._merge_params(io_params, run_params))
+        output = rqcfilter.run_app(io_params, run_params)
         #END run_RQCFilter_app
 
         # At some point might do deeper type checking...
@@ -235,7 +231,7 @@ class BBTools:
         # return variables are: output
         #BEGIN run_RQCFilter_local
         rqcfilter = RQCFilterRunner(self.callback_url, self.scratch_dir)
-        output = rqcfilter.run_local(self._merge_params(io_params, run_params))
+        output = rqcfilter.run_local(io_params, run_params)
         #END run_RQCFilter_local
 
         # At some point might do deeper type checking...

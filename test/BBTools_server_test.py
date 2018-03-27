@@ -118,6 +118,40 @@ class BBToolsTest(unittest.TestCase):
         print('result:')
         pprint(res)
 
+    def test_app_all_parameters(self):
+        lib_info = self.getPairedEndLibInfo()
+        io_params = {
+            'read_library_ref': "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
+            'output_workspace_name': self.getWsName(),
+            'output_library_name': 'filtered_reads_all_params'
+        }
+        run_params = {
+            'qtrim': 'r',
+            'trimq': 10,
+            'maxns': 5,
+            'minavgquality': 5,
+            'minlength': 45,
+            'mlf': 0.333,
+            'removemouse': 1,
+            'removecat': 1,
+            'removedog': 1,
+            'removehuman': 1,
+            'removemicrobes': 1,
+            'taxlist': None,
+            'rna': 1,
+            'phix': 1,
+            'clumpify': 1,
+            'dedupe': 1,
+            'opticaldupes': 1,
+            'khist': 1
+        }
+
+    def test_app_bad_parameters(self):
+        pass
+
+    def test_app_missing_parameters(self):
+        pass
+
     def test_run_local_reads_upa(self):
         lib_info = self.getPairedEndLibInfo()
         print(lib_info)
