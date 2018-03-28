@@ -2,7 +2,6 @@
 
 # data directory is always mounted in the /data
 
-
 get_file () {
     cd /data
     echo "downloading: ftp://dtn.chicago.kbase.us/BBdata/$1"
@@ -21,48 +20,72 @@ cd /data
 fail=0
 
 date
-get_file 'commonMicrobes.tar'
-mv global/projectb/sandbox/gaag/bbtools/commonMicrobes .
-rm -rf global
+
+get_file 'bbmap_contaminant_data.tar.gz'
 check_exists 'commonMicrobes'
 if [ $fail -eq 1 ] ; then
     exit 1
 fi
-
-date
-get_file 'cat.tar'
 check_exists 'cat_genome'
 if [ $fail -eq 1 ] ; then
     exit 1
 fi
-
-date
-get_file 'dog.tar'
 check_exists 'dog_genome'
 if [ $fail -eq 1 ] ; then
     exit 1
 fi
-
-date
-get_file 'hg19.tar'
-check_exists 'hg194'
-if [ $fail -eq 1 ] ; then
-    exit 1
-fi
-
-date
-get_file 'mouse.tar'
 check_exists 'mouse_genome'
 if [ $fail -eq 1 ] ; then
     exit 1
 fi
-
-date
-get_file 'mousecatdoghuman.tar'
-check_exists 'mousecatdoghuman'
+check_exists 'hg19'
 if [ $fail -eq 1 ] ; then
     exit 1
 fi
+#
+#
+# get_file 'commonMicrobes.tar'
+# mv global/projectb/sandbox/gaag/bbtools/commonMicrobes .
+# rm -rf global
+# check_exists 'commonMicrobes'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
+#
+# date
+# get_file 'cat.tar'
+# check_exists 'cat_genome'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
+#
+# date
+# get_file 'dog.tar'
+# check_exists 'dog_genome'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
+#
+# date
+# get_file 'hg19.tar'
+# check_exists 'hg194'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
+#
+# date
+# get_file 'mouse.tar'
+# check_exists 'mouse_genome'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
+#
+# date
+# get_file 'mousecatdoghuman.tar'
+# check_exists 'mousecatdoghuman'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
 
 date
 
