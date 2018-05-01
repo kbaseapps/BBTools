@@ -99,6 +99,8 @@ class RQCFilterRunner:
         # make sure that the pipeline does not call out to the external sketch servers
         options.append('sketch=f')
 
+        options.append('mapk=13')
+        options.append('-Xmx24g')
         # set the reference file locations
         options.append('rqcfilterdata=/data/RQCFilterData')
         # options.append('humanpath=/data/hg19/')
