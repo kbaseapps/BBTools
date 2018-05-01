@@ -21,27 +21,36 @@ fail=0
 
 date
 
-get_file 'bbmap_contaminant_data.tar.gz'
-check_exists 'commonMicrobes'
+echo "downloading RQCFilterData from NERSC Portal"
+wget --no-verbose http://portal.nersc.gov/dna/microbial/assembly/bushnell/RQCFilterData.tar
+tar -xf RQCFilterData.tar -C /data
+rm -f RQCFilterData.tar
+check_exists 'RQCFilterData'
 if [ $fail -eq 1 ] ; then
     exit 1
 fi
-check_exists 'cat_genome'
-if [ $fail -eq 1 ] ; then
-    exit 1
-fi
-check_exists 'dog_genome'
-if [ $fail -eq 1 ] ; then
-    exit 1
-fi
-check_exists 'mouse_genome'
-if [ $fail -eq 1 ] ; then
-    exit 1
-fi
-check_exists 'hg19'
-if [ $fail -eq 1 ] ; then
-    exit 1
-fi
+
+# get_file 'bbmap_contaminant_data.tar.gz'
+# check_exists 'commonMicrobes'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
+# check_exists 'cat_genome'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
+# check_exists 'dog_genome'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
+# check_exists 'mouse_genome'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
+# check_exists 'hg19'
+# if [ $fail -eq 1 ] ; then
+#     exit 1
+# fi
 #
 #
 # get_file 'commonMicrobes.tar'

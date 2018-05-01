@@ -100,12 +100,13 @@ class RQCFilterRunner:
         options.append('sketch=f')
 
         # set the reference file locations
-        options.append('humanpath=/data/hg19/')
-        options.append('catpath=/data/cat_genome/')
-        options.append('dogpath=/data/dog_genome/')
-        options.append('mousepath=/data/mouse_genome/')
-        options.append('microberef=/data/commonMicrobes/fusedERPBBmasked2.fa.gz')
-        options.append('taxtree=/data/tree.taxtree.gz')
+        options.append('rqcfilterdata=/data/RQCFilterData')
+        # options.append('humanpath=/data/hg19/')
+        # options.append('catpath=/data/cat_genome/')
+        # options.append('dogpath=/data/dog_genome/')
+        # options.append('mousepath=/data/mouse_genome/')
+        # options.append('microberef=/data/commonMicrobes/fusedERPBBmasked2.fa.gz')
+        # options.append('taxtree=/data/tree.taxtree.gz')
 
         # missing ability to set mouseCatDogHumanPath
 
