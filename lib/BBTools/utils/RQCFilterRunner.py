@@ -17,7 +17,7 @@ from file_util import (
 
 class RQCFilterRunner:
 
-    RQCFILTER_CMD = 'rqcfilter.sh'
+    RQCFILTER_CMD = 'rqcfilter2.sh'
 
     def __init__(self, callback_url, scratch_dir):
         self.callback_url = callback_url
