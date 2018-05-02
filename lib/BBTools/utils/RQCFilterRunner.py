@@ -17,11 +17,12 @@ from file_util import (
 
 class RQCFilterRunner:
 
-    RQCFILTER_CMD = 'rqcfilter.sh'
+    RQCFILTER_CMD = 'rqcfilter2.sh'
 
     def __init__(self, callback_url, scratch_dir):
         self.callback_url = callback_url
         self.scratch_dir = scratch_dir
+        self._timestamp = str(int(time.time() * 1000))  # used for output and report directory names.
 
     def run_app(self, io_params, app_params):
         output_dir, run_log = self._run(io_params, app_params, is_app=True)
@@ -45,7 +46,8 @@ class RQCFilterRunner:
         print('Running RQCFilter. Params=')
         pprint(io_params)
         pprint(app_params)
-        output_dir = os.path.join(self.scratch_dir, 'rqcfilter_output_' + str(int(time.time() * 1000)))
+        self._runtime = str(int(time.time() * 1000))
+        output_dir = os.path.join(self.scratch_dir, 'rqcfilter_output_' + self._timestamp)
         run_log = os.path.join(output_dir, 'run_log.txt')
         options = self._process_app_params_to_cli(io_params, app_params, output_dir, run_log, is_app)
         bbtools = BBToolsRunner(self.scratch_dir)
@@ -99,14 +101,10 @@ class RQCFilterRunner:
         # make sure that the pipeline does not call out to the external sketch servers
         options.append('sketch=f')
 
+        options.append('mapk=13')
+        options.append('-Xmx24g')
         # set the reference file locations
-        options.append('humanpath=/data/hg19/')
-        options.append('catpath=/data/cat_genome/')
-        options.append('dogpath=/data/dog_genome/')
-        options.append('mousepath=/data/mouse_genome/')
-        options.append('microberef=/data/commonMicrobes/')
-
-        # missing ability to set mouseCatDogHumanPath
+        options.append('rqcfilterdata=/data/RQCFilterData')
 
         # finally, route stderr (a log file) to a file in the output dir
         options = options + ['2>', run_log]
@@ -196,7 +194,7 @@ class RQCFilterRunner:
         return filedata
 
     def _build_html_report(self, reads_ref, output_dir, file_lookup):
-        html_dir = os.path.join(self.scratch_dir, 'rqcfilter_report')
+        html_dir = os.path.join(self.scratch_dir, 'rqcfilter_report_' + self._timestamp)
         os.makedirs(html_dir)
 
         # note: we should use a real library, like yattag, to generate the HTML report here
