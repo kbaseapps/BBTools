@@ -105,14 +105,6 @@ class RQCFilterRunner:
         options.append('-Xmx24g')
         # set the reference file locations
         options.append('rqcfilterdata=/data/RQCFilterData')
-        # options.append('humanpath=/data/hg19/')
-        # options.append('catpath=/data/cat_genome/')
-        # options.append('dogpath=/data/dog_genome/')
-        # options.append('mousepath=/data/mouse_genome/')
-        # options.append('microberef=/data/commonMicrobes/fusedERPBBmasked2.fa.gz')
-        # options.append('taxtree=/data/tree.taxtree.gz')
-
-        # missing ability to set mouseCatDogHumanPath
 
         # finally, route stderr (a log file) to a file in the output dir
         options = options + ['2>', run_log]
