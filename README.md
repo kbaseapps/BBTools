@@ -52,3 +52,14 @@ The result of an RQCFilter run is a structure with the following keys:
 * filtered_fastq_file - the absolute path to the generated fastq file that has been filtered according to the user's criteria.
 
 All of the output directory info should be available from your SDK module's file system.
+
+# How to Update
+There's a few caveats for updating the version of BBTools being used here. Here's the steps to follow.
+1. Update Dockerfile.  
+The version downloaded is embedded in the `Dockerfile` for this repo, line 29. Bump that version to whatever you need.
+2. Update App Spec.  
+The version is also added to `ui/narrative/methods/RQCFilter/display.yaml`, line 4. Update that there to display the version of BBTools being run.
+3. Update kbase.yml  
+The `module-version` in `kbase.yml` should also be bumped. It follows semantic versioning, so if you're just bumping the BBTools version, then a patch upgrade is most appropriate.
+4. (optional) Update reference data.  
+If the reference data changes - either in the large tar file hosted at NERSC, or what's packaged with bbmap, this gets slightly more complex. The file `scripts/load_reference_data.sh` works outside of the module compile process, so it maintains its own version of things. There's a version of BBTools embedded there as well, so that will need to change if the bundled data is updated. Finally, you'll have to increase the value of the `data-version` line in `kbase.yml` for the reference data to be re-downloaded.
