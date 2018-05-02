@@ -18,7 +18,7 @@ date
 
 # Fetch the monster compilation of reference data that Brian Bushnell set up.
 echo "Downloading RQCFilterData from NERSC Portal"
-# wget --no-verbose http://portal.nersc.gov/dna/microbial/assembly/bushnell/RQCFilterData.tar
+wget --no-verbose http://portal.nersc.gov/dna/microbial/assembly/bushnell/RQCFilterData.tar
 tar -xf RQCFilterData.tar -C /data
 rm -f RQCFilterData.tar
 check_exists /data/RQCFilterData
