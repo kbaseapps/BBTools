@@ -174,6 +174,8 @@ class BBToolsTest(unittest.TestCase):
         self.assertTrue(os.path.exists(res['output_directory']))
         self.assertIn('filtered_fastq_file', res)
         self.assertTrue(os.path.exists(res['filtered_fastq_file']))
+        self.assertIn('run_log', res)
+        self.assertTrue(os.path.exists(res['run_log']))
 
     # @unittest.skip('skip')
     def test_run_local_reads_file(self):
@@ -193,3 +195,5 @@ class BBToolsTest(unittest.TestCase):
         self.assertTrue(os.path.exists(res['output_directory']))
         self.assertIn('filtered_fastq_file', res)
         self.assertTrue(os.path.exists(res['filtered_fastq_file']))
+        self.assertIn('run_log', res)
+        self.assertTrue(os.path.exists(res['run_log']))
