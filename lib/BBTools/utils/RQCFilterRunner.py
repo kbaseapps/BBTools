@@ -1,4 +1,4 @@
-import os.path
+import os
 import time
 import uuid
 import zipfile
@@ -23,6 +23,23 @@ class RQCFilterRunner:
         self.callback_url = callback_url
         self.scratch_dir = scratch_dir
         self._timestamp = str(int(time.time() * 1000))  # used for output and report directory names.
+        has_kb_data = os.path.isdir("/kb/data")
+        has_data = os.path.isdir("/data")
+        has_kb = os.path.isdir("/kb")
+
+        print("/data/RQCFilterData - {}".format(os.path.isdir("/data/RQCFilterData")))
+        print("/kb/data/RQCFilterData - {}".format(os.path.isdir("/kb/data/RQCFilterData")))
+        print("/kb/data - {}".format(has_kb_data))
+        try:
+            print(os.listdir("/kb/data"))
+        except:
+            print("can't list dir /kb/data")
+        print("/data - {}".format(has_data))
+        try:
+            print(os.listdir("/data"))
+        except:
+            print("can't list dir /data")
+        print("/kb - {}".format(has_kb))
 
     def run_app(self, io_params, app_params):
         output_dir, run_log = self._run(io_params, app_params, is_app=True)
@@ -104,16 +121,8 @@ class RQCFilterRunner:
         options.append('mapk=13')
         options.append('-Xmx24g')
         # make sure the reference data is there.
-        ref_data_dir = "/data/RQCFilterdata"
+        ref_data_dir = "/data/RQCFilterData"
         if not os.path.isdir(ref_data_dir):
-            has_kb_data = os.path.isdir("/kb/data")
-            has_data = os.path.isdir("/data")
-            has_kb = os.path.isdir("/kb")
-
-            print("/kb/data/RQCFilterData - {}".format(os.path.isdir("/kb/data/RQCFilterData")))
-            print("/kb/data - {}".format(has_kb_data))
-            print("/data - {}".format(has_data))
-            print("/kb - {}".format(has_kb))
             raise RuntimeError('RQCFilter Reference Data does not appear to exist - ' + ref_data_dir + ' is not a directory!')
 
         # set the reference file locations
