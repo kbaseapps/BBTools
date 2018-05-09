@@ -40,6 +40,10 @@ class RQCFilterRunner:
         except:
             print("can't list dir /data")
         print("/kb - {}".format(has_kb))
+        try:
+            print(os.listdir("/kb"))
+        except:
+            print("can't list dir /kb")
 
     def run_app(self, io_params, app_params):
         output_dir, run_log = self._run(io_params, app_params, is_app=True)
