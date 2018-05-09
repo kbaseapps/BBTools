@@ -110,13 +110,14 @@ class RQCFilterRunner:
             has_data = os.path.isdir("/data")
             has_kb = os.path.isdir("/kb")
 
+            print("/kb/data/RQCFilterData - {}".format(os.path.isdir("/kb/data/RQCFilterData")))
             print("/kb/data - {}".format(has_kb_data))
             print("/data - {}".format(has_data))
             print("/kb - {}".format(has_kb))
             raise RuntimeError('RQCFilter Reference Data does not appear to exist - ' + ref_data_dir + ' is not a directory!')
 
         # set the reference file locations
-        options.append('rqcfilterdata=/kb/data/RQCFilterData')
+        options.append('rqcfilterdata=' + ref_data_dir)
 
         # finally, route stderr (a log file) to a file in the output dir
         options = options + ['2>', run_log]
