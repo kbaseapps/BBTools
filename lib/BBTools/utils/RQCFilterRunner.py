@@ -104,7 +104,7 @@ class RQCFilterRunner:
         options.append('mapk=13')
         options.append('-Xmx24g')
         # make sure the reference data is there.
-        ref_data_dir = "/kb/data/RQCFilterdata"
+        ref_data_dir = "/data/RQCFilterdata"
         if not os.path.isdir(ref_data_dir):
             has_kb_data = os.path.isdir("/kb/data")
             has_data = os.path.isdir("/data")
