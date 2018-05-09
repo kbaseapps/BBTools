@@ -104,8 +104,16 @@ class RQCFilterRunner:
         options.append('mapk=13')
         options.append('-Xmx24g')
         # make sure the reference data is there.
-        if not os.path.isdir('/kb/data/RQCFilterData'):
-            raise RuntimeError('RQCFilter Reference Data does not appear to exist - /kb/data/RQCFilterData is not a directory!')
+        ref_data_dir = "/kb/data/RQCFilterdata"
+        if not os.path.isdir(ref_data_dir):
+            has_kb_data = os.path.isdir("/kb/data")
+            has_data = os.path.isdir("/data")
+            has_kb = os.path.isdir("/kb")
+
+            print("/kb/data - {}".format(has_kb_data))
+            print("/data - {}".format(has_data))
+            print("/kb - {}".format(has_kb))
+            raise RuntimeError('RQCFilter Reference Data does not appear to exist - ' + ref_data_dir + ' is not a directory!')
 
         # set the reference file locations
         options.append('rqcfilterdata=/kb/data/RQCFilterData')
