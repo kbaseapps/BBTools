@@ -11,6 +11,17 @@ check_exists() {
     fi
 }
 
+safe_execute() {
+    cmd=$1
+    echo "running $cmd"
+    eval $cmd
+    ret_code=$?
+    if [ $ret_code != 0 ]; then
+        echo $2
+        exit $ret_code
+    fi
+}
+
 # cd /data
 fail=0
 
@@ -18,9 +29,9 @@ date
 
 # Fetch the monster compilation of reference data that Brian Bushnell set up.
 echo "Downloading RQCFilterData from NERSC Portal"
-wget --no-verbose http://portal.nersc.gov/dna/microbial/assembly/bushnell/RQCFilterData.tar
-tar -xf RQCFilterData.tar -C /data
-rm -f RQCFilterData.tar
+safe_execute "wget --no-verbose http://portal.nersc.gov/dna/microbial/assembly/bushnell/RQCFilterData.tar" "failed to download reference data!"
+safe_execute "tar -xf RQCFilterData.tar -C /data" "failed to untar reference data!"
+safe_execute "rm -f RQCFilterData.tar" "failed to remove reference data!"
 check_exists /data/RQCFilterData
 if [ $fail -eq 1 ] ; then
     echo "Unable to expand RQCFilterData.tar! Failing."
@@ -33,15 +44,15 @@ echo "Done expanding RQCFilterData"
 date
 echo "Fetching BBMap $BBMAP_VERSION"
 BBMAP=BBMap_$BBMAP_VERSION.tar.gz
-wget -O $BBMAP https://sourceforge.net/projects/bbmap/files/$BBMAP/download
-tar -xf $BBMAP -C /data
+safe_execute "wget -O $BBMAP https://sourceforge.net/projects/bbmap/files/$BBMAP/download" "failed to download $BBMAP"
+safe_execute "tar -xf $BBMAP -C /data" "failed to expand $BBMAP"
 check_exists /data/bbmap
 if [ $fail -eq 1 ] ; then
     echo "Unable to expand $BBMAP! Failing."
     exit 1
 fi
 echo "Copying BBMap resources data"
-cp /data/bbmap/resources/* /data/RQCFilterData/
+safe_execute "cp /data/bbmap/resources/* /data/RQCFilterData/" "failed to move BBMap data!"
 echo "Cleaning up"
 rm $BBMAP
 rm -rf /data/bbmap
