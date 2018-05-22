@@ -22,10 +22,12 @@ safe_execute() {
     fi
 }
 
-# cd /data
 fail=0
 
 date
+
+# Move to /data - that's got room for the big tar file.
+cd /data
 
 # Fetch the monster compilation of reference data that Brian Bushnell set up.
 echo "Downloading RQCFilterData from NERSC Portal"
