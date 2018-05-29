@@ -79,7 +79,7 @@
             "default_values":["0"],
             "field_type" : "checkbox",
             "checkbox_options":{
-                "checked_value": 0,
+                "checked_value": 1,
                 "unchecked_value": 0
             }
         },
@@ -92,7 +92,7 @@
             "default_values":["0"],
             "field_type" : "checkbox",
             "checkbox_options":{
-                "checked_value": 0,
+                "checked_value": 1,
                 "unchecked_value": 0
             }
         },
@@ -106,16 +106,16 @@
             "field_type" : "dropdown",
             "dropdown_options":{
               "options": [{
-                  "value": "Trim both ends",
-                  "display": "rl"
+                  "value": "rl",
+                  "display": "Trim both ends"
                 },
                 {
-                  "value": "Trim right ends only",
-                  "display": "r"
+                  "value": "r",
+                  "display": "Trim right ends only"
                 },
                 {
-                  "value": "Trim left ends only",
-                  "display": "l"
+                  "value": "l",
+                  "display": "Trim left ends only"
                 }
               ]
             }
@@ -130,7 +130,7 @@
             "default_values":["0"],
             "field_type" : "checkbox",
             "checkbox_options":{
-                "checked_value": 0,
+                "checked_value": 1,
                 "unchecked_value": 0
             }
         },
@@ -142,7 +142,7 @@
             "default_values":["0"],
             "field_type" : "checkbox",
             "checkbox_options":{
-                "checked_value": 0,
+                "checked_value": 1,
                 "unchecked_value": 0
             }
         },
@@ -154,7 +154,7 @@
             "default_values":["0"],
             "field_type" : "checkbox",
             "checkbox_options":{
-                "checked_value": 0,
+                "checked_value": 1,
                 "unchecked_value": 0
             }
         },
@@ -166,7 +166,7 @@
             "default_values":["0"],
             "field_type" : "checkbox",
             "checkbox_options":{
-                "checked_value": 0,
+                "checked_value": 1,
                 "unchecked_value": 0
             }
         },
@@ -178,7 +178,7 @@
             "default_values":["0"],
             "field_type" : "checkbox",
             "checkbox_options":{
-                "checked_value": 0,
+                "checked_value": 1,
                 "unchecked_value": 0
             }
         },
@@ -201,7 +201,7 @@
             "default_values":["0"],
             "field_type" : "checkbox",
             "checkbox_options":{
-                "checked_value": 0,
+                "checked_value": 1,
                 "unchecked_value": 0
             }
         },
@@ -213,7 +213,7 @@
             "default_values":["0"],
             "field_type" : "checkbox",
             "checkbox_options":{
-                "checked_value": 0,
+                "checked_value": 1,
                 "unchecked_value": 0
             }
         }
