@@ -2,7 +2,7 @@
 
 # data directory is always mounted in the /data
 
-BBMAP_VERSION=38.00
+BBMAP_VERSION=38.08
 
 check_exists() {
     if ! [ -d $1 ] ; then
