@@ -26,7 +26,7 @@ RUN pip install yattag
 WORKDIR /kb/module
 
 # install BBTools
-RUN BBMAP=BBMap_38.00.tar.gz \
+RUN BBMAP=BBMap_38.08.tar.gz \
     && wget -O $BBMAP https://sourceforge.net/projects/bbmap/files/$BBMAP/download \
     && tar -xf $BBMAP \
     && rm $BBMAP
