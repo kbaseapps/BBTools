@@ -10,18 +10,18 @@ MAINTAINER KBase Developer
 # https library that is out of date in the base image.
 
 # update security libraries in the base image
+ENV NSLOTS 4
 
-RUN apt-get -y update && apt-get install -y python-dev libffi-dev libssl-dev ca-certificates
-RUN pip install cffi ndg-httpsclient pyopenssl==17.03 cryptography==2.0.3 --upgrade \
+RUN pip install cffi --upgrade \
+    && pip install pyopenssl --upgrade \
+    && pip install ndg-httpsclient --upgrade \
     && pip install pyasn1 --upgrade \
     && pip install requests --upgrade \
     && pip install 'requests[security]' --upgrade \
-    && pip install coverage
+    && pip install coverage \
+    && pip install yattag
 
 # -----------------------------------------
-
-# yattag for HTML rendering from python
-RUN pip install yattag
 
 WORKDIR /kb/module
 
