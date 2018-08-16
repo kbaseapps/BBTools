@@ -7,7 +7,7 @@ from pprint import pprint
 from BBTools.utils.BBToolsRunner import BBToolsRunner
 from KBaseReport.KBaseReportClient import KBaseReport
 from commandbuilder import build_options
-from file_util import (
+from .file_util import (
     download_interleaved_reads,
     upload_interleaved_reads,
     pack_and_upload_folder,
@@ -72,7 +72,7 @@ class RQCFilterRunner:
         run_log = os.path.join(output_dir, 'run_log.txt')
         options = self._process_app_params_to_cli(io_params, app_params, output_dir, run_log, is_app)
         bbtools = BBToolsRunner(self.scratch_dir)
-        bbtools.run(self.RQCFILTER_CMD, options)
+        bbtools.run(self.RQCFILTER_CMD, options, log_path=run_log)
         return output_dir, run_log
 
     def _process_app_params_to_cli(self, io_params, app_params, output_dir, run_log, is_app):
