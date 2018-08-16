@@ -123,7 +123,7 @@ class RQCFilterRunner:
         options.append('sketch=f')
 
         options.append('mapk=13')
-        options.append('-Xmx24g')
+        options.append('-Xmx50g')
         # make sure the reference data is there.
         ref_data_dir = "/data/RQCFilterData"
         if not os.path.isdir(ref_data_dir):
