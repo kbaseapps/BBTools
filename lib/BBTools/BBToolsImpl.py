@@ -261,7 +261,7 @@ class BBTools:
             version = "unknown"
         else:
             with open(version_file_path, "r") as ver_file:
-                version = ver_file.read()
+                version = ver_file.read().strip()
         #END bbtools_version
 
         # At some point might do deeper type checking...

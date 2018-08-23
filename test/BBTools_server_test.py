@@ -205,8 +205,8 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('rqcfilter2.sh', run_command)
 
     def test_get_version(self):
-        version = self.getImpl().bbtools_version(self.ctx)
+        version = self.getImpl().bbtools_version(self.ctx)[0]
         ver_file = "/kb/module/bbmap_version"
         with open(ver_file) as f:
-            version_from_file = f.read()
+            version_from_file = f.read().strip()
         self.assertEqual(version, version_from_file)
