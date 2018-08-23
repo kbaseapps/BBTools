@@ -25,8 +25,13 @@ RUN pip install yattag
 
 WORKDIR /kb/module
 
+# copy everything in, we need the version file
+COPY ./ /kb/module
+
 # install BBTools
-RUN BBMAP=BBMap_38.08.tar.gz \
+
+RUN BBMAP_VERSION=$(cat /kb/module/bbmap_version) \
+    && BBMAP=BBMap_$BBMAP_VERSION.tar.gz \
     && wget -O $BBMAP https://sourceforge.net/projects/bbmap/files/$BBMAP/download \
     && tar -xf $BBMAP \
     && rm $BBMAP
@@ -39,7 +44,6 @@ RUN cd /kb/module/bbmap/jni \
 RUN mkdir /global
 COPY data/rqc_data/global /global
 
-COPY ./ /kb/module
 RUN mkdir -p /kb/module/work
 RUN chmod -R a+rw /kb/module
 

@@ -151,6 +151,7 @@ boolean is an int
 RQCFilterAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
 	report_ref has a value which is a string
+	run_command has a value which is a string
 
 </pre>
 
@@ -190,6 +191,7 @@ boolean is an int
 RQCFilterAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
 	report_ref has a value which is a string
+	run_command has a value which is a string
 
 
 =end text
@@ -294,6 +296,7 @@ RQCFilterLocalOutput is a reference to a hash where the following keys are defin
 	output_directory has a value which is a string
 	run_log has a value which is a string
 	filtered_fastq_file has a value which is a string
+	run_command has a value which is a string
 
 </pre>
 
@@ -333,6 +336,7 @@ RQCFilterLocalOutput is a reference to a hash where the following keys are defin
 	output_directory has a value which is a string
 	run_log has a value which is a string
 	filtered_fastq_file has a value which is a string
+	run_command has a value which is a string
 
 
 =end text
@@ -392,6 +396,75 @@ RQCFilterLocalOutput is a reference to a hash where the following keys are defin
     }
 }
  
+
+
+=head2 bbtools_version
+
+  $version = $obj->bbtools_version()
+
+=over 4
+
+=item Parameter and return types
+
+=begin html
+
+<pre>
+$version is a string
+
+</pre>
+
+=end html
+
+=begin text
+
+$version is a string
+
+
+=end text
+
+=item Description
+
+Returns the semantic version of the currently installed BBTools. So something like "38.08"
+
+=back
+
+=cut
+
+ sub bbtools_version
+{
+    my($self, @args) = @_;
+
+# Authentication: none
+
+    if ((my $n = @args) != 0)
+    {
+	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
+							       "Invalid argument count for function bbtools_version (received $n, expecting 0)");
+    }
+
+    my $url = $self->{url};
+    my $result = $self->{client}->call($url, $self->{headers}, {
+	    method => "BBTools.bbtools_version",
+	    params => \@args,
+    });
+    if ($result) {
+	if ($result->is_error) {
+	    Bio::KBase::Exceptions::JSONRPC->throw(error => $result->error_message,
+					       code => $result->content->{error}->{code},
+					       method_name => 'bbtools_version',
+					       data => $result->content->{error}->{error} # JSON::RPC::ReturnObject only supports JSONRPC 1.1 or 1.O
+					      );
+	} else {
+	    return wantarray ? @{$result->result} : $result->result->[0];
+	}
+    } else {
+        Bio::KBase::Exceptions::HTTP->throw(error => "Error invoking method bbtools_version",
+					    status_line => $self->{client}->status_line,
+					    method_name => 'bbtools_version',
+				       );
+    }
+}
+ 
   
 sub status
 {
@@ -435,16 +508,16 @@ sub version {
             Bio::KBase::Exceptions::JSONRPC->throw(
                 error => $result->error_message,
                 code => $result->content->{code},
-                method_name => 'run_RQCFilter_local',
+                method_name => 'bbtools_version',
             );
         } else {
             return wantarray ? @{$result->result} : $result->result->[0];
         }
     } else {
         Bio::KBase::Exceptions::HTTP->throw(
-            error => "Error invoking method run_RQCFilter_local",
+            error => "Error invoking method bbtools_version",
             status_line => $self->{client}->status_line,
-            method_name => 'run_RQCFilter_local',
+            method_name => 'bbtools_version',
         );
     }
 }
@@ -527,9 +600,10 @@ local function that works mainly against the file system and the app that mainly
 the Workspace.
 
 This doesn't cover all of the 110+ parameters provided by rqcfilter. Those not listed here
-are left as default values, except sketch=f (as that sends data to JGI servers for processing).
+are left as default values, except sketch=f (as that sends data to JGI servers for processing),
+barcodefilter=f, and mapk=13.
 
-Notes below are taken from the help output from rqcfilter.sh ver 37.90
+Notes below are taken from the help output from rqcfilter2.sh ver 38.00
 
 Parameters (format = param name - default - description):
 ---------------------------------------------------------
@@ -696,6 +770,7 @@ output_library_name has a value which is a string
 a reference to a hash where the following keys are defined:
 report_name has a value which is a string
 report_ref has a value which is a string
+run_command has a value which is a string
 
 </pre>
 
@@ -706,6 +781,7 @@ report_ref has a value which is a string
 a reference to a hash where the following keys are defined:
 report_name has a value which is a string
 report_ref has a value which is a string
+run_command has a value which is a string
 
 
 =end text
@@ -774,6 +850,8 @@ filtered_fastq_file:
     the path to the file (in the output directory) containing the filtered FASTQ reads.
     This will likely be compressed, if you need it decompressed, you can use
     DataFileUtil.unpack_file (see that module).
+run_command:
+    the string that's run on the command line with all parameters formatted, etc.
 
 
 =item Definition
@@ -785,6 +863,7 @@ a reference to a hash where the following keys are defined:
 output_directory has a value which is a string
 run_log has a value which is a string
 filtered_fastq_file has a value which is a string
+run_command has a value which is a string
 
 </pre>
 
@@ -796,6 +875,7 @@ a reference to a hash where the following keys are defined:
 output_directory has a value which is a string
 run_log has a value which is a string
 filtered_fastq_file has a value which is a string
+run_command has a value which is a string
 
 
 =end text

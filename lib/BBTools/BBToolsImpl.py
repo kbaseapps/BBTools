@@ -12,7 +12,7 @@ class BBTools:
     BBTools
 
     Module Description:
-    
+
     '''
 
     ######## WARNING FOR GEVENT USERS ####### noqa
@@ -21,9 +21,9 @@ class BBTools:
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "0.2.1"
+    VERSION = "0.4.4"
     GIT_URL = "https://github.com/briehl/BBTools"
-    GIT_COMMIT_HASH = "8658f9a91b6cece5d4ccf2b4123529430be6e2d8"
+    GIT_COMMIT_HASH = "f52e4120ba217a443e9ab4dfcce75de549dcbd9f"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -56,9 +56,9 @@ class BBTools:
            against the Workspace. This doesn't cover all of the 110+
            parameters provided by rqcfilter. Those not listed here are left
            as default values, except sketch=f (as that sends data to JGI
-           servers for processing). Notes below are taken from the help
-           output from rqcfilter.sh ver 37.90 Parameters (format = param name
-           - default - description):
+           servers for processing), barcodefilter=f, and mapk=13. Notes below
+           are taken from the help output from rqcfilter2.sh ver 38.00
+           Parameters (format = param name - default - description):
            --------------------------------------------------------- library
            - frag - should be one of 'frag', 'clip', 'lfpe', or 'clrs'.
            Adapter trimming parameters: ----------------------------
@@ -121,7 +121,8 @@ class BBTools:
            "khist" of type "boolean" (A boolean - 0 for false, 1 for true.
            @range (0, 1))
         :returns: instance of type "RQCFilterAppOutput" -> structure:
-           parameter "report_name" of String, parameter "report_ref" of String
+           parameter "report_name" of String, parameter "report_ref" of
+           String, parameter "run_command" of String
         """
         # ctx is the context object
         # return variables are: output
@@ -154,9 +155,9 @@ class BBTools:
            against the Workspace. This doesn't cover all of the 110+
            parameters provided by rqcfilter. Those not listed here are left
            as default values, except sketch=f (as that sends data to JGI
-           servers for processing). Notes below are taken from the help
-           output from rqcfilter.sh ver 37.90 Parameters (format = param name
-           - default - description):
+           servers for processing), barcodefilter=f, and mapk=13. Notes below
+           are taken from the help output from rqcfilter2.sh ver 38.00
+           Parameters (format = param name - default - description):
            --------------------------------------------------------- library
            - frag - should be one of 'frag', 'clip', 'lfpe', or 'clrs'.
            Adapter trimming parameters: ----------------------------
@@ -227,9 +228,11 @@ class BBTools:
            the file (in the output directory) containing the filtered FASTQ
            reads. This will likely be compressed, if you need it
            decompressed, you can use DataFileUtil.unpack_file (see that
-           module).) -> structure: parameter "output_directory" of String,
-           parameter "run_log" of String, parameter "filtered_fastq_file" of
-           String
+           module). run_command: the string that's run on the command line
+           with all parameters formatted, etc.) -> structure: parameter
+           "output_directory" of String, parameter "run_log" of String,
+           parameter "filtered_fastq_file" of String, parameter "run_command"
+           of String
         """
         # ctx is the context object
         # return variables are: output
@@ -244,6 +247,29 @@ class BBTools:
                              'output is not type dict as required.')
         # return the results
         return [output]
+
+    def bbtools_version(self, ctx):
+        """
+        Returns the semantic version of the currently installed BBTools. So something like "38.08"
+        :returns: instance of String
+        """
+        # ctx is the context object
+        # return variables are: version
+        #BEGIN bbtools_version
+        version_file_path = "/kb/module/bbmap_version"
+        if not os.path.exists(version_file_path):
+            version = "unknown"
+        else:
+            with open(version_file_path, "r") as ver_file:
+                version = ver_file.read()
+        #END bbtools_version
+
+        # At some point might do deeper type checking...
+        if not isinstance(version, basestring):
+            raise ValueError('Method bbtools_version return value ' +
+                             'version is not type basestring as required.')
+        # return the results
+        return [version]
     def status(self, ctx):
         #BEGIN_STATUS
         returnVal = {'state': "OK",

@@ -46,16 +46,17 @@ class RQCFilterRunner:
             print("can't list dir /kb")
 
     def run_app(self, io_params, app_params):
-        output_dir, run_log = self._run(io_params, app_params, is_app=True)
-        return self._save_output_to_kbase(io_params, app_params, output_dir, run_log)
+        output_dir, run_log, run_command = self._run(io_params, app_params, is_app=True)
+        return self._save_output_to_kbase(io_params, app_params, output_dir, run_log, run_command)
 
     def run_local(self, io_params, app_params):
-        output_dir, run_log = self._run(io_params, app_params, is_app=False)
+        output_dir, run_log, run_command = self._run(io_params, app_params, is_app=False)
         file_lookup = self._read_outputfile(os.path.join(output_dir, 'file-list.txt'))
         result = {
             'output_directory': output_dir,
             'run_log': run_log,
-            'filtered_fastq_file': None
+            'filtered_fastq_file': None,
+            'run_command': run_command
         }
         if 'filtered_fastq' in file_lookup:
             result['filtered_fastq_file'] = os.path.join(output_dir, file_lookup['filtered_fastq'])
@@ -64,6 +65,12 @@ class RQCFilterRunner:
         return result
 
     def _run(self, io_params, app_params, is_app=True):
+        """
+        Does the run part of RQCFilter. Formats parameters, etc., then sends them off
+        to the BBToolsRunner to run.
+        At the end, returns the output directory, path to the run log, and the command-line string
+        that was run.
+        """
         print('Running RQCFilter. Params=')
         pprint(io_params)
         pprint(app_params)
@@ -73,7 +80,8 @@ class RQCFilterRunner:
         options = self._process_app_params_to_cli(io_params, app_params, output_dir, run_log, is_app)
         bbtools = BBToolsRunner(self.scratch_dir)
         bbtools.run(self.RQCFILTER_CMD, options, log_path=run_log)
-        return output_dir, run_log
+        cmd = [self.RQCFILTER_CMD] + options
+        return output_dir, run_log, " ".join(cmd)
 
     def _process_app_params_to_cli(self, io_params, app_params, output_dir, run_log, is_app):
         ''' given the parameters passed into the KBase App, validate them, stage the input
@@ -146,7 +154,9 @@ class RQCFilterRunner:
             if 'read_library_ref' not in params and 'reads_file' not in params:
                 raise ValueError('Error running RQCFilter local: either read_library_ref or reads_file is required')
 
-    def _save_output_to_kbase(self, io_params, app_params, output_dir, run_log):
+    def _save_output_to_kbase(self, io_params, app_params, output_dir, run_log, run_command):
+        # TODO: insert the run_command into the output log
+        #
         # read the output file list
         file_lookup = self._read_outputfile(os.path.join(output_dir, 'file-list.txt'))
 
@@ -185,7 +195,8 @@ class RQCFilterRunner:
         report_output = kr.create_extended_report(report_params)
 
         return {'report_name': report_output['name'],
-                'report_ref': report_output['ref']}
+                'report_ref': report_output['ref'],
+                'run_command': run_command}
 
     def _build_file_report(self, output_dir, run_log):
         # list of files = start with everything that's unzipped (or not .fq.gz) in output_dir

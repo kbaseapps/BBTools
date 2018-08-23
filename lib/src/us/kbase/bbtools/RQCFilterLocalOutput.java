@@ -24,6 +24,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  *     the path to the file (in the output directory) containing the filtered FASTQ reads.
  *     This will likely be compressed, if you need it decompressed, you can use
  *     DataFileUtil.unpack_file (see that module).
+ * run_command:
+ *     the string that's run on the command line with all parameters formatted, etc.
  * </pre>
  * 
  */
@@ -32,7 +34,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "output_directory",
     "run_log",
-    "filtered_fastq_file"
+    "filtered_fastq_file",
+    "run_command"
 })
 public class RQCFilterLocalOutput {
 
@@ -42,6 +45,8 @@ public class RQCFilterLocalOutput {
     private String runLog;
     @JsonProperty("filtered_fastq_file")
     private String filteredFastqFile;
+    @JsonProperty("run_command")
+    private String runCommand;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("output_directory")
@@ -89,6 +94,21 @@ public class RQCFilterLocalOutput {
         return this;
     }
 
+    @JsonProperty("run_command")
+    public String getRunCommand() {
+        return runCommand;
+    }
+
+    @JsonProperty("run_command")
+    public void setRunCommand(String runCommand) {
+        this.runCommand = runCommand;
+    }
+
+    public RQCFilterLocalOutput withRunCommand(String runCommand) {
+        this.runCommand = runCommand;
+        return this;
+    }
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
@@ -101,7 +121,7 @@ public class RQCFilterLocalOutput {
 
     @Override
     public String toString() {
-        return ((((((((("RQCFilterLocalOutput"+" [outputDirectory=")+ outputDirectory)+", runLog=")+ runLog)+", filteredFastqFile=")+ filteredFastqFile)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((((((("RQCFilterLocalOutput"+" [outputDirectory=")+ outputDirectory)+", runLog=")+ runLog)+", filteredFastqFile=")+ filteredFastqFile)+", runCommand=")+ runCommand)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

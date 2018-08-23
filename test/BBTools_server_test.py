@@ -150,6 +150,8 @@ class BBToolsTest(unittest.TestCase):
         pprint(res)
         self.assertIn('report_name', res)
         self.assertIn('report_ref', res)
+        self.assertIn('run_command', res)
+        self.assertIn('rqcfilter2.sh', run_command)
 
     def test_app_bad_parameters(self):
         pass
@@ -176,6 +178,8 @@ class BBToolsTest(unittest.TestCase):
         self.assertTrue(os.path.exists(res['filtered_fastq_file']))
         self.assertIn('run_log', res)
         self.assertTrue(os.path.exists(res['run_log']))
+        self.assertIn('run_command', res)
+        self.assertIn('rqcfilter2.sh', run_command)
 
     # @unittest.skip('skip')
     def test_run_local_reads_file(self):
@@ -197,3 +201,12 @@ class BBToolsTest(unittest.TestCase):
         self.assertTrue(os.path.exists(res['filtered_fastq_file']))
         self.assertIn('run_log', res)
         self.assertTrue(os.path.exists(res['run_log']))
+        self.assertIn('run_command', res)
+        self.assertIn('rqcfilter2.sh', run_command)
+
+    def test_get_version(self):
+        version = self.getImpl().bbtools_version(self.ctx)
+        ver_file = "/kb/module/bbmap_version"
+        with open(ver_file) as f:
+            version_from_file = f.read()
+        self.assertEqual(version, version_from_file)

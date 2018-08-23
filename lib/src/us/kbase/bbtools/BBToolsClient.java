@@ -199,6 +199,22 @@ public class BBToolsClient {
         return res.get(0);
     }
 
+    /**
+     * <p>Original spec-file function name: bbtools_version</p>
+     * <pre>
+     * Returns the semantic version of the currently installed BBTools. So something like "38.08"
+     * </pre>
+     * @return   parameter "version" of String
+     * @throws IOException if an IO exception occurs
+     * @throws JsonClientException if a JSON RPC exception occurs
+     */
+    public String bbtoolsVersion(RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+        List<Object> args = new ArrayList<Object>();
+        TypeReference<List<String>> retType = new TypeReference<List<String>>() {};
+        List<String> res = caller.jsonrpcCall("BBTools.bbtools_version", args, retType, true, false, jsonRpcContext, this.serviceVersion);
+        return res.get(0);
+    }
+
     public Map<String, Object> status(RpcContext... jsonRpcContext) throws IOException, JsonClientException {
         List<Object> args = new ArrayList<Object>();
         TypeReference<List<Map<String, Object>>> retType = new TypeReference<List<Map<String, Object>>>() {};
