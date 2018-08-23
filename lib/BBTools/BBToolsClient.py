@@ -51,9 +51,9 @@ class BBTools(object):
            against the Workspace. This doesn't cover all of the 110+
            parameters provided by rqcfilter. Those not listed here are left
            as default values, except sketch=f (as that sends data to JGI
-           servers for processing). Notes below are taken from the help
-           output from rqcfilter.sh ver 37.90 Parameters (format = param name
-           - default - description):
+           servers for processing), barcodefilter=f, and mapk=13. Notes below
+           are taken from the help output from rqcfilter2.sh ver 38.00
+           Parameters (format = param name - default - description):
            --------------------------------------------------------- library
            - frag - should be one of 'frag', 'clip', 'lfpe', or 'clrs'.
            Adapter trimming parameters: ----------------------------
@@ -116,7 +116,8 @@ class BBTools(object):
            "khist" of type "boolean" (A boolean - 0 for false, 1 for true.
            @range (0, 1))
         :returns: instance of type "RQCFilterAppOutput" -> structure:
-           parameter "report_name" of String, parameter "report_ref" of String
+           parameter "report_name" of String, parameter "report_ref" of
+           String, parameter "run_command" of String
         """
         return self._client.call_method(
             'BBTools.run_RQCFilter_app',
@@ -139,9 +140,9 @@ class BBTools(object):
            against the Workspace. This doesn't cover all of the 110+
            parameters provided by rqcfilter. Those not listed here are left
            as default values, except sketch=f (as that sends data to JGI
-           servers for processing). Notes below are taken from the help
-           output from rqcfilter.sh ver 37.90 Parameters (format = param name
-           - default - description):
+           servers for processing), barcodefilter=f, and mapk=13. Notes below
+           are taken from the help output from rqcfilter2.sh ver 38.00
+           Parameters (format = param name - default - description):
            --------------------------------------------------------- library
            - frag - should be one of 'frag', 'clip', 'lfpe', or 'clrs'.
            Adapter trimming parameters: ----------------------------
@@ -212,13 +213,24 @@ class BBTools(object):
            the file (in the output directory) containing the filtered FASTQ
            reads. This will likely be compressed, if you need it
            decompressed, you can use DataFileUtil.unpack_file (see that
-           module).) -> structure: parameter "output_directory" of String,
-           parameter "run_log" of String, parameter "filtered_fastq_file" of
-           String
+           module). run_command: the string that's run on the command line
+           with all parameters formatted, etc.) -> structure: parameter
+           "output_directory" of String, parameter "run_log" of String,
+           parameter "filtered_fastq_file" of String, parameter "run_command"
+           of String
         """
         return self._client.call_method(
             'BBTools.run_RQCFilter_local',
             [io_params, run_params], self._service_ver, context)
+
+    def bbtools_version(self, context=None):
+        """
+        Returns the semantic version of the currently installed BBTools. So something like "38.08"
+        :returns: instance of String
+        """
+        return self._client.call_method(
+            'BBTools.bbtools_version',
+            [], self._service_ver, context)
 
     def status(self, context=None):
         return self._client.call_method('BBTools.status',

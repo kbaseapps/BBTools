@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * local function that works mainly against the file system and the app that mainly works against
  * the Workspace.
  * This doesn't cover all of the 110+ parameters provided by rqcfilter. Those not listed here
- * are left as default values, except sketch=f (as that sends data to JGI servers for processing).
- * Notes below are taken from the help output from rqcfilter.sh ver 37.90
+ * are left as default values, except sketch=f (as that sends data to JGI servers for processing),
+ * barcodefilter=f, and mapk=13.
+ * Notes below are taken from the help output from rqcfilter2.sh ver 38.00
  * Parameters (format = param name - default - description):
  * ---------------------------------------------------------
  * library - frag - should be one of 'frag', 'clip', 'lfpe', or 'clrs'.

@@ -113,6 +113,7 @@ module BBTools {
     typedef structure {
         string report_name;
         string report_ref;
+        string run_command;
     } RQCFilterAppOutput;
 
 
@@ -140,11 +141,14 @@ module BBTools {
             the path to the file (in the output directory) containing the filtered FASTQ reads.
             This will likely be compressed, if you need it decompressed, you can use
             DataFileUtil.unpack_file (see that module).
+        run_command:
+            the string that's run on the command line with all parameters formatted, etc.
     */
     typedef structure {
         string output_directory;
         string run_log;
         string filtered_fastq_file;
+        string run_command;
     } RQCFilterLocalOutput;
 
     funcdef run_RQCFilter_app(RQCFilterAppParams io_params, RQCFilterParams run_params) returns (RQCFilterAppOutput output)
@@ -152,4 +156,9 @@ module BBTools {
 
     funcdef run_RQCFilter_local(RQCFilterLocalParams io_params, RQCFilterParams run_params) returns (RQCFilterLocalOutput output)
         authentication required;
+
+    /*
+        Returns the semantic version of the currently installed BBTools. So something like "38.08"
+    */
+    funcdef bbtools_version() returns (string version);
 };
