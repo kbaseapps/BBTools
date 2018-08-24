@@ -117,6 +117,19 @@ class RQCFilterRunner:
         else:
             reads_file = io_params['reads_file']
 
+        # maxmem is brought in, possibly as well.
+        # it should be removed from the build options list, as it's a special
+        # command sent to java to set memory requirements
+        mem = 50
+        if 'maxmem' in app_params:
+            try:
+                mem = int(app_params['maxmem'])
+                if mem < 1:
+                    raise ValueError()
+                del app_params['maxmem']
+            except:
+                raise ValueError('The value of maxmem must be an integer > 0.')
+
         options = build_options(app_params, available_params)
 
         # setup input/output paths
@@ -129,9 +142,11 @@ class RQCFilterRunner:
 
         # make sure that the pipeline does not call out to the external sketch servers
         options.append('sketch=f')
-
         options.append('mapk=13')
-        options.append('-Xmx50g')
+
+        # add the memory requirement at the end
+        options.append('-Xmx{}g'.format(mem))
+
         # make sure the reference data is there.
         ref_data_dir = "/data/RQCFilterData"
         if not os.path.isdir(ref_data_dir):

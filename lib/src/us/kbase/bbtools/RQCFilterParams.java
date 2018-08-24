@@ -60,6 +60,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * Other processing parameters:
  * ----------------------------
  * khist - f - Set to true to generate a kmer-frequency histogram of the output data. (included in report in the app, as a file in local function)
+ * Memory requirements (DON'T EXPOSE THESE TO APPS):
+ * -------------------------------------------------
+ * maxmem - 50 - Set maximum memory flag for RQCFilter to try to allocate. Should be an integer, in GB.
  * </pre>
  * 
  */
@@ -85,7 +88,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "clumpify",
     "dedupe",
     "opticaldupes",
-    "khist"
+    "khist",
+    "maxmem"
 })
 public class RQCFilterParams {
 
@@ -129,6 +133,8 @@ public class RQCFilterParams {
     private Long opticaldupes;
     @JsonProperty("khist")
     private Long khist;
+    @JsonProperty("maxmem")
+    private Long maxmem;
     private Map<java.lang.String, Object> additionalProperties = new HashMap<java.lang.String, Object>();
 
     @JsonProperty("library")
@@ -431,6 +437,21 @@ public class RQCFilterParams {
         return this;
     }
 
+    @JsonProperty("maxmem")
+    public Long getMaxmem() {
+        return maxmem;
+    }
+
+    @JsonProperty("maxmem")
+    public void setMaxmem(Long maxmem) {
+        this.maxmem = maxmem;
+    }
+
+    public RQCFilterParams withMaxmem(Long maxmem) {
+        this.maxmem = maxmem;
+        return this;
+    }
+
     @JsonAnyGetter
     public Map<java.lang.String, Object> getAdditionalProperties() {
         return this.additionalProperties;
@@ -443,7 +464,7 @@ public class RQCFilterParams {
 
     @Override
     public java.lang.String toString() {
-        return ((((((((((((((((((((((((((((((((((((((((((("RQCFilterParams"+" [library=")+ library)+", trimfragadapter=")+ trimfragadapter)+", qtrim=")+ qtrim)+", trimq=")+ trimq)+", maxns=")+ maxns)+", minavgquality=")+ minavgquality)+", minlength=")+ minlength)+", mlf=")+ mlf)+", removemouse=")+ removemouse)+", removecat=")+ removecat)+", removedog=")+ removedog)+", removehuman=")+ removehuman)+", removemicrobes=")+ removemicrobes)+", taxlist=")+ taxlist)+", rna=")+ rna)+", phix=")+ phix)+", clumpify=")+ clumpify)+", dedupe=")+ dedupe)+", opticaldupes=")+ opticaldupes)+", khist=")+ khist)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((((((((((((((((((((((((((((((((((((((((("RQCFilterParams"+" [library=")+ library)+", trimfragadapter=")+ trimfragadapter)+", qtrim=")+ qtrim)+", trimq=")+ trimq)+", maxns=")+ maxns)+", minavgquality=")+ minavgquality)+", minlength=")+ minlength)+", mlf=")+ mlf)+", removemouse=")+ removemouse)+", removecat=")+ removecat)+", removedog=")+ removedog)+", removehuman=")+ removehuman)+", removemicrobes=")+ removemicrobes)+", taxlist=")+ taxlist)+", rna=")+ rna)+", phix=")+ phix)+", clumpify=")+ clumpify)+", dedupe=")+ dedupe)+", opticaldupes=")+ opticaldupes)+", khist=")+ khist)+", maxmem=")+ maxmem)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }
