@@ -159,7 +159,35 @@ class BBToolsTest(unittest.TestCase):
     def test_app_missing_parameters(self):
         pass
 
-    # @unittest.skip('skip')
+    def test_local_mem_req(self):
+        lib_info = self.getPairedEndLibInfo()
+        io_params = {
+            "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
+        }
+        bbtools = self.getImpl()
+        result = bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 5 })
+        self.assertIn('report_name', res)
+        self.assertIn('report_ref', res)
+        self.assertIn('run_command', res)
+        self.assertIn('rqcfilter2.sh', run_command)
+        self.assertIn('-Xmx5g', run_command)
+
+    def test_local_bad_mem_param(self):
+        lib_info = self.getPairedEndLibInfo()
+        io_params = {
+            "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
+        }
+        bbtools = self.getImpl()
+        with self.assertRaises(ValueError) as e:
+            bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": -1 })
+        self.assertIn("The value of maxmem must be an integer > 0.", str(e.exception))
+        with self.assertRaises(ValueError) as e:
+            bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": "one" })
+        self.assertIn("The value of maxmem must be an integer > 0.", str(e.exception))
+        with self.assertRaises(ValueError) as e:
+            bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 0 })
+        self.assertIn("The value of maxmem must be an integer > 0.", str(e.exception))
+
     def test_run_local_reads_upa(self):
         lib_info = self.getPairedEndLibInfo()
         print(lib_info)
@@ -181,7 +209,6 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('run_command', res)
         self.assertIn('rqcfilter2.sh', run_command)
 
-    # @unittest.skip('skip')
     def test_run_local_reads_file(self):
         test_fastq_file_local = os.path.join('data', 'interleaved.fastq')
         test_fastq_file_scratch = os.path.join(self.scratch, os.path.basename(test_fastq_file_local))
@@ -203,6 +230,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertTrue(os.path.exists(res['run_log']))
         self.assertIn('run_command', res)
         self.assertIn('rqcfilter2.sh', run_command)
+
 
     def test_get_version(self):
         version = self.getImpl().bbtools_version(self.ctx)[0]

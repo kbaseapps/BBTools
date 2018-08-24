@@ -66,6 +66,10 @@ module BBTools {
     Other processing parameters:
     ----------------------------
     khist - f - Set to true to generate a kmer-frequency histogram of the output data. (included in report in the app, as a file in local function)
+
+    Memory requirements (DON'T EXPOSE THESE TO APPS):
+    -------------------------------------------------
+    maxmem - 50 - Set maximum memory flag for RQCFilter to try to allocate. Should be an integer, in GB.
     */
     typedef structure {
         string library;
@@ -94,6 +98,8 @@ module BBTools {
         boolean opticaldupes;
 
         boolean khist;
+
+        int maxmem;
     } RQCFilterParams;
 
 

@@ -147,6 +147,7 @@ RQCFilterParams is a reference to a hash where the following keys are defined:
 	dedupe has a value which is a BBTools.boolean
 	opticaldupes has a value which is a BBTools.boolean
 	khist has a value which is a BBTools.boolean
+	maxmem has a value which is an int
 boolean is an int
 RQCFilterAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
@@ -187,6 +188,7 @@ RQCFilterParams is a reference to a hash where the following keys are defined:
 	dedupe has a value which is a BBTools.boolean
 	opticaldupes has a value which is a BBTools.boolean
 	khist has a value which is a BBTools.boolean
+	maxmem has a value which is an int
 boolean is an int
 RQCFilterAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
@@ -291,6 +293,7 @@ RQCFilterParams is a reference to a hash where the following keys are defined:
 	dedupe has a value which is a BBTools.boolean
 	opticaldupes has a value which is a BBTools.boolean
 	khist has a value which is a BBTools.boolean
+	maxmem has a value which is an int
 boolean is an int
 RQCFilterLocalOutput is a reference to a hash where the following keys are defined:
 	output_directory has a value which is a string
@@ -331,6 +334,7 @@ RQCFilterParams is a reference to a hash where the following keys are defined:
 	dedupe has a value which is a BBTools.boolean
 	opticaldupes has a value which is a BBTools.boolean
 	khist has a value which is a BBTools.boolean
+	maxmem has a value which is an int
 boolean is an int
 RQCFilterLocalOutput is a reference to a hash where the following keys are defined:
 	output_directory has a value which is a string
@@ -651,6 +655,10 @@ Other processing parameters:
 ----------------------------
 khist - f - Set to true to generate a kmer-frequency histogram of the output data. (included in report in the app, as a file in local function)
 
+Memory requirements (DON'T EXPOSE THESE TO APPS):
+-------------------------------------------------
+maxmem - 50 - Set maximum memory flag for RQCFilter to try to allocate. Should be an integer, in GB.
+
 
 =item Definition
 
@@ -678,6 +686,7 @@ clumpify has a value which is a BBTools.boolean
 dedupe has a value which is a BBTools.boolean
 opticaldupes has a value which is a BBTools.boolean
 khist has a value which is a BBTools.boolean
+maxmem has a value which is an int
 
 </pre>
 
@@ -706,6 +715,7 @@ clumpify has a value which is a BBTools.boolean
 dedupe has a value which is a BBTools.boolean
 opticaldupes has a value which is a BBTools.boolean
 khist has a value which is a BBTools.boolean
+maxmem has a value which is an int
 
 
 =end text

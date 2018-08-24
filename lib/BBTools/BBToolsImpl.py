@@ -12,7 +12,7 @@ class BBTools:
     BBTools
 
     Module Description:
-
+    
     '''
 
     ######## WARNING FOR GEVENT USERS ####### noqa
@@ -21,9 +21,9 @@ class BBTools:
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "0.4.4"
+    VERSION = "0.4.6"
     GIT_URL = "https://github.com/briehl/BBTools"
-    GIT_COMMIT_HASH = "f52e4120ba217a443e9ab4dfcce75de549dcbd9f"
+    GIT_COMMIT_HASH = "6cdcbc7caf73e0dd4b4631371b73feaeed8a80ed"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -97,12 +97,16 @@ class BBTools:
            duplicates (Clumpify optical flag). Other processing parameters:
            ---------------------------- khist - f - Set to true to generate a
            kmer-frequency histogram of the output data. (included in report
-           in the app, as a file in local function)) -> structure: parameter
-           "library" of String, parameter "trimfragadapter" of type "boolean"
-           (A boolean - 0 for false, 1 for true. @range (0, 1)), parameter
-           "qtrim" of String, parameter "trimq" of Long, parameter "maxns" of
-           Long, parameter "minavgquality" of Long, parameter "minlength" of
-           Long, parameter "mlf" of Double, parameter "removemouse" of type
+           in the app, as a file in local function) Memory requirements
+           (DON'T EXPOSE THESE TO APPS):
+           ------------------------------------------------- maxmem - 50 -
+           Set maximum memory flag for RQCFilter to try to allocate. Should
+           be an integer, in GB.) -> structure: parameter "library" of
+           String, parameter "trimfragadapter" of type "boolean" (A boolean -
+           0 for false, 1 for true. @range (0, 1)), parameter "qtrim" of
+           String, parameter "trimq" of Long, parameter "maxns" of Long,
+           parameter "minavgquality" of Long, parameter "minlength" of Long,
+           parameter "mlf" of Double, parameter "removemouse" of type
            "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
            parameter "removecat" of type "boolean" (A boolean - 0 for false,
            1 for true. @range (0, 1)), parameter "removedog" of type
@@ -119,7 +123,7 @@ class BBTools:
            @range (0, 1)), parameter "opticaldupes" of type "boolean" (A
            boolean - 0 for false, 1 for true. @range (0, 1)), parameter
            "khist" of type "boolean" (A boolean - 0 for false, 1 for true.
-           @range (0, 1))
+           @range (0, 1)), parameter "maxmem" of Long
         :returns: instance of type "RQCFilterAppOutput" -> structure:
            parameter "report_name" of String, parameter "report_ref" of
            String, parameter "run_command" of String
@@ -196,12 +200,16 @@ class BBTools:
            duplicates (Clumpify optical flag). Other processing parameters:
            ---------------------------- khist - f - Set to true to generate a
            kmer-frequency histogram of the output data. (included in report
-           in the app, as a file in local function)) -> structure: parameter
-           "library" of String, parameter "trimfragadapter" of type "boolean"
-           (A boolean - 0 for false, 1 for true. @range (0, 1)), parameter
-           "qtrim" of String, parameter "trimq" of Long, parameter "maxns" of
-           Long, parameter "minavgquality" of Long, parameter "minlength" of
-           Long, parameter "mlf" of Double, parameter "removemouse" of type
+           in the app, as a file in local function) Memory requirements
+           (DON'T EXPOSE THESE TO APPS):
+           ------------------------------------------------- maxmem - 50 -
+           Set maximum memory flag for RQCFilter to try to allocate. Should
+           be an integer, in GB.) -> structure: parameter "library" of
+           String, parameter "trimfragadapter" of type "boolean" (A boolean -
+           0 for false, 1 for true. @range (0, 1)), parameter "qtrim" of
+           String, parameter "trimq" of Long, parameter "maxns" of Long,
+           parameter "minavgquality" of Long, parameter "minlength" of Long,
+           parameter "mlf" of Double, parameter "removemouse" of type
            "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
            parameter "removecat" of type "boolean" (A boolean - 0 for false,
            1 for true. @range (0, 1)), parameter "removedog" of type
@@ -218,7 +226,7 @@ class BBTools:
            @range (0, 1)), parameter "opticaldupes" of type "boolean" (A
            boolean - 0 for false, 1 for true. @range (0, 1)), parameter
            "khist" of type "boolean" (A boolean - 0 for false, 1 for true.
-           @range (0, 1))
+           @range (0, 1)), parameter "maxmem" of Long
         :returns: instance of type "RQCFilterLocalOutput" (The output from
            the local function version of RQCFilter. output_directory: the
            path to the output directory containing all files generated by
