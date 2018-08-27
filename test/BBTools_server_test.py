@@ -165,7 +165,7 @@ class BBToolsTest(unittest.TestCase):
             "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
         }
         bbtools = self.getImpl()
-        result = bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 5 })
+        res = bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 5 })
         self.assertIn('report_name', res)
         self.assertIn('report_ref', res)
         self.assertIn('run_command', res)
