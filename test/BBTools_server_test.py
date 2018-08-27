@@ -166,11 +166,12 @@ class BBToolsTest(unittest.TestCase):
         }
         bbtools = self.getImpl()
         res = bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 5 })
-        self.assertIn('report_name', res)
-        self.assertIn('report_ref', res)
+        self.assertIn('output_directory', res)
+        self.assertIn('filtered_fastq_file', res)
+        self.assertIn('run_log', res)
         self.assertIn('run_command', res)
-        self.assertIn('rqcfilter2.sh', run_command)
-        self.assertIn('-Xmx5g', run_command)
+        self.assertIn('rqcfilter2.sh', res['run_command'])
+        self.assertIn('-Xmx5g', res['run_command'])
 
     def test_local_bad_mem_param(self):
         lib_info = self.getPairedEndLibInfo()
