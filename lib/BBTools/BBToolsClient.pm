@@ -402,6 +402,101 @@ RQCFilterLocalOutput is a reference to a hash where the following keys are defin
  
 
 
+=head2 run_mem_estimator
+
+  $output = $obj->run_mem_estimator($params)
+
+=over 4
+
+=item Parameter and return types
+
+=begin html
+
+<pre>
+$params is a BBTools.MemEstimatorParams
+$output is a BBTools.MemEstimatorOutput
+MemEstimatorParams is a reference to a hash where the following keys are defined:
+	reads_file has a value which is a string
+	reads_file2 has a value which is a string
+MemEstimatorOutput is a reference to a hash where the following keys are defined:
+	estimate has a value which is a float
+
+</pre>
+
+=end html
+
+=begin text
+
+$params is a BBTools.MemEstimatorParams
+$output is a BBTools.MemEstimatorOutput
+MemEstimatorParams is a reference to a hash where the following keys are defined:
+	reads_file has a value which is a string
+	reads_file2 has a value which is a string
+MemEstimatorOutput is a reference to a hash where the following keys are defined:
+	estimate has a value which is a float
+
+
+=end text
+
+=item Description
+
+This is a local function that estimates how much memory SPAdes or metaSPAdes needs
+to assemble a paired end library.
+
+Returns a float, representing the estimated memory use in GB.
+
+=back
+
+=cut
+
+ sub run_mem_estimator
+{
+    my($self, @args) = @_;
+
+# Authentication: none
+
+    if ((my $n = @args) != 1)
+    {
+	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
+							       "Invalid argument count for function run_mem_estimator (received $n, expecting 1)");
+    }
+    {
+	my($params) = @args;
+
+	my @_bad_arguments;
+        (ref($params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"params\" (value was \"$params\")");
+        if (@_bad_arguments) {
+	    my $msg = "Invalid arguments passed to run_mem_estimator:\n" . join("", map { "\t$_\n" } @_bad_arguments);
+	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+								   method_name => 'run_mem_estimator');
+	}
+    }
+
+    my $url = $self->{url};
+    my $result = $self->{client}->call($url, $self->{headers}, {
+	    method => "BBTools.run_mem_estimator",
+	    params => \@args,
+    });
+    if ($result) {
+	if ($result->is_error) {
+	    Bio::KBase::Exceptions::JSONRPC->throw(error => $result->error_message,
+					       code => $result->content->{error}->{code},
+					       method_name => 'run_mem_estimator',
+					       data => $result->content->{error}->{error} # JSON::RPC::ReturnObject only supports JSONRPC 1.1 or 1.O
+					      );
+	} else {
+	    return wantarray ? @{$result->result} : $result->result->[0];
+	}
+    } else {
+        Bio::KBase::Exceptions::HTTP->throw(error => "Error invoking method run_mem_estimator",
+					    status_line => $self->{client}->status_line,
+					    method_name => 'run_mem_estimator',
+				       );
+    }
+}
+ 
+
+
 =head2 bbtools_version
 
   $version = $obj->bbtools_version()
@@ -886,6 +981,80 @@ output_directory has a value which is a string
 run_log has a value which is a string
 filtered_fastq_file has a value which is a string
 run_command has a value which is a string
+
+
+=end text
+
+=back
+
+
+
+=head2 MemEstimatorParams
+
+=over 4
+
+
+
+=item Description
+
+reads_file - path to a paired end reads file. If this is here alone, expect it to
+             be interleaved.
+reads_file2 - path to the pair of the first file.
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+reads_file has a value which is a string
+reads_file2 has a value which is a string
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+reads_file has a value which is a string
+reads_file2 has a value which is a string
+
+
+=end text
+
+=back
+
+
+
+=head2 MemEstimatorOutput
+
+=over 4
+
+
+
+=item Description
+
+estimate - the estimated amount of memory required to assemble the paired end files, in GB.
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+estimate has a value which is a float
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+estimate has a value which is a float
 
 
 =end text

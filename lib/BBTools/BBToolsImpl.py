@@ -3,6 +3,7 @@
 import os
 
 from BBTools.utils.RQCFilterRunner import RQCFilterRunner
+from BBTools.utils.MemEstimatorRunner import MemEstimatorRunner
 #END_HEADER
 
 
@@ -12,7 +13,7 @@ class BBTools:
     BBTools
 
     Module Description:
-    
+
     '''
 
     ######## WARNING FOR GEVENT USERS ####### noqa
@@ -23,7 +24,7 @@ class BBTools:
     ######################################### noqa
     VERSION = "0.4.6"
     GIT_URL = "https://github.com/briehl/BBTools"
-    GIT_COMMIT_HASH = "6cdcbc7caf73e0dd4b4631371b73feaeed8a80ed"
+    GIT_COMMIT_HASH = "0e7df3fdbe0dceaff7271827f7fd77a855776676"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -256,6 +257,37 @@ class BBTools:
         # return the results
         return [output]
 
+    def run_mem_estimator(self, ctx, params):
+        """
+        This is a local function that estimates how much memory SPAdes or metaSPAdes needs
+        to assemble a paired end library.
+        Returns a float, representing the estimated memory use in GB.
+        :param params: instance of type "MemEstimatorParams" (reads_file -
+           path to a paired end reads file. If this is here alone, expect it
+           to be interleaved. reads_file2 - path to the pair of the first
+           file.) -> structure: parameter "reads_file" of String, parameter
+           "reads_file2" of String
+        :returns: instance of type "MemEstimatorOutput" (estimate - the
+           estimated amount of memory required to assemble the paired end
+           files, in GB.) -> structure: parameter "estimate" of Double
+        """
+        # ctx is the context object
+        # return variables are: output
+        #BEGIN run_mem_estimator
+        runner = MemEstimatorRunner(params)
+        result = runner.run()
+        output = {
+            "estimate": result
+        }
+        #END run_mem_estimator
+
+        # At some point might do deeper type checking...
+        if not isinstance(output, dict):
+            raise ValueError('Method run_mem_estimator return value ' +
+                             'output is not type dict as required.')
+        # return the results
+        return [output]
+
     def bbtools_version(self, ctx):
         """
         Returns the semantic version of the currently installed BBTools. So something like "38.08"
@@ -278,6 +310,7 @@ class BBTools:
                              'version is not type basestring as required.')
         # return the results
         return [version]
+
     def status(self, ctx):
         #BEGIN_STATUS
         returnVal = {'state': "OK",

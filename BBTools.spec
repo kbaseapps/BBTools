@@ -164,6 +164,31 @@ module BBTools {
         authentication required;
 
     /*
+        reads_file - path to a reads file. If this is here alone, expect it to
+                     be interleaved.
+        reads_file2 - path to the pair of the first file.
+    */
+    typedef structure {
+        string reads_file;
+        string reads_file2;
+    } MemEstimatorParams;
+
+    /*
+        estimate - the estimated amount of memory required to assemble the paired end files, in GB.
+    */
+    typedef structure {
+        float estimate;
+    } MemEstimatorOutput;
+
+    /*
+        This is a local function that estimates how much memory SPAdes or metaSPAdes needs
+        to assemble a paired end library.
+
+        Returns a float, representing the estimated memory use in GB.
+    */
+    funcdef run_mem_estimator(MemEstimatorParams params) returns (MemEstimatorOutput output);
+
+    /*
         Returns the semantic version of the currently installed BBTools. So something like "38.08"
     */
     funcdef bbtools_version() returns (string version);

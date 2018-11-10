@@ -231,6 +231,24 @@ class BBTools(object):
             'BBTools.run_RQCFilter_local',
             [io_params, run_params], self._service_ver, context)
 
+    def run_mem_estimator(self, params, context=None):
+        """
+        This is a local function that estimates how much memory SPAdes or metaSPAdes needs
+        to assemble a paired end library.
+        Returns a float, representing the estimated memory use in GB.
+        :param params: instance of type "MemEstimatorParams" (reads_file -
+           path to a paired end reads file. If this is here alone, expect it
+           to be interleaved. reads_file2 - path to the pair of the first
+           file.) -> structure: parameter "reads_file" of String, parameter
+           "reads_file2" of String
+        :returns: instance of type "MemEstimatorOutput" (estimate - the
+           estimated amount of memory required to assemble the paired end
+           files, in GB.) -> structure: parameter "estimate" of Double
+        """
+        return self._client.call_method(
+            'BBTools.run_mem_estimator',
+            [params], self._service_ver, context)
+
     def bbtools_version(self, context=None):
         """
         Returns the semantic version of the currently installed BBTools. So something like "38.08"
