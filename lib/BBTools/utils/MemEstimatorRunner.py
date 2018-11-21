@@ -32,7 +32,6 @@ class MemEstimatorRunner(object):
         process = subprocess.Popen(cmd, stderr=subprocess.PIPE)
         output = str(process.communicate()[1])
 
-        print(output)
         m = re.search(r'Unique 31-mers:\s*(\d+)', output)
         if m is not None:
             uniq_kmers = m.group(1)
