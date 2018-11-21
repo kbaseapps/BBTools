@@ -200,6 +200,26 @@ public class BBToolsClient {
     }
 
     /**
+     * <p>Original spec-file function name: run_mem_estimator</p>
+     * <pre>
+     * This is a local function that estimates how much memory SPAdes or metaSPAdes needs
+     * to assemble a paired end library.
+     * Returns a float, representing the estimated memory use in GB.
+     * </pre>
+     * @param   params   instance of type {@link us.kbase.bbtools.MemEstimatorParams MemEstimatorParams}
+     * @return   parameter "output" of type {@link us.kbase.bbtools.MemEstimatorOutput MemEstimatorOutput}
+     * @throws IOException if an IO exception occurs
+     * @throws JsonClientException if a JSON RPC exception occurs
+     */
+    public MemEstimatorOutput runMemEstimator(MemEstimatorParams params, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+        List<Object> args = new ArrayList<Object>();
+        args.add(params);
+        TypeReference<List<MemEstimatorOutput>> retType = new TypeReference<List<MemEstimatorOutput>>() {};
+        List<MemEstimatorOutput> res = caller.jsonrpcCall("BBTools.run_mem_estimator", args, retType, true, false, jsonRpcContext, this.serviceVersion);
+        return res.get(0);
+    }
+
+    /**
      * <p>Original spec-file function name: bbtools_version</p>
      * <pre>
      * Returns the semantic version of the currently installed BBTools. So something like "38.08"

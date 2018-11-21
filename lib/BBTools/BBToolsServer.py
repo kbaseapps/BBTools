@@ -341,6 +341,10 @@ class Application(object):
                              name='BBTools.run_RQCFilter_local',
                              types=[dict, dict])
         self.method_authentication['BBTools.run_RQCFilter_local'] = 'required'  # noqa
+        self.rpc_service.add(impl_BBTools.run_mem_estimator,
+                             name='BBTools.run_mem_estimator',
+                             types=[dict])
+        self.method_authentication['BBTools.run_mem_estimator'] = 'none'  # noqa
         self.rpc_service.add(impl_BBTools.bbtools_version,
                              name='BBTools.bbtools_version',
                              types=[])
