@@ -1,0 +1,5 @@
+# bad file!
+# really bad file!
+ad;lfkjas;ldkfja;lkdfj
+:#@%@&(*!
+hopefully this throws errors
