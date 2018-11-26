@@ -41,7 +41,7 @@ class MemEstimatorTest(unittest.TestCase):
     def test_mem_estimator_ok_unit(self):
         in_file = "data/interleaved.fastq"
         params = {
-            "file": in_file
+            "reads_file": in_file
         }
         runner = MemEstimatorRunner(params)
         estimate = runner.run()
@@ -49,8 +49,8 @@ class MemEstimatorTest(unittest.TestCase):
 
     def test_mem_estimator_ok_pair(self):
         params = {
-            "file": "data/small.forward.fq",
-            "file2": "data/small.reverse.fq"
+            "reads_file": "data/small.forward.fq",
+            "reads_file2": "data/small.reverse.fq"
         }
         runner = MemEstimatorRunner(params)
         estimate = runner.run()
@@ -59,8 +59,8 @@ class MemEstimatorTest(unittest.TestCase):
     def test_mem_estimator_pair_dups(self):
         in_file = "data/interleaved.fastq"
         params = {
-            "file": in_file,
-            "file2": in_file
+            "reads_file": in_file,
+            "reads_file2": in_file
         }
         with self.assertRaises(ValueError) as e:
             MemEstimatorRunner(params)
@@ -69,7 +69,7 @@ class MemEstimatorTest(unittest.TestCase):
     def test_mem_estimator_bad_file(self):
         in_file = "data/bad_reads.txt"
         params = {
-            "file": in_file
+            "reads_file": in_file
         }
         with self.assertRaises(ValueError) as e:
             MemEstimatorRunner(params).run()
@@ -89,15 +89,15 @@ class MemEstimatorTest(unittest.TestCase):
         ctx = self.getContext()
         in_file = "data/interleaved.fastq"
         params = {
-            "file": in_file
+            "reads_file": in_file
         }
         res = impl.run_mem_estimator(ctx, params)[0]
         self.assertIn("estimate", res)
         self.assertGreater(res["estimate"], 0)
 
         params = {
-            "file": "data/small.forward.fq",
-            "file2": "data/small.reverse.fq"
+            "reads_file": "data/small.forward.fq",
+            "reads_file2": "data/small.reverse.fq"
         }
         res = impl.run_mem_estimator(ctx, params)[0]
         self.assertIn("estimate", res)
@@ -108,12 +108,15 @@ class MemEstimatorTest(unittest.TestCase):
         ctx = self.getContext()
         with self.assertRaises(ValueError) as e:
             MemEstimatorRunner({})
-        self.assertIn('Parameter "file" must be present!', str(e.exception))
+        self.assertIn('Parameter "reads_file" must be present!', str(e.exception))
 
         with self.assertRaises(ValueError) as e:
-            impl.run_mem_estimator(ctx, {"file": "not_real"})
+            impl.run_mem_estimator(ctx, {"reads_file": "not_real"})
         self.assertIn("The file not_real does not seem to exist, or is a directory", str(e.exception))
 
         with self.assertRaises(ValueError) as e:
-            impl.run_mem_estimator(ctx, {"file": "data/interleaved.fastq", "file2": "not_real2"})
+            impl.run_mem_estimator(ctx, {
+                "reads_file": "data/interleaved.fastq",
+                "reads_file2": "not_real2"}
+            )
         self.assertIn("The file not_real2 does not seem to exist, or is a directory", str(e.exception))
