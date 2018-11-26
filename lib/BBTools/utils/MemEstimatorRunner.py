@@ -23,8 +23,17 @@ class MemEstimatorRunner(object):
             raise ValueError("If two files are present, they must be different.")
 
     def run(self):
+        """
+        Returns dict with the following keys:
+            estimate - estimated amount of memory (in GB) required to assemble the reads
+            size - size on disk of reads files in GB
+        """
         # use reformat.sh from bbtools to calculate unique 31mers
         # cmd="./bbmap/reformat.sh in=" + reads + " cardinality"
+        total_bytes = os.path.getsize(self.file)
+        if self.file2:
+            total_bytes = total_bytes + os.path.getsize(self.file2)
+
         cmd = [REFORMAT_PATH, "in="+self.file]
         if self.file2:
             cmd.append("in2="+self.file2)
@@ -50,4 +59,7 @@ class MemEstimatorRunner(object):
         # if ram_in_gigs > limit:
         #     print ("Job requires too much RAM (>" + str(limit) + "). [Estimate was {0:.2f}G]".format(ram_in_gigs))
         #     sys.exit(0)
-        return ram_in_gigs
+        return {
+            "estimate": ram_in_gigs,
+            "size": float(total_bytes) / 1024**3
+        }

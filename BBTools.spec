@@ -175,9 +175,11 @@ module BBTools {
 
     /*
         estimate - the estimated amount of memory required to assemble the paired end files, in GB.
+        size - the total disk space in GB used by the reads files.
     */
     typedef structure {
         float estimate;
+        float size;
     } MemEstimatorOutput;
 
     /*
