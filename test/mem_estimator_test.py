@@ -45,7 +45,8 @@ class MemEstimatorTest(unittest.TestCase):
         }
         runner = MemEstimatorRunner(params)
         estimate = runner.run()
-        self.assertGreater(estimate, 0)
+        self.assertGreater(estimate["estimate"], 0)
+        self.assertGreater(estimate["size"], 0)
 
     def test_mem_estimator_ok_pair(self):
         params = {
@@ -54,7 +55,8 @@ class MemEstimatorTest(unittest.TestCase):
         }
         runner = MemEstimatorRunner(params)
         estimate = runner.run()
-        self.assertGreater(estimate, 0)
+        self.assertGreater(estimate["estimate"], 0)
+        self.assertGreater(estimate["size"], 0)
 
     def test_mem_estimator_pair_dups(self):
         in_file = "data/interleaved.fastq"
@@ -102,6 +104,8 @@ class MemEstimatorTest(unittest.TestCase):
         res = impl.run_mem_estimator(ctx, params)[0]
         self.assertIn("estimate", res)
         self.assertGreater(res["estimate"], 0)
+        self.assertIn("size", res)
+        self.assertGreater(res["size"], 0)
 
     def test_bad_inputs(self):
         impl = self.getImpl()

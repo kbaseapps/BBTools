@@ -275,10 +275,7 @@ class BBTools:
         # return variables are: output
         #BEGIN run_mem_estimator
         runner = MemEstimatorRunner(params)
-        result = runner.run()
-        output = {
-            "estimate": result
-        }
+        output = runner.run()
         #END run_mem_estimator
 
         # At some point might do deeper type checking...
