@@ -7,13 +7,13 @@ REFORMAT_PATH = "/kb/module/bbmap/reformat.sh"
 
 class MemEstimatorRunner(object):
     def __init__(self, params):
-        self.file = params.get('file')
-        self.file2 = params.get('file2')
+        self.file = params.get('reads_file')
+        self.file2 = params.get('reads_file2')
         self.check_params()
 
     def check_params(self):
         if not self.file:
-            raise ValueError('Parameter "file" must be present!')
+            raise ValueError('Parameter "reads_file" must be present!')
         if not os.path.exists(self.file) and not os.path.isfile(self.file):
             raise ValueError('The file {} does not seem to exist, or is a directory'.format(self.file))
         if self.file2:
