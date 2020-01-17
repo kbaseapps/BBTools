@@ -13,7 +13,7 @@ class BBTools:
     BBTools
 
     Module Description:
-
+    
     '''
 
     ######## WARNING FOR GEVENT USERS ####### noqa
@@ -22,9 +22,9 @@ class BBTools:
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "0.4.6"
-    GIT_URL = "https://github.com/briehl/BBTools"
-    GIT_COMMIT_HASH = "0e7df3fdbe0dceaff7271827f7fd77a855776676"
+    VERSION = "1.0.0"
+    GIT_URL = "https://github.com/dcchivian/BBTools"
+    GIT_COMMIT_HASH = "cdfefe87f15639c14de2d7ad137920b892a8e35b"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -38,6 +38,49 @@ class BBTools:
         #END_CONSTRUCTOR
         pass
 
+
+    def run_BBMap(self, ctx, params):
+        """
+        :param params: instance of type "BBMapInputParams" (BBMap method (and
+           App)) -> structure: parameter "workspace_name" of type
+           "workspace_name" (A workspace_name - alphanumeric + '.' + '_' +
+           '-' only permitted characters), parameter "in_assembly_ref" of
+           type "data_obj_ref" (A data_obj_ref - address of form
+           'WS_NAME/OBJ_NAME', 'WS_NAME/OBJ_NAME/VERSION', or 'WS_ID/OBJ_ID',
+           or 'WS_ID/OBJ_ID/VERSION'), parameter "in_readslib_ref" of type
+           "data_obj_ref" (A data_obj_ref - address of form
+           'WS_NAME/OBJ_NAME', 'WS_NAME/OBJ_NAME/VERSION', or 'WS_ID/OBJ_ID',
+           or 'WS_ID/OBJ_ID/VERSION'), parameter "out_obj_name" of type
+           "data_obj_name" (A data_obj_name - alphanumeric + '.' + '_' + '-'
+           only permitted characters), parameter "out_mode" of String,
+           parameter "input_parameter_suite" of String, parameter
+           "use_modulo" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "speed_mode" of String, parameter
+           "min_id" of Double, parameter "bandwidth" of String, parameter
+           "min_hits" of Long, parameter "kmer_len" of Long, parameter
+           "max_indel" of Long, parameter "strict_max_indel" of type
+           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
+           parameter "subfilter_thresh" of Long, parameter "delfilter_thresh"
+           of Long, parameter "require_correct_strand" of type "boolean" (A
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "perfect_mode" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "semiperfect_mode" of type
+           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
+           parameter "qual_score_mode" of Long
+        :returns: instance of type "BBMapOutputParams" -> structure:
+           parameter "report_name" of String, parameter "report_ref" of String
+        """
+        # ctx is the context object
+        # return variables are: output
+        #BEGIN run_BBMap
+        #END run_BBMap
+
+        # At some point might do deeper type checking...
+        if not isinstance(output, dict):
+            raise ValueError('Method run_BBMap return value ' +
+                             'output is not type dict as required.')
+        # return the results
+        return [output]
 
     def run_RQCFilter_app(self, ctx, io_params, run_params):
         """
@@ -263,13 +306,15 @@ class BBTools:
         to assemble a paired end library.
         Returns a float, representing the estimated memory use in GB.
         :param params: instance of type "MemEstimatorParams" (reads_file -
-           path to a paired end reads file. If this is here alone, expect it
-           to be interleaved. reads_file2 - path to the pair of the first
-           file.) -> structure: parameter "reads_file" of String, parameter
+           path to a reads file. If this is here alone, expect it to be
+           interleaved. reads_file2 - path to the pair of the first file.) ->
+           structure: parameter "reads_file" of String, parameter
            "reads_file2" of String
         :returns: instance of type "MemEstimatorOutput" (estimate - the
            estimated amount of memory required to assemble the paired end
-           files, in GB.) -> structure: parameter "estimate" of Double
+           files, in GB. size - the total disk space in GB used by the reads
+           files.) -> structure: parameter "estimate" of Double, parameter
+           "size" of Double
         """
         # ctx is the context object
         # return variables are: output
@@ -302,12 +347,11 @@ class BBTools:
         #END bbtools_version
 
         # At some point might do deeper type checking...
-        if not isinstance(version, basestring):
+        if not isinstance(version, str):
             raise ValueError('Method bbtools_version return value ' +
-                             'version is not type basestring as required.')
+                             'version is not type str as required.')
         # return the results
         return [version]
-
     def status(self, ctx):
         #BEGIN_STATUS
         returnVal = {'state': "OK",

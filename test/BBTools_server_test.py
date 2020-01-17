@@ -12,12 +12,12 @@ except:
 
 from pprint import pprint
 
-from ReadsUtils.ReadsUtilsClient import ReadsUtils
+from installed_clients.ReadsUtilsClient import ReadsUtils
 
-from biokbase.workspace.client import Workspace as workspaceService
+from installed_clients.WorkspaceClient import Workspace as workspaceService
+from installed_clients.authclient import KBaseAuth as _KBaseAuth
 from BBTools.BBToolsImpl import BBTools
 from BBTools.BBToolsServer import MethodContext
-from BBTools.authclient import KBaseAuth as _KBaseAuth
 
 
 class BBToolsTest(unittest.TestCase):
@@ -78,7 +78,7 @@ class BBToolsTest(unittest.TestCase):
 
         # copy the local test file to the shared scratch space so that the ReadsUtils
         # container can see it.
-        test_fastq_file_local = 'data/interleaved.fastq'
+        test_fastq_file_local = os.path.join('data', 'reads', 'interleaved.fastq')
         test_fastq_file_scratch = os.path.join(self.scratch, os.path.basename(test_fastq_file_local))
         shutil.copy(test_fastq_file_local, test_fastq_file_scratch)
 
@@ -101,8 +101,9 @@ class BBToolsTest(unittest.TestCase):
     def getContext(self):
         return self.__class__.ctx
 
-    # @unittest.skip('skip')
-    def test_basic_app(self):
+        
+    @unittest.skip('skip test_RQCFilter_basic_app()')  # Uncomment to skip
+    def test_RQCFilter_basic_app(self):
         # get the test reads library
         lib_info = self.getPairedEndLibInfo()
         print(lib_info)
@@ -119,7 +120,8 @@ class BBToolsTest(unittest.TestCase):
         print('result:')
         pprint(res)
 
-    def test_app_jgi_parameters(self):
+    @unittest.skip('skip test_RQCFilter_app_jgi_parameters()')  # Uncomment to skip
+    def test_RQCFilter_app_jgi_parameters(self):
         lib_info = self.getPairedEndLibInfo()
         io_params = {
             'read_library_ref': "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
@@ -153,13 +155,16 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('run_command', res)
         self.assertIn('rqcfilter2.sh', run_command)
 
-    def test_app_bad_parameters(self):
+    @unittest.skip('skip test_RQCFilter_app_bad_parameters()')  # Uncomment to skip
+    def test_RQCFilter_app_bad_parameters(self):
         pass
 
-    def test_app_missing_parameters(self):
+    @unittest.skip('skip test_RQCFilter_app_missing_parameters()')  # Uncomment to skip
+    def test_RQCFilter_app_missing_parameters(self):
         pass
 
-    def test_local_mem_req(self):
+    @unittest.skip('skip test_RQCFilter_local_mem_req()')  # Uncomment to skip
+    def test_RQCFilter_local_mem_req(self):
         lib_info = self.getPairedEndLibInfo()
         io_params = {
             "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
@@ -173,7 +178,8 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('rqcfilter2.sh', res['run_command'])
         self.assertIn('-Xmx5g', res['run_command'])
 
-    def test_local_bad_mem_param(self):
+    @unittest.skip('skip test_RQCFilter_local_bad_mem_param()')  # Uncomment to skip
+    def test_RQCFilter_local_bad_mem_param(self):
         lib_info = self.getPairedEndLibInfo()
         io_params = {
             "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
@@ -189,7 +195,8 @@ class BBToolsTest(unittest.TestCase):
             bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 0 })
         self.assertIn("The value of maxmem must be an integer > 0.", str(e.exception))
 
-    def test_run_local_reads_upa(self):
+    @unittest.skip('skip test_RQCFilter_run_local_reads_upa()')  # Uncomment to skip
+    def test_RQCFilter_run_local_reads_upa(self):
         lib_info = self.getPairedEndLibInfo()
         print(lib_info)
 
@@ -210,8 +217,9 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('run_command', res)
         self.assertIn('rqcfilter2.sh', run_command)
 
-    def test_run_local_reads_file(self):
-        test_fastq_file_local = os.path.join('data', 'interleaved.fastq')
+    @unittest.skip('skip test_RQCFilter_run_local_reads_file()')  # Uncomment to skip
+    def test_RQCFilter_run_local_reads_file(self):
+        test_fastq_file_local = os.path.join('data', 'reads', 'interleaved.fastq')
         test_fastq_file_scratch = os.path.join(self.scratch, os.path.basename(test_fastq_file_local))
         shutil.copy(test_fastq_file_local, test_fastq_file_scratch)
 
@@ -232,8 +240,8 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('run_command', res)
         self.assertIn('rqcfilter2.sh', run_command)
 
-
-    def test_get_version(self):
+    # HIDE @unittest.skip('skip test_BBTools_get_version()')  # Uncomment to skip
+    def test_BBTools_get_version(self):
         version = self.getImpl().bbtools_version(self.ctx)[0]
         ver_file = "/kb/module/bbmap_version"
         with open(ver_file) as f:

@@ -162,6 +162,23 @@ public class BBToolsClient {
     }
 
     /**
+     * <p>Original spec-file function name: run_BBMap</p>
+     * <pre>
+     * </pre>
+     * @param   params   instance of type {@link us.kbase.bbtools.BBMapInputParams BBMapInputParams}
+     * @return   parameter "output" of type {@link us.kbase.bbtools.BBMapOutputParams BBMapOutputParams}
+     * @throws IOException if an IO exception occurs
+     * @throws JsonClientException if a JSON RPC exception occurs
+     */
+    public BBMapOutputParams runBBMap(BBMapInputParams params, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+        List<Object> args = new ArrayList<Object>();
+        args.add(params);
+        TypeReference<List<BBMapOutputParams>> retType = new TypeReference<List<BBMapOutputParams>>() {};
+        List<BBMapOutputParams> res = caller.jsonrpcCall("BBTools.run_BBMap", args, retType, true, true, jsonRpcContext, this.serviceVersion);
+        return res.get(0);
+    }
+
+    /**
      * <p>Original spec-file function name: run_RQCFilter_app</p>
      * <pre>
      * </pre>

@@ -4,8 +4,8 @@ Fetching data, re-uploading from file, zipping files into a report, etc.
 """
 import os
 import errno
-from ReadsUtils.ReadsUtilsClient import ReadsUtils
-from DataFileUtil.DataFileUtilClient import DataFileUtil
+from installed_clients.ReadsUtilsClient import ReadsUtils
+from installed_clients.DataFileUtilClient import DataFileUtil
 
 
 def download_interleaved_reads(callback_url, reads_upa):

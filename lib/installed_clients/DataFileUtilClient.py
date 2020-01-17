@@ -12,10 +12,9 @@ from __future__ import print_function
 try:
     # baseclient and this client are in a package
     from .baseclient import BaseClient as _BaseClient  # @UnusedImport
-except:
+except ImportError:
     # no they aren't
     from baseclient import BaseClient as _BaseClient  # @Reimport
-import time
 
 
 class DataFileUtil(object):
@@ -24,7 +23,7 @@ class DataFileUtil(object):
             self, url=None, timeout=30 * 60, user_id=None,
             password=None, token=None, ignore_authrc=False,
             trust_all_ssl_certificates=False,
-            auth_svc='https://kbase.us/services/authorization/Sessions/Login',
+            auth_svc='https://ci.kbase.us/services/auth/api/legacy/KBase/Sessions/Login',
             service_ver='release',
             async_job_check_time_ms=100, async_job_check_time_scale_percent=150, 
             async_job_check_max_time_ms=300000):
@@ -39,14 +38,6 @@ class DataFileUtil(object):
             async_job_check_time_ms=async_job_check_time_ms,
             async_job_check_time_scale_percent=async_job_check_time_scale_percent,
             async_job_check_max_time_ms=async_job_check_max_time_ms)
-
-    def _check_job(self, job_id):
-        return self._client._check_job('DataFileUtil', job_id)
-
-    def _shock_to_file_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.shock_to_file', [params],
-             self._service_ver, context)
 
     def shock_to_file(self, params, context=None):
         """
@@ -84,22 +75,8 @@ class DataFileUtil(object):
            parameter "file_path" of String, parameter "size" of Long,
            parameter "attributes" of mapping from String to unspecified object
         """
-        job_id = self._shock_to_file_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _shock_to_file_mass_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.shock_to_file_mass', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.shock_to_file',
+                                    [params], self._service_ver, context)
 
     def shock_to_file_mass(self, params, context=None):
         """
@@ -137,22 +114,8 @@ class DataFileUtil(object):
            parameter "file_path" of String, parameter "size" of Long,
            parameter "attributes" of mapping from String to unspecified object
         """
-        job_id = self._shock_to_file_mass_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _file_to_shock_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.file_to_shock', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.shock_to_file_mass',
+                                    [params], self._service_ver, context)
 
     def file_to_shock(self, params, context=None):
         """
@@ -160,26 +123,27 @@ class DataFileUtil(object):
         :param params: instance of type "FileToShockParams" (Input for the
            file_to_shock function. Required parameters: file_path - the
            location of the file (or directory if using the pack parameter) to
-           load to Shock. Optional parameters: attributes - user-specified
-           attributes to save to the Shock node along with the file.
-           make_handle - make a Handle Service handle for the shock node.
-           Default false. pack - compress a file or archive a directory
-           before loading to Shock. The file_path argument will be appended
-           with the appropriate file extension prior to writing. For gzips
-           only, if the file extension denotes that the file is already
-           compressed, it will be skipped. If file_path is a directory and
-           tarring or zipping is specified, the created file name will be set
-           to the directory name, possibly overwriting an existing file.
-           Attempting to pack the root directory is an error. Do not attempt
-           to pack the scratch space root as noted in the module description.
-           The allowed values are: gzip - gzip the file given by file_path.
-           targz - tar and gzip the directory specified by the directory
-           portion of the file_path into the file specified by the file_path.
-           zip - as targz but zip the directory.) -> structure: parameter
-           "file_path" of String, parameter "attributes" of mapping from
-           String to unspecified object, parameter "make_handle" of type
-           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
-           parameter "pack" of String
+           load to Shock. Optional parameters: attributes - DEPRECATED:
+           attributes are currently ignored by the upload function and will
+           be removed entirely in a future version. User-specified attributes
+           to save to the Shock node along with the file. make_handle - make
+           a Handle Service handle for the shock node. Default false. pack -
+           compress a file or archive a directory before loading to Shock.
+           The file_path argument will be appended with the appropriate file
+           extension prior to writing. For gzips only, if the file extension
+           denotes that the file is already compressed, it will be skipped.
+           If file_path is a directory and tarring or zipping is specified,
+           the created file name will be set to the directory name, possibly
+           overwriting an existing file. Attempting to pack the root
+           directory is an error. Do not attempt to pack the scratch space
+           root as noted in the module description. The allowed values are:
+           gzip - gzip the file given by file_path. targz - tar and gzip the
+           directory specified by the directory portion of the file_path into
+           the file specified by the file_path. zip - as targz but zip the
+           directory.) -> structure: parameter "file_path" of String,
+           parameter "attributes" of mapping from String to unspecified
+           object, parameter "make_handle" of type "boolean" (A boolean - 0
+           for false, 1 for true. @range (0, 1)), parameter "pack" of String
         :returns: instance of type "FileToShockOutput" (Output of the
            file_to_shock function. shock_id - the ID of the new Shock node.
            handle - the new handle, if created. Null otherwise.
@@ -196,22 +160,8 @@ class DataFileUtil(object):
            parameter "type" of String, parameter "remote_md5" of String,
            parameter "node_file_name" of String, parameter "size" of String
         """
-        job_id = self._file_to_shock_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _unpack_file_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.unpack_file', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.file_to_shock',
+                                    [params], self._service_ver, context)
 
     def unpack_file(self, params, context=None):
         """
@@ -225,22 +175,8 @@ class DataFileUtil(object):
         :returns: instance of type "UnpackFileResult" -> structure: parameter
            "file_path" of String
         """
-        job_id = self._unpack_file_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _pack_file_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.pack_file', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.unpack_file',
+                                    [params], self._service_ver, context)
 
     def pack_file(self, params, context=None):
         """
@@ -266,22 +202,8 @@ class DataFileUtil(object):
            pack_file function. file_path - the path to the packed file.) ->
            structure: parameter "file_path" of String
         """
-        job_id = self._pack_file_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _package_for_download_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.package_for_download', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.pack_file',
+                                    [params], self._service_ver, context)
 
     def package_for_download(self, params, context=None):
         """
@@ -298,11 +220,13 @@ class DataFileUtil(object):
            produce info-files in JSON format containing workspace metadata
            and provenance structures. It produces new files in folder pointed
            by file_path (or folder containing file pointed by file_path if
-           it's not folder). Optional parameters: attributes - user-specified
-           attributes to save to the Shock node along with the file.) ->
-           structure: parameter "file_path" of String, parameter "attributes"
-           of mapping from String to unspecified object, parameter "ws_refs"
-           of list of String
+           it's not folder). Optional parameters: attributes - DEPRECATED:
+           attributes are currently ignored by the upload function and will
+           be removed entirely in a future version. User-specified attributes
+           to save to the Shock node along with the file.) -> structure:
+           parameter "file_path" of String, parameter "attributes" of mapping
+           from String to unspecified object, parameter "ws_refs" of list of
+           String
         :returns: instance of type "PackageForDownloadOutput" (Output of the
            package_for_download function. shock_id - the ID of the new Shock
            node. node_file_name - the name of the file stored in Shock. size
@@ -310,22 +234,8 @@ class DataFileUtil(object):
            "shock_id" of String, parameter "node_file_name" of String,
            parameter "size" of String
         """
-        job_id = self._package_for_download_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _file_to_shock_mass_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.file_to_shock_mass', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.package_for_download',
+                                    [params], self._service_ver, context)
 
     def file_to_shock_mass(self, params, context=None):
         """
@@ -334,7 +244,9 @@ class DataFileUtil(object):
            for the file_to_shock function. Required parameters: file_path -
            the location of the file (or directory if using the pack
            parameter) to load to Shock. Optional parameters: attributes -
-           user-specified attributes to save to the Shock node along with the
+           DEPRECATED: attributes are currently ignored by the upload
+           function and will be removed entirely in a future version.
+           User-specified attributes to save to the Shock node along with the
            file. make_handle - make a Handle Service handle for the shock
            node. Default false. pack - compress a file or archive a directory
            before loading to Shock. The file_path argument will be appended
@@ -369,22 +281,8 @@ class DataFileUtil(object):
            parameter "type" of String, parameter "remote_md5" of String,
            parameter "node_file_name" of String, parameter "size" of String
         """
-        job_id = self._file_to_shock_mass_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _copy_shock_node_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.copy_shock_node', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.file_to_shock_mass',
+                                    [params], self._service_ver, context)
 
     def copy_shock_node(self, params, context=None):
         """
@@ -410,22 +308,8 @@ class DataFileUtil(object):
            of String, parameter "type" of String, parameter "remote_md5" of
            String
         """
-        job_id = self._copy_shock_node_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _own_shock_node_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.own_shock_node', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.copy_shock_node',
+                                    [params], self._service_ver, context)
 
     def own_shock_node(self, params, context=None):
         """
@@ -459,22 +343,8 @@ class DataFileUtil(object):
            of String, parameter "type" of String, parameter "remote_md5" of
            String
         """
-        job_id = self._own_shock_node_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _ws_name_to_id_submit(self, name, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.ws_name_to_id', [name],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.own_shock_node',
+                                    [params], self._service_ver, context)
 
     def ws_name_to_id(self, name, context=None):
         """
@@ -482,22 +352,8 @@ class DataFileUtil(object):
         :param name: instance of String
         :returns: instance of Long
         """
-        job_id = self._ws_name_to_id_submit(name, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _save_objects_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.save_objects', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.ws_name_to_id',
+                                    [name], self._service_ver, context)
 
     def save_objects(self, params, context=None):
         """
@@ -521,11 +377,24 @@ class DataFileUtil(object):
            metadata extraction with the 'meta ws' annotation, and your
            metadata name conflicts, then your metadata will be silently
            overwritten. hidden - true if this object should not be listed
-           when listing workspace objects.) -> structure: parameter "type" of
+           when listing workspace objects. extra_provenance_input_refs -
+           (optional) if set, these refs will be appended to the primary
+           ProveanceAction input_ws_objects reference list. In general, if
+           the input WS object ref was passed in from a narrative App, this
+           will be set for you. However, there are cases where the object ref
+           passed to the App is a container, and you are operating on a
+           member or subobject of the container, in which case to maintain
+           that direct mapping to those subobjects in the provenance of new
+           objects, you can provide additional object refs here. For example,
+           if the input is a ReadsSet, and your App creates a new WS object
+           for each read library in the set, you may want a direct reference
+           from each new WS object not only to the set, but also to the
+           individual read library.) -> structure: parameter "type" of
            String, parameter "data" of unspecified object, parameter "name"
            of String, parameter "objid" of Long, parameter "meta" of mapping
            from String to String, parameter "hidden" of type "boolean" (A
-           boolean - 0 for false, 1 for true. @range (0, 1))
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "extra_provenance_input_refs" of list of String
         :returns: instance of list of type "object_info" (Information about
            an object, including user provided metadata. objid - the numerical
            id of the object. name - the name of the object. type - the type
@@ -542,22 +411,8 @@ class DataFileUtil(object):
            parameter "chsum" of String, parameter "size" of Long, parameter
            "meta" of mapping from String to String
         """
-        job_id = self._save_objects_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _get_objects_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.get_objects', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.save_objects',
+                                    [params], self._service_ver, context)
 
     def get_objects(self, params, context=None):
         """
@@ -567,12 +422,18 @@ class DataFileUtil(object):
            a list of object references in the form X/Y/Z, where X is the
            workspace name or id, Y is the object name or id, and Z is the
            (optional) object version. In general, always use ids rather than
-           names if possible to avoid race conditions. Optional parameters:
-           ignore_errors - ignore any errors that occur when fetching an
-           object and instead insert a null into the returned list.) ->
-           structure: parameter "object_refs" of list of String, parameter
-           "ignore_errors" of type "boolean" (A boolean - 0 for false, 1 for
-           true. @range (0, 1))
+           names if possible to avoid race conditions. A reference path may
+           be specified by separating references by a semicolon, e.g.
+           4/5/6;5/7/2;8/9/4 specifies that the user wishes to retrieve the
+           fourth version of the object with id 9 in workspace 8, and that
+           there exists a reference path from the sixth version of the object
+           with id 5 in workspace 4, to which the user has access. The user
+           may or may not have access to workspaces 5 and 8. Optional
+           parameters: ignore_errors - ignore any errors that occur when
+           fetching an object and instead insert a null into the returned
+           list.) -> structure: parameter "object_refs" of list of String,
+           parameter "ignore_errors" of type "boolean" (A boolean - 0 for
+           false, 1 for true. @range (0, 1))
         :returns: instance of type "GetObjectsResults" (Results from the
            get_objects function. list<ObjectData> data - the returned
            objects.) -> structure: parameter "data" of list of type
@@ -596,22 +457,8 @@ class DataFileUtil(object):
            parameter "chsum" of String, parameter "size" of Long, parameter
            "meta" of mapping from String to String
         """
-        job_id = self._get_objects_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _versions_submit(self, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.versions', [],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.get_objects',
+                                    [params], self._service_ver, context)
 
     def versions(self, context=None):
         """
@@ -619,22 +466,8 @@ class DataFileUtil(object):
         :returns: multiple set - (1) parameter "wsver" of String, (2)
            parameter "shockver" of String
         """
-        job_id = self._versions_submit(context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result']
-
-    def _download_staging_file_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.download_staging_file', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.versions',
+                                    [], self._service_ver, context)
 
     def download_staging_file(self, params, context=None):
         """
@@ -652,22 +485,8 @@ class DataFileUtil(object):
            scratch area path) -> structure: parameter "copy_file_path" of
            String
         """
-        job_id = self._download_staging_file_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
-
-    def _download_web_file_submit(self, params, context=None):
-        return self._client._submit_job(
-             'DataFileUtil.download_web_file', [params],
-             self._service_ver, context)
+        return self._client.run_job('DataFileUtil.download_staging_file',
+                                    [params], self._service_ver, context)
 
     def download_web_file(self, params, context=None):
         """
@@ -681,28 +500,9 @@ class DataFileUtil(object):
            download_web_file function. copy_file_path: copied file scratch
            area path) -> structure: parameter "copy_file_path" of String
         """
-        job_id = self._download_web_file_submit(params, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
+        return self._client.run_job('DataFileUtil.download_web_file',
+                                    [params], self._service_ver, context)
 
     def status(self, context=None):
-        job_id = self._client._submit_job('DataFileUtil.status', 
-            [], self._service_ver, context)
-        async_job_check_time = self._client.async_job_check_time
-        while True:
-            time.sleep(async_job_check_time)
-            async_job_check_time = (async_job_check_time *
-                self._client.async_job_check_time_scale_percent / 100.0)
-            if async_job_check_time > self._client.async_job_check_max_time:
-                async_job_check_time = self._client.async_job_check_max_time
-            job_state = self._check_job(job_id)
-            if job_state['finished']:
-                return job_state['result'][0]
+        return self._client.run_job('DataFileUtil.status',
+                                    [], self._service_ver, context)

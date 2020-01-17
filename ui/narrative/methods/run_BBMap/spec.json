@@ -1,0 +1,364 @@
+{
+    "ver": "1.0.0",
+    "authors": [
+        "dylan"
+    ],
+    "contact": "",
+    "categories": ["active", "reads"],
+    "widgets": {
+        "input": null,
+        "output": "no-display"
+    },
+    "parameters": [
+        {
+            "id": "in_assembly_ref",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": true,
+            "default_values": [ "" ],
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types": [
+                    "KBaseGenomeAnnotations.Assembly",
+                    "KBaseSets.AssemblySet",
+                    "KBaseSearch.GenomeSet",
+                    "KBaseSets.GenomeSet",
+                    "KBaseGenomes.Genome",
+		    "KBaseMetagenomes.BinnedContigs"
+                ]
+            }
+        },
+        {
+            "id": "in_readslib_ref",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": null,
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types": [
+                    "KBaseFile.PairedEndLibrary",
+                    "KBaseFile.SingleEndLibrary",
+                    "KBaseAssembly.PairedEndLibrary",
+                    "KBaseAssembly.SingleEndLibrary"
+                ]
+            }
+        },
+        {
+            "id": "out_obj_name",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": null,
+            "field_type": "text",
+            "text_options": {
+                "is_output_name": true,
+                "valid_ws_types": [
+                    "KBaseFile.PairedEndLibrary",
+                    "KBaseFile.SingleEndLibrary",
+                    "KBaseSets.ReadsSet"
+                ]
+            }
+        },
+        {
+            "id" : "out_mode",
+            "optional" : false,
+            "advanced" : false,
+            "allow_multiple" : false,
+            "default_values" : [ "split_reads" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [
+		{
+                  "value": "split_reads",
+                  "display": "Get both MAPPED and UNMAPPED reads"
+                },
+                {
+                  "value": "mapped_reads",
+                  "display": "Get just MAPPED reads"
+                },
+                {
+                  "value": "unmapped_reads",
+                  "display": "Get just UNMAPPED reads"
+                },
+                {
+                  "value": "bam",
+                  "display": "Get BAM alignment mapping (no object saved at this time)"
+                }
+              ]
+            }
+        },
+        {
+            "id" : "input_parameter_suite",
+            "optional" : true,
+            "advanced" : false,
+            "allow_multiple" : false,
+            "default_values" : [ "" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [
+		{
+                  "value": "BLAH BLAH BLAH",
+                  "display": "Bacteria and Archaea - high accuracy, slow speed: "
+                },
+		{
+                  "value": "BLAH BLAH BLAH",
+                  "display": "Bacteria and Archaea - default mode: "
+                },
+		{
+                  "value": "BLAH BLAH BLAH",
+                  "display": "Bacteria and Archaea - lower accuracy but faster: "
+                },
+		{
+                  "value": "BLAH BLAH BLAH",
+                  "display": "Eukaryotes - high accuracy, slower speed: "
+                },
+		{
+                  "value": "BLAH BLAH BLAH",
+                  "display": "Eukaryotes - default mode: "
+                },
+		{
+                  "value": "BLAH BLAH BLAH",
+                  "display": "Eukaryotes - lower accuracy but faster: "
+                }
+              ]
+            }
+        },
+        {
+            "id" : "speed_mode",
+            "optional" : true,
+            "advanced" : true,
+            "allow_multiple" : false,
+            "default_values" : [ "default" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [
+		{
+                  "value": "vslow",
+                  "display": "very slow"
+                },
+		{
+                  "value": "slow",
+                  "display": "slow"
+                },
+		{
+                  "value": "default",
+                  "display": "default"
+                },
+		{
+                  "value": "fast",
+                  "display": "fast"
+                }
+              ]
+            }
+        },
+        {
+            "id": "min_id",
+            "optional": false,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": 0.9,
+            "field_type": "text",
+            "text_options": {
+		"validate_as": "float",
+		"min_float": 0.0,
+		"max_float": 1.0
+            }
+        },
+        {
+            "id": "kmer_len",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": "",
+            "field_type": "text",
+            "text_options": {
+		"validate_as": "int",
+		"min_int": 0,
+		"max_int": 100
+            }
+        },
+        {
+            "id": "max_indel",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": "",
+            "field_type": "text",
+            "text_options": {
+		"validate_as": "int",
+		"min_int": 0,
+		"max_int": 100000000
+            }
+        },
+        {
+            "id" : "strict_max_indel",
+            "optional" : true,
+            "advanced" : true,
+            "allow_multiple" : false,
+            "default_values" : [ "OFF" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [
+		{
+                  "value": "ON",
+                  "display": "DO enforce strict max-indel"
+                },
+		{
+                  "value": "OFF",
+                  "display": "DON'T enforce strict max-indel"
+                }
+              ]
+            }
+        },
+        {
+            "id": "subfilter_thresh",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": "",
+            "field_type": "text",
+            "text_options": {
+		"validate_as": "int",
+		"min_int": 0,
+		"max_int": 1000
+            }
+        },
+        {
+            "id": "delfilter_thresh",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": "",
+            "field_type": "text",
+            "text_options": {
+		"validate_as": "int",
+		"min_int": 0,
+		"max_int": 1000
+            }
+        },
+        {
+            "id" : "require_correct_strand",
+            "optional" : true,
+            "advanced" : true,
+            "allow_multiple" : false,
+            "default_values" : [ "ON" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [
+		{
+                  "value": "ON",
+                  "display": "Match pairs to opposite strands"
+                },
+		{
+                  "value": "OFF",
+                  "display": "Paired Reads may match either strand"
+                }
+              ]
+            }
+        },
+        {
+            "id" : "qual_score_mode",
+            "optional" : true,
+            "advanced" : true,
+            "allow_multiple" : false,
+            "default_values" : [ "33" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [
+		{
+                  "value": "33",
+                  "display": "Phred 33"
+                },
+		{
+                  "value": "64",
+                  "display": "Phred 64"
+                }
+              ]
+            }
+        }
+
+    ],
+    "behavior": {
+        "service-mapping": {
+            "url": "",
+            "name": "BBTools",
+            "method": "run_BBMap",
+            "input_mapping": [
+                {
+                    "narrative_system_variable": "workspace",
+                    "target_property": "workspace_name"
+                },
+                {
+                    "input_parameter": "in_assembly_ref",
+                    "target_property": "in_assembly_ref",
+                    "target_type_transform": "list<resolved-ref>"
+                },
+                {
+                    "input_parameter": "in_readslib_ref",
+                    "target_property": "in_readslib_ref",
+                    "target_type_transform": "resolved-ref"
+                },
+                {
+                    "input_parameter": "out_obj_name",
+                    "target_property": "out_obj_name"
+                },
+                {
+                    "input_parameter": "out_mode",
+                    "target_property": "out_mode"
+                },
+                {
+                    "input_parameter": "input_parameter_suite",
+                    "target_property": "input_parameter_suite"
+                },
+                {
+                    "input_parameter": "speed_mode",
+                    "target_property": "speed_mode"
+                },
+                {
+                    "input_parameter": "min_id",
+                    "target_property": "min_id"
+                },
+                {
+                    "input_parameter": "kmer_len",
+                    "target_property": "kmer_len"
+                },
+                {
+                    "input_parameter": "max_indel",
+                    "target_property": "max_indel"
+                },
+                {
+                    "input_parameter": "strict_max_indel",
+                    "target_property": "strict_max_indel"
+                },
+                {
+                    "input_parameter": "subfilter_thresh",
+                    "target_property": "subfilter_thresh"
+                },
+                {
+                    "input_parameter": "delfilter_thresh",
+                    "target_property": "delfilter_thresh"
+                },
+                {
+                    "input_parameter": "require_correct_strand",
+                    "target_property": "require_correct_strand"
+                },
+                {
+                    "input_parameter": "qual_score_mode",
+                    "target_property": "qual_score_mode"
+                }
+            ],
+            "output_mapping": [
+                {
+                    "service_method_output_path": [0, "report_name"],
+                    "target_property": "report_name"
+                },
+                {
+                    "service_method_output_path": [0, "report_ref"],
+                    "target_property": "report_ref"
+                }
+            ]
+        }
+    },
+    "job_id_output_field": "docker"
+}

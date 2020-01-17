@@ -1,7 +1,7 @@
 import unittest
 from BBTools.BBToolsImpl import BBTools
 from BBTools.BBToolsServer import MethodContext
-from BBTools.authclient import KBaseAuth as _KBaseAuth
+from installed_clients.authclient import KBaseAuth as _KBaseAuth
 from BBTools.utils.MemEstimatorRunner import MemEstimatorRunner
 import os
 try:
@@ -39,7 +39,7 @@ class MemEstimatorTest(unittest.TestCase):
         cls.callback_url = os.environ['SDK_CALLBACK_URL']
 
     def test_mem_estimator_ok_unit(self):
-        in_file = "data/interleaved.fastq"
+        in_file = os.path.join('data','reads','interleaved.fastq')
         params = {
             "reads_file": in_file
         }
@@ -50,8 +50,8 @@ class MemEstimatorTest(unittest.TestCase):
 
     def test_mem_estimator_ok_pair(self):
         params = {
-            "reads_file": "data/small.forward.fq",
-            "reads_file2": "data/small.reverse.fq"
+            "reads_file": os.path.join('data','reads','small.forward.fq'),
+            "reads_file2": os.path.join('data','reads','small.reverse.fq')
         }
         runner = MemEstimatorRunner(params)
         estimate = runner.run()
@@ -59,7 +59,7 @@ class MemEstimatorTest(unittest.TestCase):
         self.assertGreater(estimate["size"], 0)
 
     def test_mem_estimator_pair_dups(self):
-        in_file = "data/interleaved.fastq"
+        in_file = os.path.join('data','reads','interleaved.fastq')
         params = {
             "reads_file": in_file,
             "reads_file2": in_file
@@ -69,7 +69,7 @@ class MemEstimatorTest(unittest.TestCase):
         self.assertIn("If two files are present, they must be different.", str(e.exception))
 
     def test_mem_estimator_bad_file(self):
-        in_file = "data/bad_reads.txt"
+        in_file = os.path.join('data','reads','bad_reads.txt')
         params = {
             "reads_file": in_file
         }
@@ -89,7 +89,7 @@ class MemEstimatorTest(unittest.TestCase):
     def test_mem_estimator_e2e(self):
         impl = self.getImpl()
         ctx = self.getContext()
-        in_file = "data/interleaved.fastq"
+        in_file = os.path.join('data','reads','interleaved.fastq')
         params = {
             "reads_file": in_file
         }
@@ -98,8 +98,8 @@ class MemEstimatorTest(unittest.TestCase):
         self.assertGreater(res["estimate"], 0)
 
         params = {
-            "reads_file": "data/small.forward.fq",
-            "reads_file2": "data/small.reverse.fq"
+            "reads_file": os.path.join('data','reads','small.forward.fq'),
+            "reads_file2": os.path.join('data','reads','small.reverse.fq')
         }
         res = impl.run_mem_estimator(ctx, params)[0]
         self.assertIn("estimate", res)
@@ -120,7 +120,7 @@ class MemEstimatorTest(unittest.TestCase):
 
         with self.assertRaises(ValueError) as e:
             impl.run_mem_estimator(ctx, {
-                "reads_file": "data/interleaved.fastq",
+                "reads_file": os.path.join('data','reads','interleaved.fastq'),
                 "reads_file2": "not_real2"}
             )
         self.assertIn("The file not_real2 does not seem to exist, or is a directory", str(e.exception))
