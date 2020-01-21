@@ -287,65 +287,80 @@
             "input_mapping": [
                 {
                     "narrative_system_variable": "workspace",
-                    "target_property": "workspace_name"
+                    "target_property": "workspace_name",
+		    "target_argument_position": 0
                 },
                 {
                     "input_parameter": "in_assembly_ref",
                     "target_property": "in_assembly_ref",
-                    "target_type_transform": "list<resolved-ref>"
+                    "target_type_transform": "list<resolved-ref>",
+		    "target_argument_position": 0
                 },
                 {
                     "input_parameter": "in_readslib_ref",
                     "target_property": "in_readslib_ref",
-                    "target_type_transform": "resolved-ref"
+                    "target_type_transform": "resolved-ref",
+		    "target_argument_position": 0
                 },
                 {
                     "input_parameter": "out_obj_name",
-                    "target_property": "out_obj_name"
+                    "target_property": "out_obj_name",
+		    "target_argument_position": 0
                 },
                 {
                     "input_parameter": "out_mode",
-                    "target_property": "out_mode"
+                    "target_property": "out_mode",
+		    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "input_parameter_suite",
-                    "target_property": "input_parameter_suite"
+                    "target_property": "input_parameter_suite",
+		    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "speed_mode",
-                    "target_property": "speed_mode"
+                    "target_property": "speed_mode",
+		    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "min_id",
-                    "target_property": "min_id"
+                    "target_property": "min_id",
+		    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "kmer_len",
-                    "target_property": "kmer_len"
+                    "target_property": "kmer_len",
+		    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "max_indel",
-                    "target_property": "max_indel"
+                    "target_property": "max_indel",
+		    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "strict_max_indel",
-                    "target_property": "strict_max_indel"
+                    "target_property": "strict_max_indel",
+		    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "subfilter_thresh",
-                    "target_property": "subfilter_thresh"
+                    "target_property": "subfilter_thresh",
+		    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "delfilter_thresh",
-                    "target_property": "delfilter_thresh"
+                    "target_property": "delfilter_thresh",
+		    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "require_correct_strand",
-                    "target_property": "require_correct_strand"
+                    "target_property": "require_correct_strand",
+		    "target_argument_position": 1
                 },
                 {
                     "input_parameter": "qual_score_mode",
-                    "target_property": "qual_score_mode"
+                    "target_property": "qual_score_mode",
+		    "target_argument_position": 1
                 }
             ],
             "output_mapping": [

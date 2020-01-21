@@ -12,19 +12,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * <p>Original spec-file type: BBMapInputParams</p>
+ * <p>Original spec-file type: BBMapParams</p>
  * <pre>
- * BBMap method (and App)
+ * BBMap method (App and Local)
  * </pre>
  * 
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
 @JsonPropertyOrder({
-    "workspace_name",
-    "in_assembly_ref",
-    "in_readslib_ref",
-    "out_obj_name",
     "out_mode",
     "input_parameter_suite",
     "use_modulo",
@@ -42,16 +38,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "semiperfect_mode",
     "qual_score_mode"
 })
-public class BBMapInputParams {
+public class BBMapParams {
 
-    @JsonProperty("workspace_name")
-    private String workspaceName;
-    @JsonProperty("in_assembly_ref")
-    private String inAssemblyRef;
-    @JsonProperty("in_readslib_ref")
-    private String inReadslibRef;
-    @JsonProperty("out_obj_name")
-    private String outObjName;
     @JsonProperty("out_mode")
     private String outMode;
     @JsonProperty("input_parameter_suite")
@@ -86,66 +74,6 @@ public class BBMapInputParams {
     private Long qualScoreMode;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("workspace_name")
-    public String getWorkspaceName() {
-        return workspaceName;
-    }
-
-    @JsonProperty("workspace_name")
-    public void setWorkspaceName(String workspaceName) {
-        this.workspaceName = workspaceName;
-    }
-
-    public BBMapInputParams withWorkspaceName(String workspaceName) {
-        this.workspaceName = workspaceName;
-        return this;
-    }
-
-    @JsonProperty("in_assembly_ref")
-    public String getInAssemblyRef() {
-        return inAssemblyRef;
-    }
-
-    @JsonProperty("in_assembly_ref")
-    public void setInAssemblyRef(String inAssemblyRef) {
-        this.inAssemblyRef = inAssemblyRef;
-    }
-
-    public BBMapInputParams withInAssemblyRef(String inAssemblyRef) {
-        this.inAssemblyRef = inAssemblyRef;
-        return this;
-    }
-
-    @JsonProperty("in_readslib_ref")
-    public String getInReadslibRef() {
-        return inReadslibRef;
-    }
-
-    @JsonProperty("in_readslib_ref")
-    public void setInReadslibRef(String inReadslibRef) {
-        this.inReadslibRef = inReadslibRef;
-    }
-
-    public BBMapInputParams withInReadslibRef(String inReadslibRef) {
-        this.inReadslibRef = inReadslibRef;
-        return this;
-    }
-
-    @JsonProperty("out_obj_name")
-    public String getOutObjName() {
-        return outObjName;
-    }
-
-    @JsonProperty("out_obj_name")
-    public void setOutObjName(String outObjName) {
-        this.outObjName = outObjName;
-    }
-
-    public BBMapInputParams withOutObjName(String outObjName) {
-        this.outObjName = outObjName;
-        return this;
-    }
-
     @JsonProperty("out_mode")
     public String getOutMode() {
         return outMode;
@@ -156,7 +84,7 @@ public class BBMapInputParams {
         this.outMode = outMode;
     }
 
-    public BBMapInputParams withOutMode(String outMode) {
+    public BBMapParams withOutMode(String outMode) {
         this.outMode = outMode;
         return this;
     }
@@ -171,7 +99,7 @@ public class BBMapInputParams {
         this.inputParameterSuite = inputParameterSuite;
     }
 
-    public BBMapInputParams withInputParameterSuite(String inputParameterSuite) {
+    public BBMapParams withInputParameterSuite(String inputParameterSuite) {
         this.inputParameterSuite = inputParameterSuite;
         return this;
     }
@@ -186,7 +114,7 @@ public class BBMapInputParams {
         this.useModulo = useModulo;
     }
 
-    public BBMapInputParams withUseModulo(Long useModulo) {
+    public BBMapParams withUseModulo(Long useModulo) {
         this.useModulo = useModulo;
         return this;
     }
@@ -201,7 +129,7 @@ public class BBMapInputParams {
         this.speedMode = speedMode;
     }
 
-    public BBMapInputParams withSpeedMode(String speedMode) {
+    public BBMapParams withSpeedMode(String speedMode) {
         this.speedMode = speedMode;
         return this;
     }
@@ -216,7 +144,7 @@ public class BBMapInputParams {
         this.minId = minId;
     }
 
-    public BBMapInputParams withMinId(Double minId) {
+    public BBMapParams withMinId(Double minId) {
         this.minId = minId;
         return this;
     }
@@ -231,7 +159,7 @@ public class BBMapInputParams {
         this.bandwidth = bandwidth;
     }
 
-    public BBMapInputParams withBandwidth(String bandwidth) {
+    public BBMapParams withBandwidth(String bandwidth) {
         this.bandwidth = bandwidth;
         return this;
     }
@@ -246,7 +174,7 @@ public class BBMapInputParams {
         this.minHits = minHits;
     }
 
-    public BBMapInputParams withMinHits(Long minHits) {
+    public BBMapParams withMinHits(Long minHits) {
         this.minHits = minHits;
         return this;
     }
@@ -261,7 +189,7 @@ public class BBMapInputParams {
         this.kmerLen = kmerLen;
     }
 
-    public BBMapInputParams withKmerLen(Long kmerLen) {
+    public BBMapParams withKmerLen(Long kmerLen) {
         this.kmerLen = kmerLen;
         return this;
     }
@@ -276,7 +204,7 @@ public class BBMapInputParams {
         this.maxIndel = maxIndel;
     }
 
-    public BBMapInputParams withMaxIndel(Long maxIndel) {
+    public BBMapParams withMaxIndel(Long maxIndel) {
         this.maxIndel = maxIndel;
         return this;
     }
@@ -291,7 +219,7 @@ public class BBMapInputParams {
         this.strictMaxIndel = strictMaxIndel;
     }
 
-    public BBMapInputParams withStrictMaxIndel(Long strictMaxIndel) {
+    public BBMapParams withStrictMaxIndel(Long strictMaxIndel) {
         this.strictMaxIndel = strictMaxIndel;
         return this;
     }
@@ -306,7 +234,7 @@ public class BBMapInputParams {
         this.subfilterThresh = subfilterThresh;
     }
 
-    public BBMapInputParams withSubfilterThresh(Long subfilterThresh) {
+    public BBMapParams withSubfilterThresh(Long subfilterThresh) {
         this.subfilterThresh = subfilterThresh;
         return this;
     }
@@ -321,7 +249,7 @@ public class BBMapInputParams {
         this.delfilterThresh = delfilterThresh;
     }
 
-    public BBMapInputParams withDelfilterThresh(Long delfilterThresh) {
+    public BBMapParams withDelfilterThresh(Long delfilterThresh) {
         this.delfilterThresh = delfilterThresh;
         return this;
     }
@@ -336,7 +264,7 @@ public class BBMapInputParams {
         this.requireCorrectStrand = requireCorrectStrand;
     }
 
-    public BBMapInputParams withRequireCorrectStrand(Long requireCorrectStrand) {
+    public BBMapParams withRequireCorrectStrand(Long requireCorrectStrand) {
         this.requireCorrectStrand = requireCorrectStrand;
         return this;
     }
@@ -351,7 +279,7 @@ public class BBMapInputParams {
         this.perfectMode = perfectMode;
     }
 
-    public BBMapInputParams withPerfectMode(Long perfectMode) {
+    public BBMapParams withPerfectMode(Long perfectMode) {
         this.perfectMode = perfectMode;
         return this;
     }
@@ -366,7 +294,7 @@ public class BBMapInputParams {
         this.semiperfectMode = semiperfectMode;
     }
 
-    public BBMapInputParams withSemiperfectMode(Long semiperfectMode) {
+    public BBMapParams withSemiperfectMode(Long semiperfectMode) {
         this.semiperfectMode = semiperfectMode;
         return this;
     }
@@ -381,7 +309,7 @@ public class BBMapInputParams {
         this.qualScoreMode = qualScoreMode;
     }
 
-    public BBMapInputParams withQualScoreMode(Long qualScoreMode) {
+    public BBMapParams withQualScoreMode(Long qualScoreMode) {
         this.qualScoreMode = qualScoreMode;
         return this;
     }
@@ -398,7 +326,7 @@ public class BBMapInputParams {
 
     @Override
     public String toString() {
-        return ((((((((((((((((((((((((((((((((((((((((((("BBMapInputParams"+" [workspaceName=")+ workspaceName)+", inAssemblyRef=")+ inAssemblyRef)+", inReadslibRef=")+ inReadslibRef)+", outObjName=")+ outObjName)+", outMode=")+ outMode)+", inputParameterSuite=")+ inputParameterSuite)+", useModulo=")+ useModulo)+", speedMode=")+ speedMode)+", minId=")+ minId)+", bandwidth=")+ bandwidth)+", minHits=")+ minHits)+", kmerLen=")+ kmerLen)+", maxIndel=")+ maxIndel)+", strictMaxIndel=")+ strictMaxIndel)+", subfilterThresh=")+ subfilterThresh)+", delfilterThresh=")+ delfilterThresh)+", requireCorrectStrand=")+ requireCorrectStrand)+", perfectMode=")+ perfectMode)+", semiperfectMode=")+ semiperfectMode)+", qualScoreMode=")+ qualScoreMode)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((((((((((((((((((((((((((((((("BBMapParams"+" [outMode=")+ outMode)+", inputParameterSuite=")+ inputParameterSuite)+", useModulo=")+ useModulo)+", speedMode=")+ speedMode)+", minId=")+ minId)+", bandwidth=")+ bandwidth)+", minHits=")+ minHits)+", kmerLen=")+ kmerLen)+", maxIndel=")+ maxIndel)+", strictMaxIndel=")+ strictMaxIndel)+", subfilterThresh=")+ subfilterThresh)+", delfilterThresh=")+ delfilterThresh)+", requireCorrectStrand=")+ requireCorrectStrand)+", perfectMode=")+ perfectMode)+", semiperfectMode=")+ semiperfectMode)+", qualScoreMode=")+ qualScoreMode)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

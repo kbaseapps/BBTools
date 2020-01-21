@@ -110,7 +110,7 @@ sub new
 
 =head2 run_BBMap
 
-  $output = $obj->run_BBMap($params)
+  $output = $obj->run_BBMap($io_params, $run_params)
 
 =over 4
 
@@ -119,13 +119,18 @@ sub new
 =begin html
 
 <pre>
-$params is a BBTools.BBMapInputParams
-$output is a BBTools.BBMapOutputParams
-BBMapInputParams is a reference to a hash where the following keys are defined:
+$io_params is a BBTools.BBMapAppParams
+$run_params is a BBTools.BBMapParams
+$output is a BBTools.BBMapAppOutput
+BBMapAppParams is a reference to a hash where the following keys are defined:
 	workspace_name has a value which is a BBTools.workspace_name
 	in_assembly_ref has a value which is a BBTools.data_obj_ref
 	in_readslib_ref has a value which is a BBTools.data_obj_ref
 	out_obj_name has a value which is a BBTools.data_obj_name
+workspace_name is a string
+data_obj_ref is a string
+data_obj_name is a string
+BBMapParams is a reference to a hash where the following keys are defined:
 	out_mode has a value which is a string
 	input_parameter_suite has a value which is a string
 	use_modulo has a value which is a BBTools.boolean
@@ -142,11 +147,8 @@ BBMapInputParams is a reference to a hash where the following keys are defined:
 	perfect_mode has a value which is a BBTools.boolean
 	semiperfect_mode has a value which is a BBTools.boolean
 	qual_score_mode has a value which is an int
-workspace_name is a string
-data_obj_ref is a string
-data_obj_name is a string
 boolean is an int
-BBMapOutputParams is a reference to a hash where the following keys are defined:
+BBMapAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
 	report_ref has a value which is a string
 
@@ -156,13 +158,18 @@ BBMapOutputParams is a reference to a hash where the following keys are defined:
 
 =begin text
 
-$params is a BBTools.BBMapInputParams
-$output is a BBTools.BBMapOutputParams
-BBMapInputParams is a reference to a hash where the following keys are defined:
+$io_params is a BBTools.BBMapAppParams
+$run_params is a BBTools.BBMapParams
+$output is a BBTools.BBMapAppOutput
+BBMapAppParams is a reference to a hash where the following keys are defined:
 	workspace_name has a value which is a BBTools.workspace_name
 	in_assembly_ref has a value which is a BBTools.data_obj_ref
 	in_readslib_ref has a value which is a BBTools.data_obj_ref
 	out_obj_name has a value which is a BBTools.data_obj_name
+workspace_name is a string
+data_obj_ref is a string
+data_obj_name is a string
+BBMapParams is a reference to a hash where the following keys are defined:
 	out_mode has a value which is a string
 	input_parameter_suite has a value which is a string
 	use_modulo has a value which is a BBTools.boolean
@@ -179,11 +186,8 @@ BBMapInputParams is a reference to a hash where the following keys are defined:
 	perfect_mode has a value which is a BBTools.boolean
 	semiperfect_mode has a value which is a BBTools.boolean
 	qual_score_mode has a value which is an int
-workspace_name is a string
-data_obj_ref is a string
-data_obj_name is a string
 boolean is an int
-BBMapOutputParams is a reference to a hash where the following keys are defined:
+BBMapAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
 	report_ref has a value which is a string
 
@@ -204,16 +208,17 @@ BBMapOutputParams is a reference to a hash where the following keys are defined:
 
 # Authentication: required
 
-    if ((my $n = @args) != 1)
+    if ((my $n = @args) != 2)
     {
 	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
-							       "Invalid argument count for function run_BBMap (received $n, expecting 1)");
+							       "Invalid argument count for function run_BBMap (received $n, expecting 2)");
     }
     {
-	my($params) = @args;
+	my($io_params, $run_params) = @args;
 
 	my @_bad_arguments;
-        (ref($params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"params\" (value was \"$params\")");
+        (ref($io_params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"io_params\" (value was \"$io_params\")");
+        (ref($run_params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 2 \"run_params\" (value was \"$run_params\")");
         if (@_bad_arguments) {
 	    my $msg = "Invalid arguments passed to run_BBMap:\n" . join("", map { "\t$_\n" } @_bad_arguments);
 	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
@@ -240,6 +245,145 @@ BBMapOutputParams is a reference to a hash where the following keys are defined:
         Bio::KBase::Exceptions::HTTP->throw(error => "Error invoking method run_BBMap",
 					    status_line => $self->{client}->status_line,
 					    method_name => 'run_BBMap',
+				       );
+    }
+}
+ 
+
+
+=head2 run_BBMap_local
+
+  $output = $obj->run_BBMap_local($io_params, $run_params)
+
+=over 4
+
+=item Parameter and return types
+
+=begin html
+
+<pre>
+$io_params is a BBTools.BBMapLocalParams
+$run_params is a BBTools.BBMapParams
+$output is a BBTools.BBMapLocalOutput
+BBMapLocalParams is a reference to a hash where the following keys are defined:
+	in_assembly_path has a value which is a BBTools.file_path
+	in_readslib_path has a value which is a BBTools.file_path
+	out_file_basename has a value which is a BBTools.file_path
+file_path is a string
+BBMapParams is a reference to a hash where the following keys are defined:
+	out_mode has a value which is a string
+	input_parameter_suite has a value which is a string
+	use_modulo has a value which is a BBTools.boolean
+	speed_mode has a value which is a string
+	min_id has a value which is a float
+	bandwidth has a value which is a string
+	min_hits has a value which is an int
+	kmer_len has a value which is an int
+	max_indel has a value which is an int
+	strict_max_indel has a value which is a BBTools.boolean
+	subfilter_thresh has a value which is an int
+	delfilter_thresh has a value which is an int
+	require_correct_strand has a value which is a BBTools.boolean
+	perfect_mode has a value which is a BBTools.boolean
+	semiperfect_mode has a value which is a BBTools.boolean
+	qual_score_mode has a value which is an int
+boolean is an int
+BBMapLocalOutput is a reference to a hash where the following keys are defined:
+	out_mapped_reads_path has a value which is a BBTools.file_path
+	out_unmapped_reads_path has a value which is a BBTools.file_path
+	out_bam_path has a value which is a BBTools.file_path
+
+</pre>
+
+=end html
+
+=begin text
+
+$io_params is a BBTools.BBMapLocalParams
+$run_params is a BBTools.BBMapParams
+$output is a BBTools.BBMapLocalOutput
+BBMapLocalParams is a reference to a hash where the following keys are defined:
+	in_assembly_path has a value which is a BBTools.file_path
+	in_readslib_path has a value which is a BBTools.file_path
+	out_file_basename has a value which is a BBTools.file_path
+file_path is a string
+BBMapParams is a reference to a hash where the following keys are defined:
+	out_mode has a value which is a string
+	input_parameter_suite has a value which is a string
+	use_modulo has a value which is a BBTools.boolean
+	speed_mode has a value which is a string
+	min_id has a value which is a float
+	bandwidth has a value which is a string
+	min_hits has a value which is an int
+	kmer_len has a value which is an int
+	max_indel has a value which is an int
+	strict_max_indel has a value which is a BBTools.boolean
+	subfilter_thresh has a value which is an int
+	delfilter_thresh has a value which is an int
+	require_correct_strand has a value which is a BBTools.boolean
+	perfect_mode has a value which is a BBTools.boolean
+	semiperfect_mode has a value which is a BBTools.boolean
+	qual_score_mode has a value which is an int
+boolean is an int
+BBMapLocalOutput is a reference to a hash where the following keys are defined:
+	out_mapped_reads_path has a value which is a BBTools.file_path
+	out_unmapped_reads_path has a value which is a BBTools.file_path
+	out_bam_path has a value which is a BBTools.file_path
+
+
+=end text
+
+=item Description
+
+
+
+=back
+
+=cut
+
+ sub run_BBMap_local
+{
+    my($self, @args) = @_;
+
+# Authentication: required
+
+    if ((my $n = @args) != 2)
+    {
+	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
+							       "Invalid argument count for function run_BBMap_local (received $n, expecting 2)");
+    }
+    {
+	my($io_params, $run_params) = @args;
+
+	my @_bad_arguments;
+        (ref($io_params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"io_params\" (value was \"$io_params\")");
+        (ref($run_params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 2 \"run_params\" (value was \"$run_params\")");
+        if (@_bad_arguments) {
+	    my $msg = "Invalid arguments passed to run_BBMap_local:\n" . join("", map { "\t$_\n" } @_bad_arguments);
+	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+								   method_name => 'run_BBMap_local');
+	}
+    }
+
+    my $url = $self->{url};
+    my $result = $self->{client}->call($url, $self->{headers}, {
+	    method => "BBTools.run_BBMap_local",
+	    params => \@args,
+    });
+    if ($result) {
+	if ($result->is_error) {
+	    Bio::KBase::Exceptions::JSONRPC->throw(error => $result->error_message,
+					       code => $result->content->{error}->{code},
+					       method_name => 'run_BBMap_local',
+					       data => $result->content->{error}->{error} # JSON::RPC::ReturnObject only supports JSONRPC 1.1 or 1.O
+					      );
+	} else {
+	    return wantarray ? @{$result->result} : $result->result->[0];
+	}
+    } else {
+        Bio::KBase::Exceptions::HTTP->throw(error => "Error invoking method run_BBMap_local",
+					    status_line => $self->{client}->status_line,
+					    method_name => 'run_BBMap_local',
 				       );
     }
 }
@@ -918,7 +1062,7 @@ a string
 
 
 
-=head2 BBMapInputParams
+=head2 file_path
 
 =over 4
 
@@ -926,7 +1070,38 @@ a string
 
 =item Description
 
-BBMap method (and App)
+A file_path - absolute path to a file
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a string
+</pre>
+
+=end html
+
+=begin text
+
+a string
+
+=end text
+
+=back
+
+
+
+=head2 BBMapParams
+
+=over 4
+
+
+
+=item Description
+
+BBMap method (App and Local)
 
 
 =item Definition
@@ -935,10 +1110,6 @@ BBMap method (and App)
 
 <pre>
 a reference to a hash where the following keys are defined:
-workspace_name has a value which is a BBTools.workspace_name
-in_assembly_ref has a value which is a BBTools.data_obj_ref
-in_readslib_ref has a value which is a BBTools.data_obj_ref
-out_obj_name has a value which is a BBTools.data_obj_name
 out_mode has a value which is a string
 input_parameter_suite has a value which is a string
 use_modulo has a value which is a BBTools.boolean
@@ -963,10 +1134,6 @@ qual_score_mode has a value which is an int
 =begin text
 
 a reference to a hash where the following keys are defined:
-workspace_name has a value which is a BBTools.workspace_name
-in_assembly_ref has a value which is a BBTools.data_obj_ref
-in_readslib_ref has a value which is a BBTools.data_obj_ref
-out_obj_name has a value which is a BBTools.data_obj_name
 out_mode has a value which is a string
 input_parameter_suite has a value which is a string
 use_modulo has a value which is a BBTools.boolean
@@ -991,7 +1158,48 @@ qual_score_mode has a value which is an int
 
 
 
-=head2 BBMapOutputParams
+=head2 BBMapAppParams
+
+=over 4
+
+
+
+=item Description
+
+BBMap App IO
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+workspace_name has a value which is a BBTools.workspace_name
+in_assembly_ref has a value which is a BBTools.data_obj_ref
+in_readslib_ref has a value which is a BBTools.data_obj_ref
+out_obj_name has a value which is a BBTools.data_obj_name
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+workspace_name has a value which is a BBTools.workspace_name
+in_assembly_ref has a value which is a BBTools.data_obj_ref
+in_readslib_ref has a value which is a BBTools.data_obj_ref
+out_obj_name has a value which is a BBTools.data_obj_name
+
+
+=end text
+
+=back
+
+
+
+=head2 BBMapAppOutput
 
 =over 4
 
@@ -1015,6 +1223,79 @@ report_ref has a value which is a string
 a reference to a hash where the following keys are defined:
 report_name has a value which is a string
 report_ref has a value which is a string
+
+
+=end text
+
+=back
+
+
+
+=head2 BBMapLocalParams
+
+=over 4
+
+
+
+=item Description
+
+BBMap Local IO
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+in_assembly_path has a value which is a BBTools.file_path
+in_readslib_path has a value which is a BBTools.file_path
+out_file_basename has a value which is a BBTools.file_path
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+in_assembly_path has a value which is a BBTools.file_path
+in_readslib_path has a value which is a BBTools.file_path
+out_file_basename has a value which is a BBTools.file_path
+
+
+=end text
+
+=back
+
+
+
+=head2 BBMapLocalOutput
+
+=over 4
+
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+out_mapped_reads_path has a value which is a BBTools.file_path
+out_unmapped_reads_path has a value which is a BBTools.file_path
+out_bam_path has a value which is a BBTools.file_path
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+out_mapped_reads_path has a value which is a BBTools.file_path
+out_unmapped_reads_path has a value which is a BBTools.file_path
+out_bam_path has a value which is a BBTools.file_path
 
 
 =end text

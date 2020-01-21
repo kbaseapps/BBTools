@@ -2,6 +2,7 @@
 #BEGIN_HEADER
 import os
 
+from BBTools.utils.BBMapRunner import BBMapRunner
 from BBTools.utils.RQCFilterRunner import RQCFilterRunner
 from BBTools.utils.MemEstimatorRunner import MemEstimatorRunner
 #END_HEADER
@@ -24,7 +25,7 @@ class BBTools:
     ######################################### noqa
     VERSION = "1.0.0"
     GIT_URL = "https://github.com/dcchivian/BBTools"
-    GIT_COMMIT_HASH = "cdfefe87f15639c14de2d7ad137920b892a8e35b"
+    GIT_COMMIT_HASH = "c2f2edc41308dc78b699205bb6f3b12da78fc181"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -39,20 +40,22 @@ class BBTools:
         pass
 
 
-    def run_BBMap(self, ctx, params):
+    def run_BBMap(self, ctx, io_params, run_params):
         """
-        :param params: instance of type "BBMapInputParams" (BBMap method (and
-           App)) -> structure: parameter "workspace_name" of type
-           "workspace_name" (A workspace_name - alphanumeric + '.' + '_' +
-           '-' only permitted characters), parameter "in_assembly_ref" of
-           type "data_obj_ref" (A data_obj_ref - address of form
-           'WS_NAME/OBJ_NAME', 'WS_NAME/OBJ_NAME/VERSION', or 'WS_ID/OBJ_ID',
-           or 'WS_ID/OBJ_ID/VERSION'), parameter "in_readslib_ref" of type
+        :param io_params: instance of type "BBMapAppParams" (BBMap App IO) ->
+           structure: parameter "workspace_name" of type "workspace_name" (A
+           workspace_name - alphanumeric + '.' + '_' + '-' only permitted
+           characters), parameter "in_assembly_ref" of type "data_obj_ref" (A
+           data_obj_ref - address of form 'WS_NAME/OBJ_NAME',
+           'WS_NAME/OBJ_NAME/VERSION', or 'WS_ID/OBJ_ID', or
+           'WS_ID/OBJ_ID/VERSION'), parameter "in_readslib_ref" of type
            "data_obj_ref" (A data_obj_ref - address of form
            'WS_NAME/OBJ_NAME', 'WS_NAME/OBJ_NAME/VERSION', or 'WS_ID/OBJ_ID',
            or 'WS_ID/OBJ_ID/VERSION'), parameter "out_obj_name" of type
            "data_obj_name" (A data_obj_name - alphanumeric + '.' + '_' + '-'
-           only permitted characters), parameter "out_mode" of String,
+           only permitted characters)
+        :param run_params: instance of type "BBMapParams" (BBMap method (App
+           and Local)) -> structure: parameter "out_mode" of String,
            parameter "input_parameter_suite" of String, parameter
            "use_modulo" of type "boolean" (A boolean - 0 for false, 1 for
            true. @range (0, 1)), parameter "speed_mode" of String, parameter
@@ -67,17 +70,66 @@ class BBTools:
            true. @range (0, 1)), parameter "semiperfect_mode" of type
            "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
            parameter "qual_score_mode" of Long
-        :returns: instance of type "BBMapOutputParams" -> structure:
-           parameter "report_name" of String, parameter "report_ref" of String
+        :returns: instance of type "BBMapAppOutput" -> structure: parameter
+           "report_name" of String, parameter "report_ref" of String
         """
         # ctx is the context object
         # return variables are: output
         #BEGIN run_BBMap
+        bbmap = BBMapRunner(self.callback_url, self.scratch_dir)
+        output = bbmap.run_app(io_params, run_params)
         #END run_BBMap
 
         # At some point might do deeper type checking...
         if not isinstance(output, dict):
             raise ValueError('Method run_BBMap return value ' +
+                             'output is not type dict as required.')
+        # return the results
+        return [output]
+
+    def run_BBMap_local(self, ctx, io_params, run_params):
+        """
+        :param io_params: instance of type "BBMapLocalParams" (BBMap Local
+           IO) -> structure: parameter "in_assembly_path" of type "file_path"
+           (A file_path - absolute path to a file), parameter
+           "in_readslib_path" of type "file_path" (A file_path - absolute
+           path to a file), parameter "out_file_basename" of type "file_path"
+           (A file_path - absolute path to a file)
+        :param run_params: instance of type "BBMapParams" (BBMap method (App
+           and Local)) -> structure: parameter "out_mode" of String,
+           parameter "input_parameter_suite" of String, parameter
+           "use_modulo" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "speed_mode" of String, parameter
+           "min_id" of Double, parameter "bandwidth" of String, parameter
+           "min_hits" of Long, parameter "kmer_len" of Long, parameter
+           "max_indel" of Long, parameter "strict_max_indel" of type
+           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
+           parameter "subfilter_thresh" of Long, parameter "delfilter_thresh"
+           of Long, parameter "require_correct_strand" of type "boolean" (A
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "perfect_mode" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "semiperfect_mode" of type
+           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
+           parameter "qual_score_mode" of Long
+        :returns: instance of type "BBMapLocalOutput" -> structure: parameter
+           "out_mapped_reads_path" of type "file_path" (A file_path -
+           absolute path to a file), parameter "out_unmapped_reads_path" of
+           type "file_path" (A file_path - absolute path to a file),
+           parameter "out_bam_path" of type "file_path" (A file_path -
+           absolute path to a file)
+        """
+        # ctx is the context object
+        # return variables are: output
+        #BEGIN run_BBMap_local
+        #bbmap = BBMapRunner(self.callback_url, self.scratch_dir)
+        #output = bbmap.run_local(io_params, run_params)
+        print ("HELLO KITTY!!!")
+        output = { 'foo': 'bar' }
+        #END run_BBMap_local
+
+        # At some point might do deeper type checking...
+        if not isinstance(output, dict):
+            raise ValueError('Method run_BBMap_local return value ' +
                              'output is not type dict as required.')
         # return the results
         return [output]

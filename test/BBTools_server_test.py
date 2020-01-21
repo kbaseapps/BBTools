@@ -70,15 +70,16 @@ class BBToolsTest(unittest.TestCase):
         self.__class__.wsName = wsName
         return wsName
 
-        # call this method to get the WS object info of a Paired End Library (will
+    # call this method to get the WS object info of a Paired End Library (will
     # upload the example data if this is the first time the method is called during tests)
-    def getPairedEndLibInfo(self):
+    def getPairedEndLibInfo(self, lib_name):
         if hasattr(self.__class__, 'pairedEndLibInfo'):
-            return self.__class__.pairedEndLibInfo
+            if self.__class__.pairedEndLibInfo.get(lib_name):
+                return self.__class__.pairedEndLibInfo['lib_name']
 
         # copy the local test file to the shared scratch space so that the ReadsUtils
         # container can see it.
-        test_fastq_file_local = os.path.join('data', 'reads', 'interleaved.fastq')
+        test_fastq_file_local = os.path.join('data', 'reads', lib_name)
         test_fastq_file_scratch = os.path.join(self.scratch, os.path.basename(test_fastq_file_local))
         shutil.copy(test_fastq_file_local, test_fastq_file_scratch)
 
@@ -87,11 +88,13 @@ class BBToolsTest(unittest.TestCase):
         paired_end_ref = ru.upload_reads({'fwd_file': test_fastq_file_scratch,
                                           'sequencing_tech': 'artificial reads',
                                           'interleaved': 1, 'wsname': self.getWsName(),
-                                          'name': 'test.pe.reads'})['obj_ref']
+                                          'name': lib_name})['obj_ref']
 
         # get the object metadata for the new test dataset
         new_obj_info = self.ws.get_object_info_new({'objects': [{'ref': paired_end_ref}]})
-        self.__class__.pairedEndLibInfo = new_obj_info[0]
+        if not hasattr(self.__class__, 'pairedEndLibInfo'):
+            self.__class__.pairedEndLibInfo = dict()
+        self.__class__.pairedEndLibInfo[lib_name] = new_obj_info[0]
         return new_obj_info[0]
 
 
@@ -105,7 +108,7 @@ class BBToolsTest(unittest.TestCase):
     @unittest.skip('skip test_RQCFilter_basic_app()')  # Uncomment to skip
     def test_RQCFilter_basic_app(self):
         # get the test reads library
-        lib_info = self.getPairedEndLibInfo()
+        lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         print(lib_info)
 
         io_params = {
@@ -120,9 +123,28 @@ class BBToolsTest(unittest.TestCase):
         print('result:')
         pprint(res)
 
+    @unittest.skip('skip test_BBMap_basic_app()')  # Uncomment to skip
+    def test_BBMap_basic_app(self):
+        # get the test reads library
+        lib_name = 'seven_species_nonuniform_10k.inter.fastq.gz'
+        lib_info = self.getPairedEndLibInfo(lib_name)
+        print(lib_info)
+
+        io_params = {
+            'read_library_ref': str(lib_info[6]) + '/' + str(lib_info[0]) + '/' + str(lib_info[4]),
+            'output_workspace_name': self.getWsName(),
+            'output_library_name': 'filtered.reads'
+        }
+        run_params = {}
+        bbtools = self.getImpl()
+        res = bbtools.run_BBMap_app(self.ctx, io_params, run_params)
+
+        print('result:')
+        pprint(res)
+
     @unittest.skip('skip test_RQCFilter_app_jgi_parameters()')  # Uncomment to skip
     def test_RQCFilter_app_jgi_parameters(self):
-        lib_info = self.getPairedEndLibInfo()
+        lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         io_params = {
             'read_library_ref': "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
             'output_workspace_name': self.getWsName(),
@@ -165,7 +187,7 @@ class BBToolsTest(unittest.TestCase):
 
     @unittest.skip('skip test_RQCFilter_local_mem_req()')  # Uncomment to skip
     def test_RQCFilter_local_mem_req(self):
-        lib_info = self.getPairedEndLibInfo()
+        lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         io_params = {
             "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
         }
@@ -180,7 +202,7 @@ class BBToolsTest(unittest.TestCase):
 
     @unittest.skip('skip test_RQCFilter_local_bad_mem_param()')  # Uncomment to skip
     def test_RQCFilter_local_bad_mem_param(self):
-        lib_info = self.getPairedEndLibInfo()
+        lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         io_params = {
             "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
         }
@@ -197,7 +219,7 @@ class BBToolsTest(unittest.TestCase):
 
     @unittest.skip('skip test_RQCFilter_run_local_reads_upa()')  # Uncomment to skip
     def test_RQCFilter_run_local_reads_upa(self):
-        lib_info = self.getPairedEndLibInfo()
+        lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         print(lib_info)
 
         io_params = {
@@ -239,6 +261,41 @@ class BBToolsTest(unittest.TestCase):
         self.assertTrue(os.path.exists(res['run_log']))
         self.assertIn('run_command', res)
         self.assertIn('rqcfilter2.sh', run_command)
+
+    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file()')  # Uncomment to skip
+    def test_BBMap_run_local_reads_file(self):
+        lib_name = 'seven_species_nonuniform_10k.inter.fastq.gz'
+        test_reads_file_local = os.path.join('data', 'reads', lib_name)
+        test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
+        shutil.copy(test_reads_file_local, test_reads_file_scratch)
+
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa.gz'
+        test_ass_file_local = os.path.join('data', 'assemblies', ass_name)
+        test_ass_file_scratch = os.path.join(self.scratch, os.path.basename(test_ass_file_local))
+        shutil.copy(test_ass_file_local, test_ass_file_scratch)
+
+        io_params = {
+            "in_assembly_path": test_ass_file_scratch,
+            "in_readslib_path": test_reads_file_scratch,
+            "out_file_basename": 'foo.out'
+        }
+        run_params = {
+            "out_mode": 'mapped_reads'
+        }
+        bbtools = self.getImpl()
+        res = bbtools.run_BBMap_local(self.ctx, io_params, run_params)[0]
+        print('result:')
+        pprint(res)
+        """
+        self.assertIn('output_directory', res)
+        self.assertTrue(os.path.exists(res['output_directory']))
+        self.assertIn('filtered_fastq_file', res)
+        self.assertTrue(os.path.exists(res['filtered_fastq_file']))
+        self.assertIn('run_log', res)
+        self.assertTrue(os.path.exists(res['run_log']))
+        self.assertIn('run_command', res)
+        self.assertIn('rqcfilter2.sh', run_command)
+        """
 
     # HIDE @unittest.skip('skip test_BBTools_get_version()')  # Uncomment to skip
     def test_BBTools_get_version(self):

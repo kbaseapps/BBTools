@@ -340,8 +340,12 @@ class Application(object):
         self.method_authentication = dict()
         self.rpc_service.add(impl_BBTools.run_BBMap,
                              name='BBTools.run_BBMap',
-                             types=[dict])
+                             types=[dict, dict])
         self.method_authentication['BBTools.run_BBMap'] = 'required'  # noqa
+        self.rpc_service.add(impl_BBTools.run_BBMap_local,
+                             name='BBTools.run_BBMap_local',
+                             types=[dict, dict])
+        self.method_authentication['BBTools.run_BBMap_local'] = 'required'  # noqa
         self.rpc_service.add(impl_BBTools.run_RQCFilter_app,
                              name='BBTools.run_RQCFilter_app',
                              types=[dict, dict])

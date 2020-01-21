@@ -22,15 +22,15 @@ module BBTools {
     typedef string data_obj_ref;
 
 
-    /* BBMap method (and App)
+    /* A file_path - absolute path to a file
+    */
+    typedef string file_path;
+
+
+    /* BBMap method (App and Local)
     */
     typedef structure {
-	workspace_name workspace_name;
-	data_obj_ref   in_assembly_ref;  /* may be Assembly, AssemblySet, or BinnedContig */
-	data_obj_ref   in_readslib_ref;  /* single reads lib (for now) */
-	data_obj_name  out_obj_name;
 	string         out_mode;
-
 	string         input_parameter_suite;  /* combine suggested params for certain uses */
 	boolean        use_modulo; /* NOT USED.  reduced-memory-footprint mode.  options: "", "usemodulo" */
 	string         speed_mode;  /* speed mode.  options: "", "vslow", "slow", "fast" */
@@ -46,16 +46,45 @@ module BBTools {
 	boolean        perfect_mode;  /* NOT USED */
 	boolean        semiperfect_mode;  /* NOT USED */
 	int            qual_score_mode;  /* default 33 */
+    } BBMapParams;
 
-    } BBMapInputParams;
+
+    /* BBMap App IO
+    */
+    typedef structure {
+	workspace_name workspace_name;
+	data_obj_ref   in_assembly_ref;  /* may be Assembly, AssemblySet, or BinnedContig */
+	data_obj_ref   in_readslib_ref;  /* single reads lib (for now) */
+	data_obj_name  out_obj_name;
+    } BBMapAppParams;
 
     typedef structure {
         string report_name;
         string report_ref;
-    } BBMapOutputParams;
+    } BBMapAppOutput;
 
-    funcdef run_BBMap(BBMapInputParams params)
-        returns (BBMapOutputParams output)
+
+    /* BBMap Local IO
+    */
+    typedef structure {
+	file_path  in_assembly_path;  /* must be fasta */
+	file_path  in_readslib_path;  /* single reads lib (for now) */
+	file_path  out_file_basename;
+    } BBMapLocalParams;
+
+    typedef structure {
+	file_path  out_mapped_reads_path;
+	file_path  out_unmapped_reads_path;
+	file_path  out_bam_path;
+    } BBMapLocalOutput;
+
+
+    funcdef run_BBMap(BBMapAppParams io_params, BBMapParams run_params)
+        returns (BBMapAppOutput output)
+        authentication required;
+
+    funcdef run_BBMap_local(BBMapLocalParams io_params, BBMapParams run_params)
+        returns (BBMapLocalOutput output)
         authentication required;
 
 

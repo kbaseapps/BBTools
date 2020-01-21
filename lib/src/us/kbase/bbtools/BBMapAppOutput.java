@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * <p>Original spec-file type: BBMapOutputParams</p>
+ * <p>Original spec-file type: BBMapAppOutput</p>
  * 
  * 
  */
@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "report_name",
     "report_ref"
 })
-public class BBMapOutputParams {
+public class BBMapAppOutput {
 
     @JsonProperty("report_name")
     private String reportName;
@@ -40,7 +40,7 @@ public class BBMapOutputParams {
         this.reportName = reportName;
     }
 
-    public BBMapOutputParams withReportName(String reportName) {
+    public BBMapAppOutput withReportName(String reportName) {
         this.reportName = reportName;
         return this;
     }
@@ -55,7 +55,7 @@ public class BBMapOutputParams {
         this.reportRef = reportRef;
     }
 
-    public BBMapOutputParams withReportRef(String reportRef) {
+    public BBMapAppOutput withReportRef(String reportRef) {
         this.reportRef = reportRef;
         return this;
     }
@@ -72,7 +72,7 @@ public class BBMapOutputParams {
 
     @Override
     public String toString() {
-        return ((((((("BBMapOutputParams"+" [reportName=")+ reportName)+", reportRef=")+ reportRef)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((("BBMapAppOutput"+" [reportName=")+ reportName)+", reportRef=")+ reportRef)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }
