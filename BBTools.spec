@@ -53,9 +53,9 @@ module BBTools {
     */
     typedef structure {
 	workspace_name workspace_name;
-	data_obj_ref   in_assembly_ref;  /* may be Assembly, AssemblySet, or BinnedContig */
-	data_obj_ref   in_readslib_ref;  /* single reads lib (for now) */
-	data_obj_name  out_obj_name;
+	list<data_obj_ref>  in_assembly_refs;  /* may be Assembly, AssemblySet, or BinnedContig */
+	data_obj_ref        in_readslib_ref;  /* single reads lib (for now) */
+	data_obj_name       out_obj_name;
     } BBMapAppParams;
 
     typedef structure {
@@ -67,15 +67,15 @@ module BBTools {
     /* BBMap Local IO
     */
     typedef structure {
-	file_path  in_assembly_path;  /* must be fasta */
-	file_path  in_readslib_path;  /* single reads lib (for now) */
-	file_path  out_file_basename;
+	list<file_path>  in_assembly_paths;  /* must be fasta */
+	file_path        in_readslib_path;  /* single reads lib (for now) */
+	string           out_file_basename;
     } BBMapLocalParams;
 
     typedef structure {
-	file_path  out_mapped_reads_path;
-	file_path  out_unmapped_reads_path;
-	file_path  out_bam_path;
+	list<file_path>  out_mapped_reads_paths;
+	list<file_path>  out_unmapped_reads_paths;
+	list<file_path>  out_bam_paths;
     } BBMapLocalOutput;
 
 

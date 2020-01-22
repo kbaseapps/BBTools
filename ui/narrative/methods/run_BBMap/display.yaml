@@ -29,7 +29,7 @@ suggestions:
 # Configure the display and description of parameters
 #
 parameters :
-    in_assembly_ref :
+    in_assembly_refs :
         ui-name    : Contigs
         short-hint : May be Assembly, AssemblySet, Genome, GenomeSet, or BinnedContigs object
 

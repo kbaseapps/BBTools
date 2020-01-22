@@ -25,7 +25,7 @@ class BBTools:
     ######################################### noqa
     VERSION = "1.0.0"
     GIT_URL = "https://github.com/dcchivian/BBTools"
-    GIT_COMMIT_HASH = "c2f2edc41308dc78b699205bb6f3b12da78fc181"
+    GIT_COMMIT_HASH = "aa6aa70b6de6e5cdd4f008dfd64f01af00ba06b9"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -45,10 +45,10 @@ class BBTools:
         :param io_params: instance of type "BBMapAppParams" (BBMap App IO) ->
            structure: parameter "workspace_name" of type "workspace_name" (A
            workspace_name - alphanumeric + '.' + '_' + '-' only permitted
-           characters), parameter "in_assembly_ref" of type "data_obj_ref" (A
-           data_obj_ref - address of form 'WS_NAME/OBJ_NAME',
-           'WS_NAME/OBJ_NAME/VERSION', or 'WS_ID/OBJ_ID', or
-           'WS_ID/OBJ_ID/VERSION'), parameter "in_readslib_ref" of type
+           characters), parameter "in_assembly_refs" of list of type
+           "data_obj_ref" (A data_obj_ref - address of form
+           'WS_NAME/OBJ_NAME', 'WS_NAME/OBJ_NAME/VERSION', or 'WS_ID/OBJ_ID',
+           or 'WS_ID/OBJ_ID/VERSION'), parameter "in_readslib_ref" of type
            "data_obj_ref" (A data_obj_ref - address of form
            'WS_NAME/OBJ_NAME', 'WS_NAME/OBJ_NAME/VERSION', or 'WS_ID/OBJ_ID',
            or 'WS_ID/OBJ_ID/VERSION'), parameter "out_obj_name" of type
@@ -90,11 +90,10 @@ class BBTools:
     def run_BBMap_local(self, ctx, io_params, run_params):
         """
         :param io_params: instance of type "BBMapLocalParams" (BBMap Local
-           IO) -> structure: parameter "in_assembly_path" of type "file_path"
-           (A file_path - absolute path to a file), parameter
+           IO) -> structure: parameter "in_assembly_paths" of list of type
+           "file_path" (A file_path - absolute path to a file), parameter
            "in_readslib_path" of type "file_path" (A file_path - absolute
-           path to a file), parameter "out_file_basename" of type "file_path"
-           (A file_path - absolute path to a file)
+           path to a file), parameter "out_file_basename" of String
         :param run_params: instance of type "BBMapParams" (BBMap method (App
            and Local)) -> structure: parameter "out_mode" of String,
            parameter "input_parameter_suite" of String, parameter
@@ -112,19 +111,17 @@ class BBTools:
            "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
            parameter "qual_score_mode" of Long
         :returns: instance of type "BBMapLocalOutput" -> structure: parameter
-           "out_mapped_reads_path" of type "file_path" (A file_path -
-           absolute path to a file), parameter "out_unmapped_reads_path" of
-           type "file_path" (A file_path - absolute path to a file),
-           parameter "out_bam_path" of type "file_path" (A file_path -
-           absolute path to a file)
+           "out_mapped_reads_paths" of list of type "file_path" (A file_path
+           - absolute path to a file), parameter "out_unmapped_reads_paths"
+           of list of type "file_path" (A file_path - absolute path to a
+           file), parameter "out_bam_paths" of list of type "file_path" (A
+           file_path - absolute path to a file)
         """
         # ctx is the context object
         # return variables are: output
         #BEGIN run_BBMap_local
-        #bbmap = BBMapRunner(self.callback_url, self.scratch_dir)
-        #output = bbmap.run_local(io_params, run_params)
-        print ("HELLO KITTY!!!")
-        output = { 'foo': 'bar' }
+        bbmap = BBMapRunner(self.callback_url, self.scratch_dir)
+        output = bbmap.run_local(io_params, run_params)
         #END run_BBMap_local
 
         # At some point might do deeper type checking...

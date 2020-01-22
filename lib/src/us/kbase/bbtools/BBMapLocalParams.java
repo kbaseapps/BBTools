@@ -2,6 +2,7 @@
 package us.kbase.bbtools;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -21,78 +22,78 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
 @JsonPropertyOrder({
-    "in_assembly_path",
+    "in_assembly_paths",
     "in_readslib_path",
     "out_file_basename"
 })
 public class BBMapLocalParams {
 
-    @JsonProperty("in_assembly_path")
-    private String inAssemblyPath;
+    @JsonProperty("in_assembly_paths")
+    private List<String> inAssemblyPaths;
     @JsonProperty("in_readslib_path")
-    private String inReadslibPath;
+    private java.lang.String inReadslibPath;
     @JsonProperty("out_file_basename")
-    private String outFileBasename;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private java.lang.String outFileBasename;
+    private Map<java.lang.String, Object> additionalProperties = new HashMap<java.lang.String, Object>();
 
-    @JsonProperty("in_assembly_path")
-    public String getInAssemblyPath() {
-        return inAssemblyPath;
+    @JsonProperty("in_assembly_paths")
+    public List<String> getInAssemblyPaths() {
+        return inAssemblyPaths;
     }
 
-    @JsonProperty("in_assembly_path")
-    public void setInAssemblyPath(String inAssemblyPath) {
-        this.inAssemblyPath = inAssemblyPath;
+    @JsonProperty("in_assembly_paths")
+    public void setInAssemblyPaths(List<String> inAssemblyPaths) {
+        this.inAssemblyPaths = inAssemblyPaths;
     }
 
-    public BBMapLocalParams withInAssemblyPath(String inAssemblyPath) {
-        this.inAssemblyPath = inAssemblyPath;
+    public BBMapLocalParams withInAssemblyPaths(List<String> inAssemblyPaths) {
+        this.inAssemblyPaths = inAssemblyPaths;
         return this;
     }
 
     @JsonProperty("in_readslib_path")
-    public String getInReadslibPath() {
+    public java.lang.String getInReadslibPath() {
         return inReadslibPath;
     }
 
     @JsonProperty("in_readslib_path")
-    public void setInReadslibPath(String inReadslibPath) {
+    public void setInReadslibPath(java.lang.String inReadslibPath) {
         this.inReadslibPath = inReadslibPath;
     }
 
-    public BBMapLocalParams withInReadslibPath(String inReadslibPath) {
+    public BBMapLocalParams withInReadslibPath(java.lang.String inReadslibPath) {
         this.inReadslibPath = inReadslibPath;
         return this;
     }
 
     @JsonProperty("out_file_basename")
-    public String getOutFileBasename() {
+    public java.lang.String getOutFileBasename() {
         return outFileBasename;
     }
 
     @JsonProperty("out_file_basename")
-    public void setOutFileBasename(String outFileBasename) {
+    public void setOutFileBasename(java.lang.String outFileBasename) {
         this.outFileBasename = outFileBasename;
     }
 
-    public BBMapLocalParams withOutFileBasename(String outFileBasename) {
+    public BBMapLocalParams withOutFileBasename(java.lang.String outFileBasename) {
         this.outFileBasename = outFileBasename;
         return this;
     }
 
     @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
+    public Map<java.lang.String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperties(String name, Object value) {
+    public void setAdditionalProperties(java.lang.String name, Object value) {
         this.additionalProperties.put(name, value);
     }
 
     @Override
-    public String toString() {
-        return ((((((((("BBMapLocalParams"+" [inAssemblyPath=")+ inAssemblyPath)+", inReadslibPath=")+ inReadslibPath)+", outFileBasename=")+ outFileBasename)+", additionalProperties=")+ additionalProperties)+"]");
+    public java.lang.String toString() {
+        return ((((((((("BBMapLocalParams"+" [inAssemblyPaths=")+ inAssemblyPaths)+", inReadslibPath=")+ inReadslibPath)+", outFileBasename=")+ outFileBasename)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

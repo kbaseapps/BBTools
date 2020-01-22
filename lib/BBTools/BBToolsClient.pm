@@ -124,7 +124,7 @@ $run_params is a BBTools.BBMapParams
 $output is a BBTools.BBMapAppOutput
 BBMapAppParams is a reference to a hash where the following keys are defined:
 	workspace_name has a value which is a BBTools.workspace_name
-	in_assembly_ref has a value which is a BBTools.data_obj_ref
+	in_assembly_refs has a value which is a reference to a list where each element is a BBTools.data_obj_ref
 	in_readslib_ref has a value which is a BBTools.data_obj_ref
 	out_obj_name has a value which is a BBTools.data_obj_name
 workspace_name is a string
@@ -163,7 +163,7 @@ $run_params is a BBTools.BBMapParams
 $output is a BBTools.BBMapAppOutput
 BBMapAppParams is a reference to a hash where the following keys are defined:
 	workspace_name has a value which is a BBTools.workspace_name
-	in_assembly_ref has a value which is a BBTools.data_obj_ref
+	in_assembly_refs has a value which is a reference to a list where each element is a BBTools.data_obj_ref
 	in_readslib_ref has a value which is a BBTools.data_obj_ref
 	out_obj_name has a value which is a BBTools.data_obj_name
 workspace_name is a string
@@ -266,9 +266,9 @@ $io_params is a BBTools.BBMapLocalParams
 $run_params is a BBTools.BBMapParams
 $output is a BBTools.BBMapLocalOutput
 BBMapLocalParams is a reference to a hash where the following keys are defined:
-	in_assembly_path has a value which is a BBTools.file_path
+	in_assembly_paths has a value which is a reference to a list where each element is a BBTools.file_path
 	in_readslib_path has a value which is a BBTools.file_path
-	out_file_basename has a value which is a BBTools.file_path
+	out_file_basename has a value which is a string
 file_path is a string
 BBMapParams is a reference to a hash where the following keys are defined:
 	out_mode has a value which is a string
@@ -289,9 +289,9 @@ BBMapParams is a reference to a hash where the following keys are defined:
 	qual_score_mode has a value which is an int
 boolean is an int
 BBMapLocalOutput is a reference to a hash where the following keys are defined:
-	out_mapped_reads_path has a value which is a BBTools.file_path
-	out_unmapped_reads_path has a value which is a BBTools.file_path
-	out_bam_path has a value which is a BBTools.file_path
+	out_mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	out_unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	out_bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
 
 </pre>
 
@@ -303,9 +303,9 @@ $io_params is a BBTools.BBMapLocalParams
 $run_params is a BBTools.BBMapParams
 $output is a BBTools.BBMapLocalOutput
 BBMapLocalParams is a reference to a hash where the following keys are defined:
-	in_assembly_path has a value which is a BBTools.file_path
+	in_assembly_paths has a value which is a reference to a list where each element is a BBTools.file_path
 	in_readslib_path has a value which is a BBTools.file_path
-	out_file_basename has a value which is a BBTools.file_path
+	out_file_basename has a value which is a string
 file_path is a string
 BBMapParams is a reference to a hash where the following keys are defined:
 	out_mode has a value which is a string
@@ -326,9 +326,9 @@ BBMapParams is a reference to a hash where the following keys are defined:
 	qual_score_mode has a value which is an int
 boolean is an int
 BBMapLocalOutput is a reference to a hash where the following keys are defined:
-	out_mapped_reads_path has a value which is a BBTools.file_path
-	out_unmapped_reads_path has a value which is a BBTools.file_path
-	out_bam_path has a value which is a BBTools.file_path
+	out_mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	out_unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	out_bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
 
 
 =end text
@@ -1176,7 +1176,7 @@ BBMap App IO
 <pre>
 a reference to a hash where the following keys are defined:
 workspace_name has a value which is a BBTools.workspace_name
-in_assembly_ref has a value which is a BBTools.data_obj_ref
+in_assembly_refs has a value which is a reference to a list where each element is a BBTools.data_obj_ref
 in_readslib_ref has a value which is a BBTools.data_obj_ref
 out_obj_name has a value which is a BBTools.data_obj_name
 
@@ -1188,7 +1188,7 @@ out_obj_name has a value which is a BBTools.data_obj_name
 
 a reference to a hash where the following keys are defined:
 workspace_name has a value which is a BBTools.workspace_name
-in_assembly_ref has a value which is a BBTools.data_obj_ref
+in_assembly_refs has a value which is a reference to a list where each element is a BBTools.data_obj_ref
 in_readslib_ref has a value which is a BBTools.data_obj_ref
 out_obj_name has a value which is a BBTools.data_obj_name
 
@@ -1248,9 +1248,9 @@ BBMap Local IO
 
 <pre>
 a reference to a hash where the following keys are defined:
-in_assembly_path has a value which is a BBTools.file_path
+in_assembly_paths has a value which is a reference to a list where each element is a BBTools.file_path
 in_readslib_path has a value which is a BBTools.file_path
-out_file_basename has a value which is a BBTools.file_path
+out_file_basename has a value which is a string
 
 </pre>
 
@@ -1259,9 +1259,9 @@ out_file_basename has a value which is a BBTools.file_path
 =begin text
 
 a reference to a hash where the following keys are defined:
-in_assembly_path has a value which is a BBTools.file_path
+in_assembly_paths has a value which is a reference to a list where each element is a BBTools.file_path
 in_readslib_path has a value which is a BBTools.file_path
-out_file_basename has a value which is a BBTools.file_path
+out_file_basename has a value which is a string
 
 
 =end text
@@ -1282,9 +1282,9 @@ out_file_basename has a value which is a BBTools.file_path
 
 <pre>
 a reference to a hash where the following keys are defined:
-out_mapped_reads_path has a value which is a BBTools.file_path
-out_unmapped_reads_path has a value which is a BBTools.file_path
-out_bam_path has a value which is a BBTools.file_path
+out_mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+out_unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+out_bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
 
 </pre>
 
@@ -1293,9 +1293,9 @@ out_bam_path has a value which is a BBTools.file_path
 =begin text
 
 a reference to a hash where the following keys are defined:
-out_mapped_reads_path has a value which is a BBTools.file_path
-out_unmapped_reads_path has a value which is a BBTools.file_path
-out_bam_path has a value which is a BBTools.file_path
+out_mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+out_unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+out_bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
 
 
 =end text
