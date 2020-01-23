@@ -41,9 +41,17 @@ parameters :
         ui-name    : Output name
         short-hint : Output type Assembly/Genome -> ReadsLib.  AssemblySet/GenomeSet/BinnedContigs -> ReadsSet
 
-    out_mode :
-        ui-name    : Output mode
-        short-hint : Select whether to produce BAM alignment (object save not available yet), or split ReadsLib by mapping
+    get_mapped_reads :
+        ui-name    : Mapped reads
+        short-hint : Create a reads library with the reads that map to the assembly
+
+    get_unmapped_reads :
+        ui-name    : Unmapped reads
+        short-hint : Create a reads library with the reads that didn't map to the assembly
+
+    get_bam :
+        ui-name    : Create BAM
+        short-hint : Create a BAM alignment file for download using the reads that map to the assembly
 
     input_parameter_suite :
         ui-name    : Parameter suite

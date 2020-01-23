@@ -19,6 +19,11 @@ WORKDIR /kb/module
 # copy everything in, we need the version file
 COPY ./ /kb/module
 
+
+# add SAMTools
+RUN apt-get update && apt-get install -y samtools
+
+
 # install BBTools
 
 RUN BBMAP_VERSION=$(cat /kb/module/bbmap_version) \

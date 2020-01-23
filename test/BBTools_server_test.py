@@ -105,7 +105,7 @@ class BBToolsTest(unittest.TestCase):
         return self.__class__.ctx
 
         
-    @unittest.skip('skip test_RQCFilter_basic_app()')  # Uncomment to skip
+    # HIDE @unittest.skip('skip test_RQCFilter_basic_app()')  # Uncomment to skip
     def test_RQCFilter_basic_app(self):
         # get the test reads library
         lib_info = self.getPairedEndLibInfo('interleaved.fastq')
@@ -123,7 +123,7 @@ class BBToolsTest(unittest.TestCase):
         print('result:')
         pprint(res)
 
-    @unittest.skip('skip test_BBMap_basic_app()')  # Uncomment to skip
+    # HIDE @unittest.skip('skip test_BBMap_basic_app()')  # Uncomment to skip
     def test_BBMap_basic_app(self):
         # get the test reads library
         lib_name = 'seven_species_nonuniform_10k.inter.fastq.gz'
@@ -142,7 +142,7 @@ class BBToolsTest(unittest.TestCase):
         print('result:')
         pprint(res)
 
-    @unittest.skip('skip test_RQCFilter_app_jgi_parameters()')  # Uncomment to skip
+    # HIDE @unittest.skip('skip test_RQCFilter_app_jgi_parameters()')  # Uncomment to skip
     def test_RQCFilter_app_jgi_parameters(self):
         lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         io_params = {
@@ -175,17 +175,17 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('report_name', res)
         self.assertIn('report_ref', res)
         self.assertIn('run_command', res)
-        self.assertIn('rqcfilter2.sh', run_command)
+        self.assertIn('rqcfilter2.sh', res['run_command'])
 
-    @unittest.skip('skip test_RQCFilter_app_bad_parameters()')  # Uncomment to skip
+    # HIDE @unittest.skip('skip test_RQCFilter_app_bad_parameters()')  # Uncomment to skip
     def test_RQCFilter_app_bad_parameters(self):
         pass
 
-    @unittest.skip('skip test_RQCFilter_app_missing_parameters()')  # Uncomment to skip
+    # HIDE @unittest.skip('skip test_RQCFilter_app_missing_parameters()')  # Uncomment to skip
     def test_RQCFilter_app_missing_parameters(self):
         pass
 
-    @unittest.skip('skip test_RQCFilter_local_mem_req()')  # Uncomment to skip
+    # HIDE @unittest.skip('skip test_RQCFilter_local_mem_req()')  # Uncomment to skip
     def test_RQCFilter_local_mem_req(self):
         lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         io_params = {
@@ -200,7 +200,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('rqcfilter2.sh', res['run_command'])
         self.assertIn('-Xmx5g', res['run_command'])
 
-    @unittest.skip('skip test_RQCFilter_local_bad_mem_param()')  # Uncomment to skip
+    # HIDE @unittest.skip('skip test_RQCFilter_local_bad_mem_param()')  # Uncomment to skip
     def test_RQCFilter_local_bad_mem_param(self):
         lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         io_params = {
@@ -217,7 +217,7 @@ class BBToolsTest(unittest.TestCase):
             bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 0 })
         self.assertIn("The value of maxmem must be an integer > 0.", str(e.exception))
 
-    @unittest.skip('skip test_RQCFilter_run_local_reads_upa()')  # Uncomment to skip
+    # HIDE @unittest.skip('skip test_RQCFilter_run_local_reads_upa()')  # Uncomment to skip
     def test_RQCFilter_run_local_reads_upa(self):
         lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         print(lib_info)
@@ -237,9 +237,9 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('run_log', res)
         self.assertTrue(os.path.exists(res['run_log']))
         self.assertIn('run_command', res)
-        self.assertIn('rqcfilter2.sh', run_command)
+        self.assertIn('rqcfilter2.sh', res['run_command'])
 
-    @unittest.skip('skip test_RQCFilter_run_local_reads_file()')  # Uncomment to skip
+    # HIDE @unittest.skip('skip test_RQCFilter_run_local_reads_file()')  # Uncomment to skip
     def test_RQCFilter_run_local_reads_file(self):
         test_fastq_file_local = os.path.join('data', 'reads', 'interleaved.fastq')
         test_fastq_file_scratch = os.path.join(self.scratch, os.path.basename(test_fastq_file_local))
@@ -260,10 +260,11 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('run_log', res)
         self.assertTrue(os.path.exists(res['run_log']))
         self.assertIn('run_command', res)
-        self.assertIn('rqcfilter2.sh', run_command)
+        self.assertIn('rqcfilter2.sh', res['run_command'])
 
-    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file()')  # Uncomment to skip
-    def test_BBMap_run_local_reads_file(self):
+
+    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_mapped_reads_01()')  # Uncomment to skip
+    def test_BBMap_run_local_reads_file_mapped_reads_01(self):
         lib_name = 'seven_species_nonuniform_10K.inter.fastq.gz'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
         test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
@@ -275,27 +276,143 @@ class BBToolsTest(unittest.TestCase):
         shutil.copy(test_ass_file_local, test_ass_file_scratch)
 
         io_params = {
-            "in_assembly_path": test_ass_file_scratch,
-            "in_readslib_path": test_reads_file_scratch,
-            "out_file_basename": 'foo.out'
+            "in_assembly_paths": [test_ass_file_scratch],
+            "in_readslib_path":  test_reads_file_scratch,
+            "out_obj_name":     'foo.out'
         }
         run_params = {
-            "out_mode": 'mapped_reads'
+            "get_mapped_reads": '1',
+            "get_unmapped_reads": '0',
+            "get_bam": '0'
         }
         bbtools = self.getImpl()
         res = bbtools.run_BBMap_local(self.ctx, io_params, run_params)[0]
         print('result:')
         pprint(res)
-        """
         self.assertIn('output_directory', res)
         self.assertTrue(os.path.exists(res['output_directory']))
-        self.assertIn('filtered_fastq_file', res)
-        self.assertTrue(os.path.exists(res['filtered_fastq_file']))
+        self.assertIn('mapped_reads_files', res)
+        for file_path in res['mapped_reads_files']:
+            self.assertTrue(os.path.exists(file_path))
         self.assertIn('run_log', res)
         self.assertTrue(os.path.exists(res['run_log']))
         self.assertIn('run_command', res)
-        self.assertIn('rqcfilter2.sh', run_command)
-        """
+        self.assertIn('bbmap.sh', res['run_command'])
+
+
+    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_unmapped_reads_01()')  # Uncomment to skip
+    def test_BBMap_run_local_reads_file_unmapped_reads_01(self):
+        lib_name = 'seven_species_nonuniform_10K.inter.fastq.gz'
+        test_reads_file_local = os.path.join('data', 'reads', lib_name)
+        test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
+        shutil.copy(test_reads_file_local, test_reads_file_scratch)
+
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa.gz'
+        test_ass_file_local = os.path.join('data', 'assemblies', ass_name)
+        test_ass_file_scratch = os.path.join(self.scratch, os.path.basename(test_ass_file_local))
+        shutil.copy(test_ass_file_local, test_ass_file_scratch)
+
+        io_params = {
+            "in_assembly_paths": [test_ass_file_scratch],
+            "in_readslib_path":  test_reads_file_scratch,
+            "out_obj_name":     'foo.out'
+        }
+        run_params = {
+            "get_mapped_reads": '0',
+            "get_unmapped_reads": '1',
+            "get_bam": '0'
+        }
+        bbtools = self.getImpl()
+        res = bbtools.run_BBMap_local(self.ctx, io_params, run_params)[0]
+        print('result:')
+        pprint(res)
+        self.assertIn('output_directory', res)
+        self.assertTrue(os.path.exists(res['output_directory']))
+        self.assertIn('unmapped_reads_files', res)
+        for file_path in res['unmapped_reads_files']:
+            self.assertTrue(os.path.exists(file_path))
+        self.assertIn('run_log', res)
+        self.assertTrue(os.path.exists(res['run_log']))
+        self.assertIn('run_command', res)
+        self.assertIn('bbmap.sh', res['run_command'])
+
+
+    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_split_reads_01()')  # Uncomment to skip
+    def test_BBMap_run_local_reads_file_split_reads_01(self):
+        lib_name = 'seven_species_nonuniform_10K.inter.fastq.gz'
+        test_reads_file_local = os.path.join('data', 'reads', lib_name)
+        test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
+        shutil.copy(test_reads_file_local, test_reads_file_scratch)
+
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa.gz'
+        test_ass_file_local = os.path.join('data', 'assemblies', ass_name)
+        test_ass_file_scratch = os.path.join(self.scratch, os.path.basename(test_ass_file_local))
+        shutil.copy(test_ass_file_local, test_ass_file_scratch)
+
+        io_params = {
+            "in_assembly_paths": [test_ass_file_scratch],
+            "in_readslib_path":  test_reads_file_scratch,
+            "out_obj_name":     'foo.out'
+        }
+        run_params = {
+            "get_mapped_reads": '1',
+            "get_unmapped_reads": '1',
+            "get_bam": '0'
+        }
+        bbtools = self.getImpl()
+        res = bbtools.run_BBMap_local(self.ctx, io_params, run_params)[0]
+        print('result:')
+        pprint(res)
+        self.assertIn('output_directory', res)
+        self.assertTrue(os.path.exists(res['output_directory']))
+        self.assertIn('mapped_reads_files', res)
+        for file_path in res['mapped_reads_files']:
+            self.assertTrue(os.path.exists(file_path))
+        self.assertIn('unmapped_reads_files', res)
+        for file_path in res['unmapped_reads_files']:
+            self.assertTrue(os.path.exists(file_path))
+        self.assertIn('run_log', res)
+        self.assertTrue(os.path.exists(res['run_log']))
+        self.assertIn('run_command', res)
+        self.assertIn('bbmap.sh', res['run_command'])
+
+
+    @unittest.skip('skip test_BBMap_run_local_reads_file_bam_01()')  # Uncomment to skip
+    def test_BBMap_run_local_reads_file_bam_01(self):
+        lib_name = 'seven_species_nonuniform_10K.inter.fastq.gz'
+        test_reads_file_local = os.path.join('data', 'reads', lib_name)
+        test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
+        shutil.copy(test_reads_file_local, test_reads_file_scratch)
+
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa.gz'
+        test_ass_file_local = os.path.join('data', 'assemblies', ass_name)
+        test_ass_file_scratch = os.path.join(self.scratch, os.path.basename(test_ass_file_local))
+        shutil.copy(test_ass_file_local, test_ass_file_scratch)
+
+        io_params = {
+            "in_assembly_paths": [test_ass_file_scratch],
+            "in_readslib_path":  test_reads_file_scratch,
+            "out_obj_name":     'foo.out'
+        }
+        run_params = {
+            "get_mapped_reads": '0',
+            "get_unmapped_reads": '0',
+            "get_bam": '1'
+        }
+        bbtools = self.getImpl()
+        res = bbtools.run_BBMap_local(self.ctx, io_params, run_params)[0]
+        print('result:')
+        pprint(res)
+        self.assertIn('output_directory', res)
+        self.assertTrue(os.path.exists(res['output_directory']))
+        self.assertIn('bam_files', res)
+        for file_path in res['bam_files']:
+            self.assertTrue(os.path.exists(file_path))
+        self.assertIn('run_log', res)
+        self.assertTrue(os.path.exists(res['run_log']))
+        self.assertIn('run_command', res)
+        self.assertIn('bbmap.sh', res['run_command'])
+
 
     # HIDE @unittest.skip('skip test_BBTools_get_version()')  # Uncomment to skip
     def test_BBTools_get_version(self):

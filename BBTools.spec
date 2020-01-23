@@ -30,7 +30,9 @@ module BBTools {
     /* BBMap method (App and Local)
     */
     typedef structure {
-	string         out_mode;
+	string         get_mapped_reads;
+	string         get_unmapped_reads;
+	string         get_bam;
 	string         input_parameter_suite;  /* combine suggested params for certain uses */
 	boolean        use_modulo; /* NOT USED.  reduced-memory-footprint mode.  options: "", "usemodulo" */
 	string         speed_mode;  /* speed mode.  options: "", "vslow", "slow", "fast" */

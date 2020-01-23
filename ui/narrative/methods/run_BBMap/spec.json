@@ -19,12 +19,7 @@
             "field_type": "text",
             "text_options": {
                 "valid_ws_types": [
-                    "KBaseGenomeAnnotations.Assembly",
-                    "KBaseSets.AssemblySet",
-                    "KBaseSearch.GenomeSet",
-                    "KBaseSets.GenomeSet",
-                    "KBaseGenomes.Genome",
-		    "KBaseMetagenomes.BinnedContigs"
+                    "KBaseGenomeAnnotations.Assembly"
                 ]
             }
         },
@@ -61,29 +56,61 @@
             }
         },
         {
-            "id" : "out_mode",
+            "id" : "get_mapped_reads",
             "optional" : false,
             "advanced" : false,
             "allow_multiple" : false,
-            "default_values" : [ "split_reads" ],
+            "default_values" : [ "1" ],
             "field_type" : "dropdown",
             "dropdown_options":{
               "options": [
 		{
-                  "value": "split_reads",
-                  "display": "Get both MAPPED and UNMAPPED reads"
+                  "value": "0",
+                  "display": "DON'T save mapped reads library object"
                 },
-                {
-                  "value": "mapped_reads",
-                  "display": "Get just MAPPED reads"
+		{
+                  "value": "1",
+                  "display": "DO save mapped reads library object"
+                }
+              ]
+            }
+        },
+        {
+            "id" : "get_unmapped_reads",
+            "optional" : false,
+            "advanced" : false,
+            "allow_multiple" : false,
+            "default_values" : [ "0" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [
+		{
+                  "value": "0",
+                  "display": "DON'T save mapped reads library object"
                 },
-                {
-                  "value": "unmapped_reads",
-                  "display": "Get just UNMAPPED reads"
+		{
+                  "value": "1",
+                  "display": "DO save mapped reads library object"
+                }
+              ]
+            }
+        },
+        {
+            "id" : "get_bam",
+            "optional" : true,
+            "advanced" : true,
+            "allow_multiple" : false,
+            "default_values" : [ "0" ],
+            "field_type" : "dropdown",
+            "dropdown_options":{
+              "options": [
+		{
+                  "value": "0",
+                  "display": "DON'T create BAM alignment"
                 },
-                {
-                  "value": "bam",
-                  "display": "Get BAM alignment mapping (no object saved at this time)"
+		{
+                  "value": "1",
+                  "display": "DO create BAM alignment"
                 }
               ]
             }
@@ -291,8 +318,8 @@
 		    "target_argument_position": 0
                 },
                 {
-                    "input_parameter": "in_assembly_ref",
-                    "target_property": "in_assembly_ref",
+                    "input_parameter": "in_assembly_refs",
+                    "target_property": "in_assembly_refs",
                     "target_type_transform": "list<resolved-ref>",
 		    "target_argument_position": 0
                 },
@@ -308,8 +335,18 @@
 		    "target_argument_position": 0
                 },
                 {
-                    "input_parameter": "out_mode",
-                    "target_property": "out_mode",
+                    "input_parameter": "get_mapped_reads",
+                    "target_property": "get_mapped_reads",
+		    "target_argument_position": 1
+                },
+                {
+                    "input_parameter": "get_unmapped_reads",
+                    "target_property": "get_unmapped_reads",
+		    "target_argument_position": 1
+                },
+                {
+                    "input_parameter": "get_bam",
+                    "target_property": "get_bam",
 		    "target_argument_position": 1
                 },
                 {

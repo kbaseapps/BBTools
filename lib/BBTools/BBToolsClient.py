@@ -48,8 +48,9 @@ class BBTools(object):
            "data_obj_name" (A data_obj_name - alphanumeric + '.' + '_' + '-'
            only permitted characters)
         :param run_params: instance of type "BBMapParams" (BBMap method (App
-           and Local)) -> structure: parameter "out_mode" of String,
-           parameter "input_parameter_suite" of String, parameter
+           and Local)) -> structure: parameter "get_mapped_reads" of String,
+           parameter "get_unmapped_reads" of String, parameter "get_bam" of
+           String, parameter "input_parameter_suite" of String, parameter
            "use_modulo" of type "boolean" (A boolean - 0 for false, 1 for
            true. @range (0, 1)), parameter "speed_mode" of String, parameter
            "min_id" of Double, parameter "bandwidth" of String, parameter
@@ -77,8 +78,9 @@ class BBTools(object):
            "in_readslib_path" of type "file_path" (A file_path - absolute
            path to a file), parameter "out_file_basename" of String
         :param run_params: instance of type "BBMapParams" (BBMap method (App
-           and Local)) -> structure: parameter "out_mode" of String,
-           parameter "input_parameter_suite" of String, parameter
+           and Local)) -> structure: parameter "get_mapped_reads" of String,
+           parameter "get_unmapped_reads" of String, parameter "get_bam" of
+           String, parameter "input_parameter_suite" of String, parameter
            "use_modulo" of type "boolean" (A boolean - 0 for false, 1 for
            true. @range (0, 1)), parameter "speed_mode" of String, parameter
            "min_id" of Double, parameter "bandwidth" of String, parameter

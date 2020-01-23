@@ -13,7 +13,8 @@ def build_options(params, available_params):
         if params[param] != 0 and not params[param]:  # almost falsy, but allow 0
             continue
         elif param not in available_params:
-            raise ValueError("Can't parse unknown parameter {}".format(param))
+            #raise ValueError("Can't parse unknown parameter {}".format(param))
+            continue
         else:
             param_info = available_params[param]
             t = param_info.get("type", None)

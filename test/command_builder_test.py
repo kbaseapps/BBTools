@@ -53,6 +53,8 @@ class CommandBuilderTest(unittest.TestCase):
                 if params[p]:
                     self.assertIn("{}={}".format(p, params[p]), options)
 
+    # no longer require all params be present in available_params, so skipping
+    @unittest.skip("skipping test_build_options_missing()")
     def test_build_options_missing(self):
         with self.assertRaises(ValueError) as e:
             build_options({"not_a_param": "foo"}, self.available_params)

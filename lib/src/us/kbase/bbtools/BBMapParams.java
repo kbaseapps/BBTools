@@ -21,7 +21,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
 @JsonPropertyOrder({
-    "out_mode",
+    "get_mapped_reads",
+    "get_unmapped_reads",
+    "get_bam",
     "input_parameter_suite",
     "use_modulo",
     "speed_mode",
@@ -40,8 +42,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class BBMapParams {
 
-    @JsonProperty("out_mode")
-    private String outMode;
+    @JsonProperty("get_mapped_reads")
+    private String getMappedReads;
+    @JsonProperty("get_unmapped_reads")
+    private String getUnmappedReads;
+    @JsonProperty("get_bam")
+    private String getBam;
     @JsonProperty("input_parameter_suite")
     private String inputParameterSuite;
     @JsonProperty("use_modulo")
@@ -74,18 +80,48 @@ public class BBMapParams {
     private Long qualScoreMode;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("out_mode")
-    public String getOutMode() {
-        return outMode;
+    @JsonProperty("get_mapped_reads")
+    public String getGetMappedReads() {
+        return getMappedReads;
     }
 
-    @JsonProperty("out_mode")
-    public void setOutMode(String outMode) {
-        this.outMode = outMode;
+    @JsonProperty("get_mapped_reads")
+    public void setGetMappedReads(String getMappedReads) {
+        this.getMappedReads = getMappedReads;
     }
 
-    public BBMapParams withOutMode(String outMode) {
-        this.outMode = outMode;
+    public BBMapParams withGetMappedReads(String getMappedReads) {
+        this.getMappedReads = getMappedReads;
+        return this;
+    }
+
+    @JsonProperty("get_unmapped_reads")
+    public String getGetUnmappedReads() {
+        return getUnmappedReads;
+    }
+
+    @JsonProperty("get_unmapped_reads")
+    public void setGetUnmappedReads(String getUnmappedReads) {
+        this.getUnmappedReads = getUnmappedReads;
+    }
+
+    public BBMapParams withGetUnmappedReads(String getUnmappedReads) {
+        this.getUnmappedReads = getUnmappedReads;
+        return this;
+    }
+
+    @JsonProperty("get_bam")
+    public String getGetBam() {
+        return getBam;
+    }
+
+    @JsonProperty("get_bam")
+    public void setGetBam(String getBam) {
+        this.getBam = getBam;
+    }
+
+    public BBMapParams withGetBam(String getBam) {
+        this.getBam = getBam;
         return this;
     }
 
@@ -326,7 +362,7 @@ public class BBMapParams {
 
     @Override
     public String toString() {
-        return ((((((((((((((((((((((((((((((((((("BBMapParams"+" [outMode=")+ outMode)+", inputParameterSuite=")+ inputParameterSuite)+", useModulo=")+ useModulo)+", speedMode=")+ speedMode)+", minId=")+ minId)+", bandwidth=")+ bandwidth)+", minHits=")+ minHits)+", kmerLen=")+ kmerLen)+", maxIndel=")+ maxIndel)+", strictMaxIndel=")+ strictMaxIndel)+", subfilterThresh=")+ subfilterThresh)+", delfilterThresh=")+ delfilterThresh)+", requireCorrectStrand=")+ requireCorrectStrand)+", perfectMode=")+ perfectMode)+", semiperfectMode=")+ semiperfectMode)+", qualScoreMode=")+ qualScoreMode)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((((((((((((((((((((((((((((((((((("BBMapParams"+" [getMappedReads=")+ getMappedReads)+", getUnmappedReads=")+ getUnmappedReads)+", getBam=")+ getBam)+", inputParameterSuite=")+ inputParameterSuite)+", useModulo=")+ useModulo)+", speedMode=")+ speedMode)+", minId=")+ minId)+", bandwidth=")+ bandwidth)+", minHits=")+ minHits)+", kmerLen=")+ kmerLen)+", maxIndel=")+ maxIndel)+", strictMaxIndel=")+ strictMaxIndel)+", subfilterThresh=")+ subfilterThresh)+", delfilterThresh=")+ delfilterThresh)+", requireCorrectStrand=")+ requireCorrectStrand)+", perfectMode=")+ perfectMode)+", semiperfectMode=")+ semiperfectMode)+", qualScoreMode=")+ qualScoreMode)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

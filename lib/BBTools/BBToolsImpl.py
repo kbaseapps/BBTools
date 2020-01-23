@@ -25,7 +25,7 @@ class BBTools:
     ######################################### noqa
     VERSION = "1.0.0"
     GIT_URL = "https://github.com/dcchivian/BBTools"
-    GIT_COMMIT_HASH = "aa6aa70b6de6e5cdd4f008dfd64f01af00ba06b9"
+    GIT_COMMIT_HASH = "b8ac7f160bd20d32f34907f60fa67b3138ab4ac2"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -55,8 +55,9 @@ class BBTools:
            "data_obj_name" (A data_obj_name - alphanumeric + '.' + '_' + '-'
            only permitted characters)
         :param run_params: instance of type "BBMapParams" (BBMap method (App
-           and Local)) -> structure: parameter "out_mode" of String,
-           parameter "input_parameter_suite" of String, parameter
+           and Local)) -> structure: parameter "get_mapped_reads" of String,
+           parameter "get_unmapped_reads" of String, parameter "get_bam" of
+           String, parameter "input_parameter_suite" of String, parameter
            "use_modulo" of type "boolean" (A boolean - 0 for false, 1 for
            true. @range (0, 1)), parameter "speed_mode" of String, parameter
            "min_id" of Double, parameter "bandwidth" of String, parameter
@@ -95,8 +96,9 @@ class BBTools:
            "in_readslib_path" of type "file_path" (A file_path - absolute
            path to a file), parameter "out_file_basename" of String
         :param run_params: instance of type "BBMapParams" (BBMap method (App
-           and Local)) -> structure: parameter "out_mode" of String,
-           parameter "input_parameter_suite" of String, parameter
+           and Local)) -> structure: parameter "get_mapped_reads" of String,
+           parameter "get_unmapped_reads" of String, parameter "get_bam" of
+           String, parameter "input_parameter_suite" of String, parameter
            "use_modulo" of type "boolean" (A boolean - 0 for false, 1 for
            true. @range (0, 1)), parameter "speed_mode" of String, parameter
            "min_id" of Double, parameter "bandwidth" of String, parameter

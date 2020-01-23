@@ -131,7 +131,9 @@ workspace_name is a string
 data_obj_ref is a string
 data_obj_name is a string
 BBMapParams is a reference to a hash where the following keys are defined:
-	out_mode has a value which is a string
+	get_mapped_reads has a value which is a string
+	get_unmapped_reads has a value which is a string
+	get_bam has a value which is a string
 	input_parameter_suite has a value which is a string
 	use_modulo has a value which is a BBTools.boolean
 	speed_mode has a value which is a string
@@ -170,7 +172,9 @@ workspace_name is a string
 data_obj_ref is a string
 data_obj_name is a string
 BBMapParams is a reference to a hash where the following keys are defined:
-	out_mode has a value which is a string
+	get_mapped_reads has a value which is a string
+	get_unmapped_reads has a value which is a string
+	get_bam has a value which is a string
 	input_parameter_suite has a value which is a string
 	use_modulo has a value which is a BBTools.boolean
 	speed_mode has a value which is a string
@@ -271,7 +275,9 @@ BBMapLocalParams is a reference to a hash where the following keys are defined:
 	out_file_basename has a value which is a string
 file_path is a string
 BBMapParams is a reference to a hash where the following keys are defined:
-	out_mode has a value which is a string
+	get_mapped_reads has a value which is a string
+	get_unmapped_reads has a value which is a string
+	get_bam has a value which is a string
 	input_parameter_suite has a value which is a string
 	use_modulo has a value which is a BBTools.boolean
 	speed_mode has a value which is a string
@@ -308,7 +314,9 @@ BBMapLocalParams is a reference to a hash where the following keys are defined:
 	out_file_basename has a value which is a string
 file_path is a string
 BBMapParams is a reference to a hash where the following keys are defined:
-	out_mode has a value which is a string
+	get_mapped_reads has a value which is a string
+	get_unmapped_reads has a value which is a string
+	get_bam has a value which is a string
 	input_parameter_suite has a value which is a string
 	use_modulo has a value which is a BBTools.boolean
 	speed_mode has a value which is a string
@@ -1110,7 +1118,9 @@ BBMap method (App and Local)
 
 <pre>
 a reference to a hash where the following keys are defined:
-out_mode has a value which is a string
+get_mapped_reads has a value which is a string
+get_unmapped_reads has a value which is a string
+get_bam has a value which is a string
 input_parameter_suite has a value which is a string
 use_modulo has a value which is a BBTools.boolean
 speed_mode has a value which is a string
@@ -1134,7 +1144,9 @@ qual_score_mode has a value which is an int
 =begin text
 
 a reference to a hash where the following keys are defined:
-out_mode has a value which is a string
+get_mapped_reads has a value which is a string
+get_unmapped_reads has a value which is a string
+get_bam has a value which is a string
 input_parameter_suite has a value which is a string
 use_modulo has a value which is a BBTools.boolean
 speed_mode has a value which is a string
