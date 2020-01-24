@@ -63,6 +63,7 @@ module BBTools {
     typedef structure {
         string report_name;
         string report_ref;
+	string run_command;
     } BBMapAppOutput;
 
 
@@ -75,9 +76,12 @@ module BBTools {
     } BBMapLocalParams;
 
     typedef structure {
-	list<file_path>  out_mapped_reads_paths;
-	list<file_path>  out_unmapped_reads_paths;
-	list<file_path>  out_bam_paths;
+	list<file_path>  mapped_reads_paths;
+	list<file_path>  unmapped_reads_paths;
+	list<file_path>  bam_paths;
+        string output_directory;
+        string run_log;
+        string run_command;
     } BBMapLocalOutput;
 
 

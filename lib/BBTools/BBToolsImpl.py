@@ -25,7 +25,7 @@ class BBTools:
     ######################################### noqa
     VERSION = "1.0.0"
     GIT_URL = "https://github.com/dcchivian/BBTools"
-    GIT_COMMIT_HASH = "b8ac7f160bd20d32f34907f60fa67b3138ab4ac2"
+    GIT_COMMIT_HASH = "4837825f0522f36a408d49bcc9921a7a4d17def8"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -72,7 +72,8 @@ class BBTools:
            "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
            parameter "qual_score_mode" of Long
         :returns: instance of type "BBMapAppOutput" -> structure: parameter
-           "report_name" of String, parameter "report_ref" of String
+           "report_name" of String, parameter "report_ref" of String,
+           parameter "run_command" of String
         """
         # ctx is the context object
         # return variables are: output
@@ -113,11 +114,12 @@ class BBTools:
            "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
            parameter "qual_score_mode" of Long
         :returns: instance of type "BBMapLocalOutput" -> structure: parameter
-           "out_mapped_reads_paths" of list of type "file_path" (A file_path
-           - absolute path to a file), parameter "out_unmapped_reads_paths"
-           of list of type "file_path" (A file_path - absolute path to a
-           file), parameter "out_bam_paths" of list of type "file_path" (A
-           file_path - absolute path to a file)
+           "mapped_reads_paths" of list of type "file_path" (A file_path -
+           absolute path to a file), parameter "unmapped_reads_paths" of list
+           of type "file_path" (A file_path - absolute path to a file),
+           parameter "bam_paths" of list of type "file_path" (A file_path -
+           absolute path to a file), parameter "output_directory" of String,
+           parameter "run_log" of String, parameter "run_command" of String
         """
         # ctx is the context object
         # return variables are: output

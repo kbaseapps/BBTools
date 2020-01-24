@@ -20,7 +20,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("com.googlecode.jsonschema2pojo")
 @JsonPropertyOrder({
     "report_name",
-    "report_ref"
+    "report_ref",
+    "run_command"
 })
 public class BBMapAppOutput {
 
@@ -28,6 +29,8 @@ public class BBMapAppOutput {
     private String reportName;
     @JsonProperty("report_ref")
     private String reportRef;
+    @JsonProperty("run_command")
+    private String runCommand;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("report_name")
@@ -60,6 +63,21 @@ public class BBMapAppOutput {
         return this;
     }
 
+    @JsonProperty("run_command")
+    public String getRunCommand() {
+        return runCommand;
+    }
+
+    @JsonProperty("run_command")
+    public void setRunCommand(String runCommand) {
+        this.runCommand = runCommand;
+    }
+
+    public BBMapAppOutput withRunCommand(String runCommand) {
+        this.runCommand = runCommand;
+        return this;
+    }
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
@@ -72,7 +90,7 @@ public class BBMapAppOutput {
 
     @Override
     public String toString() {
-        return ((((((("BBMapAppOutput"+" [reportName=")+ reportName)+", reportRef=")+ reportRef)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((((("BBMapAppOutput"+" [reportName=")+ reportName)+", reportRef=")+ reportRef)+", runCommand=")+ runCommand)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

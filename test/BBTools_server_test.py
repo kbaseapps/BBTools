@@ -13,6 +13,7 @@ except:
 from pprint import pprint
 
 from installed_clients.ReadsUtilsClient import ReadsUtils
+from installed_clients.AssemblyUtilClient import AssemblyUtil
 
 from installed_clients.WorkspaceClient import Workspace as workspaceService
 from installed_clients.authclient import KBaseAuth as _KBaseAuth
@@ -75,7 +76,7 @@ class BBToolsTest(unittest.TestCase):
     def getPairedEndLibInfo(self, lib_name):
         if hasattr(self.__class__, 'pairedEndLibInfo'):
             if self.__class__.pairedEndLibInfo.get(lib_name):
-                return self.__class__.pairedEndLibInfo['lib_name']
+                return self.__class__.pairedEndLibInfo[lib_name]
 
         # copy the local test file to the shared scratch space so that the ReadsUtils
         # container can see it.
@@ -95,6 +96,33 @@ class BBToolsTest(unittest.TestCase):
         if not hasattr(self.__class__, 'pairedEndLibInfo'):
             self.__class__.pairedEndLibInfo = dict()
         self.__class__.pairedEndLibInfo[lib_name] = new_obj_info[0]
+        return new_obj_info[0]
+
+
+    # call this method to get the WS object info of an Assembly (will
+    # upload the example data if this is the first time the method is called during tests)
+    def getAssemblyInfo(self, ass_name):
+        if hasattr(self.__class__, 'assemblyInfo'):
+            if self.__class__.assemblyInfo.get(ass_name):
+                return self.__class__.assemblyInfo[ass_name]
+
+        # copy the local test file to the shared scratch space so that the AssemblyUtil
+        # container can see it.
+        test_fasta_file_local = os.path.join('data', 'assemblies', ass_name)
+        test_fasta_file_scratch = os.path.join(self.scratch, os.path.basename(test_fasta_file_local))
+        shutil.copy(test_fasta_file_local, test_fasta_file_scratch)
+
+        # call the AssemblyUtil libary to upload the test data to KBase
+        au = AssemblyUtil(os.environ['SDK_CALLBACK_URL'])
+        ass_ref = au.save_assembly_from_fasta({'file': {'path': test_fasta_file_scratch},
+                                               'workspace_name': self.getWsName(),
+                                               'assembly_name': ass_name})
+
+        # get the object metadata for the new test dataset
+        new_obj_info = self.ws.get_object_info_new({'objects': [{'ref': ass_ref}]})
+        if not hasattr(self.__class__, 'assemblyInfo'):
+            self.__class__.assemblyInfo = dict()
+        self.__class__.assemblyInfo[ass_name] = new_obj_info[0]
         return new_obj_info[0]
 
 
@@ -125,19 +153,35 @@ class BBToolsTest(unittest.TestCase):
 
     # HIDE @unittest.skip('skip test_BBMap_basic_app()')  # Uncomment to skip
     def test_BBMap_basic_app(self):
+
+        # get the test assembly
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa'
+        ass_info = self.getAssemblyInfo(ass_name)
+        ass_ref = '/'.join([str(ass_info[6]),
+                            str(ass_info[0]),
+                            str(ass_info[4])])
+        print(ass_info)
+
         # get the test reads library
-        lib_name = 'seven_species_nonuniform_10k.inter.fastq.gz'
+        lib_name = 'seven_species_nonuniform_10K.inter.fastq'
         lib_info = self.getPairedEndLibInfo(lib_name)
+        lib_ref = '/'.join([str(lib_info[6]),
+                            str(lib_info[0]),
+                            str(lib_info[4])])
         print(lib_info)
 
         io_params = {
-            'read_library_ref': str(lib_info[6]) + '/' + str(lib_info[0]) + '/' + str(lib_info[4]),
-            'output_workspace_name': self.getWsName(),
-            'output_library_name': 'filtered.reads'
+            'in_assembly_refs': [ass_ref],
+            'in_readslib_ref': lib_ref,
+            'workspace_name': self.getWsName(),
+            'out_obj_name': lib_name+'.out.reads'
         }
-        run_params = {}
+        run_params = {
+            'get_mapped_reads': '1',
+            'get_unmapped_reads': '1'
+        }
         bbtools = self.getImpl()
-        res = bbtools.run_BBMap_app(self.ctx, io_params, run_params)
+        res = bbtools.run_BBMap(self.ctx, io_params, run_params)
 
         print('result:')
         pprint(res)

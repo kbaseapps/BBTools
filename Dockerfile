@@ -20,8 +20,8 @@ WORKDIR /kb/module
 COPY ./ /kb/module
 
 
-# add SAMTools
-RUN apt-get update && apt-get install -y samtools
+# add SAMTools (don't need yet)
+#RUN apt-get update && apt-get install -y samtools
 
 
 # install BBTools

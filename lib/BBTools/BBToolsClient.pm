@@ -153,6 +153,7 @@ boolean is an int
 BBMapAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
 	report_ref has a value which is a string
+	run_command has a value which is a string
 
 </pre>
 
@@ -194,6 +195,7 @@ boolean is an int
 BBMapAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
 	report_ref has a value which is a string
+	run_command has a value which is a string
 
 
 =end text
@@ -295,9 +297,12 @@ BBMapParams is a reference to a hash where the following keys are defined:
 	qual_score_mode has a value which is an int
 boolean is an int
 BBMapLocalOutput is a reference to a hash where the following keys are defined:
-	out_mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
-	out_unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
-	out_bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	output_directory has a value which is a string
+	run_log has a value which is a string
+	run_command has a value which is a string
 
 </pre>
 
@@ -334,9 +339,12 @@ BBMapParams is a reference to a hash where the following keys are defined:
 	qual_score_mode has a value which is an int
 boolean is an int
 BBMapLocalOutput is a reference to a hash where the following keys are defined:
-	out_mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
-	out_unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
-	out_bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
+	output_directory has a value which is a string
+	run_log has a value which is a string
+	run_command has a value which is a string
 
 
 =end text
@@ -1225,6 +1233,7 @@ out_obj_name has a value which is a BBTools.data_obj_name
 a reference to a hash where the following keys are defined:
 report_name has a value which is a string
 report_ref has a value which is a string
+run_command has a value which is a string
 
 </pre>
 
@@ -1235,6 +1244,7 @@ report_ref has a value which is a string
 a reference to a hash where the following keys are defined:
 report_name has a value which is a string
 report_ref has a value which is a string
+run_command has a value which is a string
 
 
 =end text
@@ -1294,9 +1304,12 @@ out_file_basename has a value which is a string
 
 <pre>
 a reference to a hash where the following keys are defined:
-out_mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
-out_unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
-out_bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
+mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
+output_directory has a value which is a string
+run_log has a value which is a string
+run_command has a value which is a string
 
 </pre>
 
@@ -1305,9 +1318,12 @@ out_bam_paths has a value which is a reference to a list where each element is a
 =begin text
 
 a reference to a hash where the following keys are defined:
-out_mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
-out_unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
-out_bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
+mapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
+bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
+output_directory has a value which is a string
+run_log has a value which is a string
+run_command has a value which is a string
 
 
 =end text
