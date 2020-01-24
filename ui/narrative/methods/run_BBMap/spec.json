@@ -129,7 +129,7 @@
                   "display": "Bacteria and Archaea - high accuracy, slow speed: "
                 },
 		{
-                  "value": "BLAH BLAH BLAH",
+                  "value": "",
                   "display": "Bacteria and Archaea - default mode: "
                 },
 		{
@@ -223,16 +223,16 @@
             "optional" : true,
             "advanced" : true,
             "allow_multiple" : false,
-            "default_values" : [ "OFF" ],
+            "default_values" : [ "0" ],
             "field_type" : "dropdown",
             "dropdown_options":{
               "options": [
 		{
-                  "value": "ON",
+                  "value": "1",
                   "display": "DO enforce strict max-indel"
                 },
 		{
-                  "value": "OFF",
+                  "value": "0",
                   "display": "DON'T enforce strict max-indel"
                 }
               ]
@@ -269,16 +269,16 @@
             "optional" : true,
             "advanced" : true,
             "allow_multiple" : false,
-            "default_values" : [ "ON" ],
+            "default_values" : [ "1" ],
             "field_type" : "dropdown",
             "dropdown_options":{
               "options": [
 		{
-                  "value": "ON",
+                  "value": "1",
                   "display": "Match pairs to opposite strands"
                 },
 		{
-                  "value": "OFF",
+                  "value": "0",
                   "display": "Paired Reads may match either strand"
                 }
               ]

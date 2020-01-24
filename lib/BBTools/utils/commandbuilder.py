@@ -14,6 +14,7 @@ def build_options(params, available_params):
             continue
         elif param not in available_params:
             #raise ValueError("Can't parse unknown parameter {}".format(param))
+            print("WARNING build_options(): "+"Can't parse unknown parameter {}".format(param))
             continue
         else:
             param_info = available_params[param]
