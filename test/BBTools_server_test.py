@@ -163,7 +163,7 @@ class BBToolsTest(unittest.TestCase):
         print(ass_info)
 
         # get the test reads library
-        lib_name = 'seven_species_nonuniform_10K.inter.fastq'
+        lib_name = 'seven_species_nonuniform_32.inter.fastq'
         lib_info = self.getPairedEndLibInfo(lib_name)
         lib_ref = '/'.join([str(lib_info[6]),
                             str(lib_info[0]),
@@ -309,12 +309,12 @@ class BBToolsTest(unittest.TestCase):
 
     # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_mapped_reads_01()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_mapped_reads_01(self):
-        lib_name = 'seven_species_nonuniform_10K.inter.fastq.gz'
+        lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
         test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
         shutil.copy(test_reads_file_local, test_reads_file_scratch)
 
-        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa.gz'
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa'
         test_ass_file_local = os.path.join('data', 'assemblies', ass_name)
         test_ass_file_scratch = os.path.join(self.scratch, os.path.basename(test_ass_file_local))
         shutil.copy(test_ass_file_local, test_ass_file_scratch)
@@ -346,12 +346,12 @@ class BBToolsTest(unittest.TestCase):
 
     # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_unmapped_reads_01()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_unmapped_reads_01(self):
-        lib_name = 'seven_species_nonuniform_10K.inter.fastq.gz'
+        lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
         test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
         shutil.copy(test_reads_file_local, test_reads_file_scratch)
 
-        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa.gz'
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa'
         test_ass_file_local = os.path.join('data', 'assemblies', ass_name)
         test_ass_file_scratch = os.path.join(self.scratch, os.path.basename(test_ass_file_local))
         shutil.copy(test_ass_file_local, test_ass_file_scratch)
@@ -383,12 +383,12 @@ class BBToolsTest(unittest.TestCase):
 
     # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_split_reads_01()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_split_reads_01(self):
-        lib_name = 'seven_species_nonuniform_10K.inter.fastq.gz'
+        lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
         test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
         shutil.copy(test_reads_file_local, test_reads_file_scratch)
 
-        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa.gz'
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa'
         test_ass_file_local = os.path.join('data', 'assemblies', ass_name)
         test_ass_file_scratch = os.path.join(self.scratch, os.path.basename(test_ass_file_local))
         shutil.copy(test_ass_file_local, test_ass_file_scratch)
@@ -423,12 +423,12 @@ class BBToolsTest(unittest.TestCase):
 
     @unittest.skip('skip test_BBMap_run_local_reads_file_bam_01()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_bam_01(self):
-        lib_name = 'seven_species_nonuniform_10K.inter.fastq.gz'
+        lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
         test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
         shutil.copy(test_reads_file_local, test_reads_file_scratch)
 
-        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa.gz'
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa'
         test_ass_file_local = os.path.join('data', 'assemblies', ass_name)
         test_ass_file_scratch = os.path.join(self.scratch, os.path.basename(test_ass_file_local))
         shutil.copy(test_ass_file_local, test_ass_file_scratch)
