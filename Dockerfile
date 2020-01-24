@@ -12,21 +12,17 @@ MAINTAINER KBase Developer
 # update security libraries in the base image
 ENV NSLOTS 4
 
-RUN pip install cffi --upgrade \
-    && pip install pyopenssl --upgrade \
-    && pip install ndg-httpsclient --upgrade \
-    && pip install pyasn1 --upgrade \
-    && pip install requests --upgrade \
-    && pip install 'requests[security]' --upgrade \
-    && pip install coverage \
-    && pip install yattag
-
 # -----------------------------------------
 
 WORKDIR /kb/module
 
 # copy everything in, we need the version file
 COPY ./ /kb/module
+
+
+# add SAMTools (don't need yet)
+#RUN apt-get update && apt-get install -y samtools
+
 
 # install BBTools
 

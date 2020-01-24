@@ -15,18 +15,22 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * <p>Original spec-file type: MemEstimatorOutput</p>
  * <pre>
  * estimate - the estimated amount of memory required to assemble the paired end files, in GB.
+ * size - the total disk space in GB used by the reads files.
  * </pre>
  * 
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
 @JsonPropertyOrder({
-    "estimate"
+    "estimate",
+    "size"
 })
 public class MemEstimatorOutput {
 
     @JsonProperty("estimate")
     private Double estimate;
+    @JsonProperty("size")
+    private Double size;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("estimate")
@@ -44,6 +48,21 @@ public class MemEstimatorOutput {
         return this;
     }
 
+    @JsonProperty("size")
+    public Double getSize() {
+        return size;
+    }
+
+    @JsonProperty("size")
+    public void setSize(Double size) {
+        this.size = size;
+    }
+
+    public MemEstimatorOutput withSize(Double size) {
+        this.size = size;
+        return this;
+    }
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
@@ -56,7 +75,7 @@ public class MemEstimatorOutput {
 
     @Override
     public String toString() {
-        return ((((("MemEstimatorOutput"+" [estimate=")+ estimate)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((("MemEstimatorOutput"+" [estimate=")+ estimate)+", size=")+ size)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

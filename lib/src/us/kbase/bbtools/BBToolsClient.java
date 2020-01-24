@@ -162,6 +162,44 @@ public class BBToolsClient {
     }
 
     /**
+     * <p>Original spec-file function name: run_BBMap</p>
+     * <pre>
+     * </pre>
+     * @param   ioParams   instance of type {@link us.kbase.bbtools.BBMapAppParams BBMapAppParams}
+     * @param   runParams   instance of type {@link us.kbase.bbtools.BBMapParams BBMapParams}
+     * @return   parameter "output" of type {@link us.kbase.bbtools.BBMapAppOutput BBMapAppOutput}
+     * @throws IOException if an IO exception occurs
+     * @throws JsonClientException if a JSON RPC exception occurs
+     */
+    public BBMapAppOutput runBBMap(BBMapAppParams ioParams, BBMapParams runParams, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+        List<Object> args = new ArrayList<Object>();
+        args.add(ioParams);
+        args.add(runParams);
+        TypeReference<List<BBMapAppOutput>> retType = new TypeReference<List<BBMapAppOutput>>() {};
+        List<BBMapAppOutput> res = caller.jsonrpcCall("BBTools.run_BBMap", args, retType, true, true, jsonRpcContext, this.serviceVersion);
+        return res.get(0);
+    }
+
+    /**
+     * <p>Original spec-file function name: run_BBMap_local</p>
+     * <pre>
+     * </pre>
+     * @param   ioParams   instance of type {@link us.kbase.bbtools.BBMapLocalParams BBMapLocalParams}
+     * @param   runParams   instance of type {@link us.kbase.bbtools.BBMapParams BBMapParams}
+     * @return   parameter "output" of type {@link us.kbase.bbtools.BBMapLocalOutput BBMapLocalOutput}
+     * @throws IOException if an IO exception occurs
+     * @throws JsonClientException if a JSON RPC exception occurs
+     */
+    public BBMapLocalOutput runBBMapLocal(BBMapLocalParams ioParams, BBMapParams runParams, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+        List<Object> args = new ArrayList<Object>();
+        args.add(ioParams);
+        args.add(runParams);
+        TypeReference<List<BBMapLocalOutput>> retType = new TypeReference<List<BBMapLocalOutput>>() {};
+        List<BBMapLocalOutput> res = caller.jsonrpcCall("BBTools.run_BBMap_local", args, retType, true, true, jsonRpcContext, this.serviceVersion);
+        return res.get(0);
+    }
+
+    /**
      * <p>Original spec-file function name: run_RQCFilter_app</p>
      * <pre>
      * </pre>

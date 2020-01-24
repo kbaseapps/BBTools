@@ -1,0 +1,98 @@
+#
+# define display information
+#
+name: Run the JGI BBMap Read Aligner (BBTools v38.73)
+
+tooltip: |
+    Runs the JGI BBMap reads to contigs alignment mapping program
+
+screenshots: []
+
+icon: bbmap-pink.png
+
+#
+# define a set of similar methods that might be useful to the user
+#
+suggestions:
+    apps:
+        related:
+            []
+        next:
+            []
+    methods:
+        related:
+            []
+        next:
+            []
+
+#
+# Configure the display and description of parameters
+#
+parameters :
+    in_assembly_refs :
+        ui-name    : Contigs
+        short-hint : May be Assembly, AssemblySet, Genome, GenomeSet, or BinnedContigs object
+
+    in_readslib_ref :
+        ui-name    : Reads library
+        short-hint : Input reads library (single library only at this time)
+
+    out_obj_name :
+        ui-name    : Output name
+        short-hint : Output type Assembly/Genome -> ReadsLib.  AssemblySet/GenomeSet/BinnedContigs -> ReadsSet
+
+    get_mapped_reads :
+        ui-name    : Mapped reads
+        short-hint : Create a reads library with the reads that map to the assembly
+
+    get_unmapped_reads :
+        ui-name    : Unmapped reads
+        short-hint : Create a reads library with the reads that didn't map to the assembly
+
+    get_bam :
+        ui-name    : Create BAM
+        short-hint : Create a BAM alignment file for download using the reads that map to the assembly
+
+    input_parameter_suite :
+        ui-name    : Parameter suite
+        short-hint : Option to use default parameters suitable for a desired run mode
+
+    speed_mode :
+        ui-name    : Speed mode
+        short-hint : Adjust speed at cost to accuracy (slower==more accurate)
+
+    min_id :
+        ui-name    : Minimum identity
+        short-hint : Adjust threshold for alignment (affects min_ratio)
+
+    kmer_len :
+        ui-name    : K-mer length
+        short-hint : Adjust k-mer length used for sketch in alignment-free steps in algorithm
+
+    max_indel :
+        ui-name    : Maximum indel
+        short-hint : Limit size of indel in alignment (may be very different between euk and non-euk)
+
+    strict_max_indel :
+        ui-name    : Strict Max-indel
+        short-hint : Apply the Maximum indel threshold absolutely (instead of loosely)
+
+    subfilter_thresh :
+        ui-name    : Substitution threshold
+        short-hint : Filter alternate alignments, with a limit on how many substitutions are permitted
+
+    delfilter_thresh :
+        ui-name    : Deletion threshold
+        short-hint : Filter alternate alignments, with a limit on how many deletions are permitted
+
+    require_correct_strand :
+        ui-name    : Enforce Strand
+        short-hint : Require that paired-end reads align to opposites strands of the target contig
+
+    qual_score_mode :
+        ui-name    : Qual score mode
+        short-hint : Old Illumina used 64, everything else uses 33
+
+
+description : |
+    see: http://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbmap-guide/

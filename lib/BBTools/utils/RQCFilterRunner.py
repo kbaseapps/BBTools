@@ -5,7 +5,7 @@ import zipfile
 from pprint import pprint
 
 from BBTools.utils.BBToolsRunner import BBToolsRunner
-from KBaseReport.KBaseReportClient import KBaseReport
+from installed_clients.KBaseReportClient import KBaseReport
 from commandbuilder import build_options
 from .file_util import (
     download_interleaved_reads,
@@ -120,7 +120,8 @@ class RQCFilterRunner:
         # maxmem is brought in, possibly as well.
         # it should be removed from the build options list, as it's a special
         # command sent to java to set memory requirements
-        mem = 50
+        #mem = 50
+        mem = 5
         if 'maxmem' in app_params:
             try:
                 mem = int(app_params['maxmem'])
@@ -267,4 +268,4 @@ class RQCFilterRunner:
         html.write('</html>')
         html.close()
 
-        return pack_and_upload_folder(self.callback_url, html_dir, 'report.html', 'Summarized report from CheckM')
+        return pack_and_upload_folder(self.callback_url, html_dir, 'report.html', 'Summarized report from RQCFilter')

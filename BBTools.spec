@@ -9,6 +9,91 @@ module BBTools {
     */
     typedef int boolean;
 
+    /* A workspace_name - alphanumeric + '.' + '_' + '-' only permitted characters
+    */
+    typedef string workspace_name;
+
+    /* A data_obj_name - alphanumeric + '.' + '_' + '-' only permitted characters
+    */
+    typedef string data_obj_name;
+
+    /* A data_obj_ref - address of form 'WS_NAME/OBJ_NAME', 'WS_NAME/OBJ_NAME/VERSION', or 'WS_ID/OBJ_ID', or 'WS_ID/OBJ_ID/VERSION'
+    */
+    typedef string data_obj_ref;
+
+
+    /* A file_path - absolute path to a file
+    */
+    typedef string file_path;
+
+
+    /* BBMap method (App and Local)
+    */
+    typedef structure {
+	string         get_mapped_reads;
+	string         get_unmapped_reads;
+	string         get_bam;
+	string         input_parameter_suite;  /* combine suggested params for certain uses */
+	boolean        use_modulo; /* NOT USED.  reduced-memory-footprint mode.  options: "", "usemodulo" */
+	string         speed_mode;  /* speed mode.  options: "", "vslow", "slow", "fast" */
+	float          min_id;     /* derives min_ratio, where min_id=0.9 -> min_ratio=0.816 */
+	string         bandwidth;  /* NOT USED */
+	int            min_hits;   /* NOT USED */
+	int            kmer_len;   /* kmer profile.  options: "k=<kmer_len>", e.g. kmer=8 */
+	int            max_indel;  /* max_indel very different for prok and euk */
+	boolean        strict_max_indel;  /* enforce max_indel instead of bias */
+	int            subfilter_thresh;   /* substitution filter thresh */
+	int            delfilter_thresh;   /* deletion filter thresh */
+	boolean        require_correct_strand;  /* enforce pair match on opposite strands */
+	boolean        perfect_mode;  /* NOT USED */
+	boolean        semiperfect_mode;  /* NOT USED */
+	int            qual_score_mode;  /* default 33 */
+    } BBMapParams;
+
+
+    /* BBMap App IO
+    */
+    typedef structure {
+	workspace_name workspace_name;
+	list<data_obj_ref>  in_assembly_refs;  /* may be Assembly, AssemblySet, or BinnedContig */
+	data_obj_ref        in_readslib_ref;  /* single reads lib (for now) */
+	data_obj_name       out_obj_name;
+    } BBMapAppParams;
+
+    typedef structure {
+        string report_name;
+        string report_ref;
+	string run_command;
+    } BBMapAppOutput;
+
+
+    /* BBMap Local IO
+    */
+    typedef structure {
+	list<file_path>  in_assembly_paths;  /* must be fasta */
+	file_path        in_readslib_path;  /* single reads lib (for now) */
+	string           out_file_basename;
+    } BBMapLocalParams;
+
+    typedef structure {
+	list<file_path>  mapped_reads_paths;
+	list<file_path>  unmapped_reads_paths;
+	list<file_path>  bam_paths;
+        string output_directory;
+        string run_log;
+        string run_command;
+    } BBMapLocalOutput;
+
+
+    funcdef run_BBMap(BBMapAppParams io_params, BBMapParams run_params)
+        returns (BBMapAppOutput output)
+        authentication required;
+
+    funcdef run_BBMap_local(BBMapLocalParams io_params, BBMapParams run_params)
+        returns (BBMapLocalOutput output)
+        authentication required;
+
+
     /*
     Contains all parameters for the RQCFilter program, EXCEPT for the inputs and outputs.
     Those are added specifically by each function. This lets us describe them separately for the

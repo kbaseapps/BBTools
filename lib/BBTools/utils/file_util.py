@@ -4,8 +4,21 @@ Fetching data, re-uploading from file, zipping files into a report, etc.
 """
 import os
 import errno
-from ReadsUtils.ReadsUtilsClient import ReadsUtils
-from DataFileUtil.DataFileUtilClient import DataFileUtil
+from installed_clients.AssemblyUtilClient import AssemblyUtil
+from installed_clients.ReadsUtilsClient import ReadsUtils
+from installed_clients.DataFileUtilClient import DataFileUtil
+
+
+def download_assemblies(callback_url, assembly_upa_list):
+    assembly_paths = []
+    for assembly_upa in assembly_upa_list:
+        assembly_paths.append(download_assembly(callback_url, assembly_upa))
+    return assembly_paths
+
+def download_assembly(callback_url, assembly_upa):
+    au = AssemblyUtil(callback_url)
+    contig_file = au.get_assembly_as_fasta({'ref':assembly_upa}).get('path')
+    return contig_file
 
 
 def download_interleaved_reads(callback_url, reads_upa):

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 /**
  * <p>Original spec-file type: MemEstimatorParams</p>
  * <pre>
- * reads_file - path to a paired end reads file. If this is here alone, expect it to
+ * reads_file - path to a reads file. If this is here alone, expect it to
  *              be interleaved.
  * reads_file2 - path to the pair of the first file.
  * </pre>

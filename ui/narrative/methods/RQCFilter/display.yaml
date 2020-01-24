@@ -1,14 +1,14 @@
 #
 # define display information
 #
-name: Run the JGI RQCFilter pipeline (BBTools v38.22)
+name: Run the JGI RQCFilter pipeline (BBTools v38.73)
 
 tooltip: |
     Runs the JGI reads data preprocessing pipeline
 
 screenshots: []
 
-icon: jgi_logo.png
+icon: rqcfilter-pink.png
 
 #
 # define a set of similar methods that might be useful to the user
