@@ -14,7 +14,7 @@
             "id": "in_assembly_refs",
             "optional": false,
             "advanced": false,
-            "allow_multiple": true,
+            "allow_multiple": false,
             "default_values": [ "" ],
             "field_type": "text",
             "text_options": {
