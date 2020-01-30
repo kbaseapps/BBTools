@@ -23,6 +23,9 @@ COPY ./ /kb/module
 # add SAMTools (don't need yet)
 #RUN apt-get update && apt-get install -y samtools
 
+# needed for python3 base image
+#RUN apt-get update && apt-get install -y wget gcc
+
 
 # install BBTools
 

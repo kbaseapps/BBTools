@@ -252,7 +252,8 @@ class BBMapRunner:
                     options.append("delfilter={}".format(str(app_params['delfilter_thresh'])))
 
             # hard-code max threads for now
-            options.append('t={}'.format('4'))
+            max_threads = '4'
+            options.append('t={}'.format(max_threads))
 
             # use pigz and unpigz for what are usually huge files
             options.append('pigz=t')
@@ -260,9 +261,10 @@ class BBMapRunner:
 
             # enforce qual=33 if not given
             if app_params.get('qual_score_mode'):
-                options.append('qin={}'.format(str(app_params['qual_score_mode'])))
+                qual_score_mode = str(app_params['qual_score_mode'])
             else:
-                options.append('qin={}'.format('33'))
+                qual_score_mode = '33'
+            options.append('qin={}'.format(qual_score_mode))
 
             # add the memory requirement at the end
             options.append('-Xmx{}g'.format(mem))
@@ -357,7 +359,7 @@ class BBMapRunner:
         result_file = os.path.join(output_dir, 'bbmap_report.zip')
         with zipfile.ZipFile(result_file, 'w', zipfile.ZIP_DEFLATED, allowZip64=True) as report_zip:
             for file_name in file_list:
-                if file_name.endswith('.gz') or file_name.endswith('.fastq') or file_name.endswith('.FASTQ'):
+                if file_name.lower().endswith('.gz') or file_name.lower().endswith('.fastq'):
                     continue
                 zipped_file_name = file_name
                 report_zip.write(os.path.join(output_dir, file_name), zipped_file_name)
@@ -407,15 +409,6 @@ class BBMapRunner:
         html = open(os.path.join(html_dir, 'BBMap_report.html'), 'w')
         html.write('<html><head><title>BBMap Report: ' + reads_ref + '</title></head>\n')
         html.write('<body>\n')
-
-        # table stats easier to just get from BBMap results
-        #stats = self._read_outputfile(os.path.join(output_dir, 'filterStats.txt'))
-        #html.write('  <table style="border: 1px solid black; border-collapse: collapse;">\n')
-        #tdstyle = 'style="border: 1px solid black; padding: 8px;"'
-        #for key in stats.keys():
-        #    html.write('   <tr><td ' + tdstyle + '>' + str(key) + '</td>')
-        #    html.write(' <td ' + tdstyle + '>' + str(stats[key]) + '</td></tr>\n')
-        #html.write('  </table>\n')
 
         bbmap_results_report_buf = self._read_bbmap_results_report(run_log)
         html.write('<blockquote><pre>\n')
