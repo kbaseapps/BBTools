@@ -1,3 +1,7 @@
+### Version 1.0.1
+__Changes__
+- Added config options and html results to BBMap
+
 ### Version 1.0.0
 __Changes__
 - Added BBMap v38.73 (released 2019-11-14)

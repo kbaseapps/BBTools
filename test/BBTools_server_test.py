@@ -335,8 +335,8 @@ class BBToolsTest(unittest.TestCase):
         pprint(res)
         self.assertIn('output_directory', res)
         self.assertTrue(os.path.exists(res['output_directory']))
-        self.assertIn('mapped_reads_files', res)
-        for file_path in res['mapped_reads_files']:
+        self.assertIn('mapped_reads_paths', res)
+        for file_path in res['mapped_reads_paths']:
             self.assertTrue(os.path.exists(file_path))
         self.assertIn('run_log', res)
         self.assertTrue(os.path.exists(res['run_log']))
@@ -372,8 +372,8 @@ class BBToolsTest(unittest.TestCase):
         pprint(res)
         self.assertIn('output_directory', res)
         self.assertTrue(os.path.exists(res['output_directory']))
-        self.assertIn('unmapped_reads_files', res)
-        for file_path in res['unmapped_reads_files']:
+        self.assertIn('unmapped_reads_paths', res)
+        for file_path in res['unmapped_reads_paths']:
             self.assertTrue(os.path.exists(file_path))
         self.assertIn('run_log', res)
         self.assertTrue(os.path.exists(res['run_log']))
@@ -409,11 +409,11 @@ class BBToolsTest(unittest.TestCase):
         pprint(res)
         self.assertIn('output_directory', res)
         self.assertTrue(os.path.exists(res['output_directory']))
-        self.assertIn('mapped_reads_files', res)
-        for file_path in res['mapped_reads_files']:
+        self.assertIn('mapped_reads_paths', res)
+        for file_path in res['mapped_reads_paths']:
             self.assertTrue(os.path.exists(file_path))
-        self.assertIn('unmapped_reads_files', res)
-        for file_path in res['unmapped_reads_files']:
+        self.assertIn('unmapped_reads_paths', res)
+        for file_path in res['unmapped_reads_paths']:
             self.assertTrue(os.path.exists(file_path))
         self.assertIn('run_log', res)
         self.assertTrue(os.path.exists(res['run_log']))
@@ -421,7 +421,107 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('bbmap.sh', res['run_command'])
 
 
-    @unittest.skip('skip test_BBMap_run_local_reads_file_bam_01()')  # Uncomment to skip
+    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_split_reads_02()')  # Uncomment to skip
+    def test_BBMap_run_local_reads_file_split_reads_02(self):
+        lib_name = 'seven_species_nonuniform_32.inter.fastq'
+        test_reads_file_local = os.path.join('data', 'reads', lib_name)
+        test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
+        shutil.copy(test_reads_file_local, test_reads_file_scratch)
+
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa'
+        test_ass_file_local = os.path.join('data', 'assemblies', ass_name)
+        test_ass_file_scratch = os.path.join(self.scratch, os.path.basename(test_ass_file_local))
+        shutil.copy(test_ass_file_local, test_ass_file_scratch)
+
+        io_params = {
+            "in_assembly_paths": [test_ass_file_scratch],
+            "in_readslib_path":  test_reads_file_scratch,
+            "out_obj_name":     'foo.out'
+        }
+        run_params = {
+            "get_mapped_reads": '1',
+            "get_unmapped_reads": '1',
+            "get_bam": '0',
+            "input_parameter_suite": '',
+            "speed_mode": 'default',
+            "min_id": 0.9,
+            "kmer_len": '',
+            "max_indel": '',
+            "strict_max_indel": '0',
+            "subfilter_thresh": '',
+            "delfilter_thresh": '',
+            "require_correct_strand": '1',
+            "qual_score_mode": '33'
+        }
+        bbtools = self.getImpl()
+        res = bbtools.run_BBMap_local(self.ctx, io_params, run_params)[0]
+        print('result:')
+        pprint(res)
+        self.assertIn('output_directory', res)
+        self.assertTrue(os.path.exists(res['output_directory']))
+        self.assertIn('mapped_reads_paths', res)
+        for file_path in res['mapped_reads_paths']:
+            self.assertTrue(os.path.exists(file_path))
+        self.assertIn('unmapped_reads_paths', res)
+        for file_path in res['unmapped_reads_paths']:
+            self.assertTrue(os.path.exists(file_path))
+        self.assertIn('run_log', res)
+        self.assertTrue(os.path.exists(res['run_log']))
+        self.assertIn('run_command', res)
+        self.assertIn('bbmap.sh', res['run_command'])
+
+
+    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_split_reads_03()')  # Uncomment to skip
+    def test_BBMap_run_local_reads_file_split_reads_03(self):
+        lib_name = 'seven_species_nonuniform_32.inter.fastq'
+        test_reads_file_local = os.path.join('data', 'reads', lib_name)
+        test_reads_file_scratch = os.path.join(self.scratch, os.path.basename(test_reads_file_local))
+        shutil.copy(test_reads_file_local, test_reads_file_scratch)
+
+        ass_name = 'Thermodesulfo_trim.SPAdes.contigs.fa'
+        test_ass_file_local = os.path.join('data', 'assemblies', ass_name)
+        test_ass_file_scratch = os.path.join(self.scratch, os.path.basename(test_ass_file_local))
+        shutil.copy(test_ass_file_local, test_ass_file_scratch)
+
+        io_params = {
+            "in_assembly_paths": [test_ass_file_scratch],
+            "in_readslib_path":  test_reads_file_scratch,
+            "out_obj_name":     'foo.out'
+        }
+        run_params = {
+            "get_mapped_reads": '1',
+            "get_unmapped_reads": '1',
+            "get_bam": '0',
+            "input_parameter_suite": '',
+            "speed_mode": 'fast',
+            "min_id": 0.9,
+            "kmer_len": 10,
+            "max_indel": 1000,
+            "strict_max_indel": '1',
+            "subfilter_thresh": '2',
+            "delfilter_thresh": '3',
+            "require_correct_strand": '0',
+            "qual_score_mode": '33'
+        }
+        bbtools = self.getImpl()
+        res = bbtools.run_BBMap_local(self.ctx, io_params, run_params)[0]
+        print('result:')
+        pprint(res)
+        self.assertIn('output_directory', res)
+        self.assertTrue(os.path.exists(res['output_directory']))
+        self.assertIn('mapped_reads_paths', res)
+        for file_path in res['mapped_reads_paths']:
+            self.assertTrue(os.path.exists(file_path))
+        self.assertIn('unmapped_reads_paths', res)
+        for file_path in res['unmapped_reads_paths']:
+            self.assertTrue(os.path.exists(file_path))
+        self.assertIn('run_log', res)
+        self.assertTrue(os.path.exists(res['run_log']))
+        self.assertIn('run_command', res)
+        self.assertIn('bbmap.sh', res['run_command'])
+
+
+    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_bam_01()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_bam_01(self):
         lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
@@ -449,8 +549,8 @@ class BBToolsTest(unittest.TestCase):
         pprint(res)
         self.assertIn('output_directory', res)
         self.assertTrue(os.path.exists(res['output_directory']))
-        self.assertIn('bam_files', res)
-        for file_path in res['bam_files']:
+        self.assertIn('bam_paths', res)
+        for file_path in res['bam_paths']:
             self.assertTrue(os.path.exists(file_path))
         self.assertIn('run_log', res)
         self.assertTrue(os.path.exists(res['run_log']))

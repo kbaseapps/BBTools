@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import time
 import uuid
@@ -177,9 +178,13 @@ class BBMapRunner:
                 raise ValueError('The value of maxmem must be an integer > 0.')
 
         # run BBMap separately for each assembly file target
+        # (enable multi later)
+        options = []
         for (assembly_i, assembly_file) in enumerate(assembly_files):
-            options = build_options(app_params, available_params)
-
+            # acting as validator, but not returning values
+            #options = build_options(app_params, available_params)
+            build_options(app_params, available_params)
+            
             # setup input/output paths
             options.append('ref={}'.format(assembly_file))
             options.append('nodisk')
@@ -196,24 +201,80 @@ class BBMapRunner:
                 unmapped_reads_out_file = os.path.join(output_dir, str(assembly_i)+'-'+io_params['out_obj_name']+'-'+'UNMAPPED'+'.FASTQ')
                 options.append('outu={}'.format(unmapped_reads_out_file))
 
-        # hard-code max threads for now
-        options.append('t={}'.format('4'))
+            # add user-config params
+            if app_params.get('input_parameter_suite'):
+                options.append(app_params['input_parameter_suite'])
 
-        # use pigz and unpigz for what are usually huge files
-        options.append('pigz=t')
-        options.append('unpigz=t')
+            if app_params.get('kmer_len') and int(app_params['kmer_len']) != 0:
+                if not app_params.get('input_parameter_suite') \
+                   or 'k=' not in app_params.get('input_parameter_suite'):
+                    options.append("k={}".format(str(app_params['kmer_len'])))
 
-        # enforce qual=33 if not given
-        if app_params.get('qual_score_mode'):
-           options.append('qin={}'.format(str(app_params['qual_score_mode'])))
-        else:
-           options.append('qin={}'.format('33'))
+            if app_params.get('max_indel'):
+                if not app_params.get('input_parameter_suite') \
+                   or 'maxindel=' not in app_params.get('input_parameter_suite'):
+                    options.append("maxindel={}".format(str(app_params['max_indel'])))
 
-        # add the memory requirement at the end
-        options.append('-Xmx{}g'.format(mem))
+            if app_params.get('strict_max_indel') and int(app_params['strict_max_indel']) != 0:
+                if not app_params.get('input_parameter_suite') \
+                   or 'strictmaxindel' not in app_params.get('input_parameter_suite'):
+                    options.append("strictmaxindel")
 
-        # finally, route stderr (a log file) to a file in the output dir
-        options = options + ['2>', run_log]
+            if app_params.get('require_correct_strand'):
+                if int(app_params['require_correct_strand']) != 0:
+                    if not app_params.get('input_parameter_suite') \
+                       or 'rcs=' not in app_params.get('input_parameter_suite'):
+                        options.append("rcs=t")
+                else:
+                    if not app_params.get('input_parameter_suite') \
+                       or 'rcs=' not in app_params.get('input_parameter_suite'):
+                        options.append("rcs=f")
+
+            if app_params.get('min_id') and float(app_params['min_id']) != 0.0:
+                if not app_params.get('input_parameter_suite') \
+                   or 'min=' not in app_params.get('input_parameter_suite'):
+                    options.append("minid={}".format(str(app_params['min_id'])))
+
+            if app_params.get('speed_mode'):
+                if app_params['speed_mode'] != 'default':
+                    if 'slow' not in app_params.get('input_parameter_suite') \
+                       and 'fast' not in app_params.get('input_parameter_suite'):
+                        options.append(app_params['speed_mode'])
+
+            if app_params.get('subfilter_thresh'):
+                if not app_params.get('input_parameter_suite') \
+                   or 'subfilter=' not in app_params.get('input_parameter_suite'):
+                    options.append("subfilter={}".format(str(app_params['subfilter_thresh'])))
+
+            if app_params.get('delfilter_thresh'):
+                if not app_params.get('input_parameter_suite') \
+                   or 'delfilter=' not in app_params.get('input_parameter_suite'):
+                    options.append("delfilter={}".format(str(app_params['delfilter_thresh'])))
+
+            # hard-code max threads for now
+            max_threads = '4'
+            options.append('t={}'.format(max_threads))
+
+            # use pigz and unpigz for what are usually huge files
+            options.append('pigz=t')
+            options.append('unpigz=t')
+
+            # enforce qual=33 if not given
+            if app_params.get('qual_score_mode'):
+                qual_score_mode = str(app_params['qual_score_mode'])
+            else:
+                qual_score_mode = '33'
+            options.append('qin={}'.format(qual_score_mode))
+
+            # add the memory requirement at the end
+            options.append('-Xmx{}g'.format(mem))
+
+            # finally, route stderr (a log file) to a file in the output dir
+            options = options + ['2>', run_log]
+
+            # enable multi assemblies later
+            break
+
         return options
 
     def _validate_file_inputs(self, params, is_app):
@@ -272,7 +333,7 @@ class BBMapRunner:
                 })
 
         # build the HTML report
-        html_zipped = self._build_html_report(io_params.get('in_readslib_ref'), output_dir, file_lookup)
+        html_zipped = self._build_html_report(io_params.get('in_readslib_ref'), output_dir, file_lookup, run_log)
         file_links = self._build_file_report(output_dir, run_log)
         # save the report
         report_params = {
@@ -298,7 +359,7 @@ class BBMapRunner:
         result_file = os.path.join(output_dir, 'bbmap_report.zip')
         with zipfile.ZipFile(result_file, 'w', zipfile.ZIP_DEFLATED, allowZip64=True) as report_zip:
             for file_name in file_list:
-                if file_name.endswith('.gz') or file_name.endswith('.fastq'):
+                if file_name.lower().endswith('.gz') or file_name.lower().endswith('.fastq'):
                     continue
                 zipped_file_name = file_name
                 report_zip.write(os.path.join(output_dir, file_name), zipped_file_name)
@@ -324,7 +385,22 @@ class BBMapRunner:
                     filedata[tokens[0]] = tokens[1]
         return filedata
 
-    def _build_html_report(self, reads_ref, output_dir, file_lookup):
+    def _read_bbmap_results_report(self, run_log):
+        results_buf = []
+        in_results = False
+        with open(run_log) as run_log_handle:
+            lines = [l.strip() for l in run_log_handle.readlines()]
+            for line in lines:
+                if '----   Results   ----' in line:
+                    in_results = True
+                    continue
+                if not in_results:
+                    continue
+                results_buf.append(line)
+        return results_buf
+                
+
+    def _build_html_report(self, reads_ref, output_dir, file_lookup, run_log):
         html_dir = os.path.join(self.scratch_dir, 'bbmap_report_' + self._timestamp)
         os.makedirs(html_dir)
 
@@ -334,14 +410,11 @@ class BBMapRunner:
         html.write('<html><head><title>BBMap Report: ' + reads_ref + '</title></head>\n')
         html.write('<body>\n')
 
-        #stats = self._read_outputfile(os.path.join(output_dir, 'filterStats.txt'))
-        html.write('  <table style="border: 1px solid black; border-collapse: collapse;">\n')
-        tdstyle = 'style="border: 1px solid black; padding: 8px;"'
-        #for key in stats.keys():
-        #    html.write('   <tr><td ' + tdstyle + '>' + str(key) + '</td>')
-        #    html.write(' <td ' + tdstyle + '>' + str(stats[key]) + '</td></tr>\n')
+        bbmap_results_report_buf = self._read_bbmap_results_report(run_log)
+        html.write('<blockquote><pre>\n')
+        html.write("\n".join(bbmap_results_report_buf)+"\n")
+        html.write('</pre></blockquote>\n')
 
-        html.write('  </table>\n')
         html.write('</body>\n')
         html.write('</html>')
         html.close()
