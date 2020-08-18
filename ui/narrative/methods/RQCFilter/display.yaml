@@ -39,40 +39,40 @@ parameters :
 
     library:
         ui-name    : library option
-        short-hint : Set the RQCFilter library option (library=t|f)
+        short-hint : Set the RQCFilter library option (frag, clip, lfpe, or clrs)
 
     rna:
         ui-name    : Remove RNA-specific artifacts
-        short-hint : Remove reads containing RNA-specific artifacts (rna=t|f)
+        short-hint : Check box to remove reads containing RNA-specific artifacts
 
     trimfragadapter:
         ui-name    : Trim Illumina adapter sequences, including TruSeq and Nextera
-        short-hint : Sets the trimfragadapter option (trimfragadapter=t|f)
+        short-hint : Check box to set the trimfragadapter option 
 
     qtrim:
         ui-name    : Trim low quality bases read ends to remove bases with quality below minq
-        short-hint : Trim read ends to remove bases with quality below minq.  Performed AFTER looking for kmers. (qtrim=f|rl|r|l)
+        short-hint : Options for trimming read ends to remove bases with quality below minq.  Performed AFTER looking for kmers.
 
     removemouse:
         ui-name    : Remove mouse reads via mapping
-        short-hint : Sets the RQCFilter flag (removemouse=t|f)
+        short-hint : Check box to set the remove mouse RQCFilter flag (removemouse)
     removecat:
         ui-name    : Remove cat reads via mapping
-        short-hint : Sets the RQCFilter flag (removecat=t|f)
+        short-hint : Check box to set the remove cat RQCFilter flag (removecat)
     removedog:
         ui-name    : Remove dog reads via mapping
-        short-hint : Sets the RQCFilter flag (removedog=t|f)
+        short-hint : Check box to set the remove dog RQCFilter flag (removedog)
     removehuman:
         ui-name    : Remove human reads via mapping
-        short-hint : Sets the RQCFilter flag (removehuman=t|f)
+        short-hint : Check box to set the remove human RQCFilter flag (removehuman)
     removemicrobes:
         ui-name    : Remove microbial reads via mapping
-        short-hint : Sets the RQCFilter flag (removemicrobes=t|f)
+        short-hint : Check box to set the remove microbes RQCFilter flag (removemicrobes)
 
     taxlist:
         ui-name    : Preserve reads from these taxa
         short-hint : |
-            Remove these taxa from the database before filtering.  Typically, this would be the organism name or NCBI ID,
+            List of taxa to remove from the database before filtering.  Typically, this would be the organism name or NCBI ID,
             or a comma-delimited list.  Organism names should have underscores instead of spaces, such as Escherichia_coli.
         placeholder : |
             e.g Escherichia_coli
@@ -80,12 +80,12 @@ parameters :
 
     dedupe:
         ui-name    : Remove duplicate reads
-        short-hint : Sets the RQCFilter flag (dedupe=t|f)
+        short-hint : Check box to set the remove duplicates RQCFilter flag (dedupe)
 
     opticaldupes:
         ui-name    : Remove optical duplicates
-        short-hint : Sets the RQCFilter flag (opticaldupes=t|f) (Clumpify optical flag)
+        short-hint : Check box to set the remove optical duplicates RQCFilter flag (opticaldupes) (Clumpify optical flag)
 
 
 description : |
-    see: http://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/data-preprocessing/
+    Data preprocessing pipeline for raw reads developed by DOE JGI. see: http://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/data-preprocessing/ for the 11 steps in the process.

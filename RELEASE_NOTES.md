@@ -1,6 +1,7 @@
 ### Version 1.0.1
 __Changes__
 - Added config options and html results to BBMap
+- Update the documentation in the display.yaml file
 
 ### Version 1.0.0
 __Changes__
