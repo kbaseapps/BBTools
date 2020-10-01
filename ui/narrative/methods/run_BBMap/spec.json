@@ -4,7 +4,7 @@
         "dylan"
     ],
     "contact": "",
-    "categories": ["active", "reads"],
+    "categories": ["inactive", "reads"],
     "widgets": {
         "input": null,
         "output": "no-display"
