@@ -13,9 +13,6 @@ MAINTAINER KBase Developer
 ENV NSLOTS 4
 
 # -----------------------------------------
-RUN apt-get update
-RUN apt-get install wget -y
-
 WORKDIR /kb/module
 
 ENV BBMAP_VERSION=38.91
