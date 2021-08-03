@@ -16,9 +16,7 @@ ENV NSLOTS 4
 
 WORKDIR /kb/module
 
-# copy everything in, we need the version file
-COPY ./ /kb/module
-
+ENV BBMAP_VERSION=38.91
 
 # add SAMTools (don't need yet)
 #RUN apt-get update && apt-get install -y samtools
@@ -29,8 +27,7 @@ COPY ./ /kb/module
 
 # install BBTools
 
-RUN BBMAP_VERSION=$(cat /kb/module/bbmap_version) \
-    && BBMAP=BBMap_$BBMAP_VERSION.tar.gz \
+RUN BBMAP=BBMap_$BBMAP_VERSION.tar.gz \
     && wget -O $BBMAP https://sourceforge.net/projects/bbmap/files/$BBMAP/download \
     && tar -xf $BBMAP \
     && rm $BBMAP
@@ -43,6 +40,8 @@ RUN cd /kb/module/bbmap/jni \
 RUN mkdir /global
 COPY data/rqc_data/global /global
 
+#copy everything in
+COPY ./ /kb/module
 RUN mkdir -p /kb/module/work
 RUN chmod -R a+rw /kb/module
 
