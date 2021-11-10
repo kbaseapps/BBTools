@@ -23,9 +23,9 @@ class BBTools:
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "1.0.0"
-    GIT_URL = "https://github.com/dcchivian/BBTools"
-    GIT_COMMIT_HASH = "4837825f0522f36a408d49bcc9921a7a4d17def8"
+    VERSION = "1.1.0"
+    GIT_URL = "https://github.com/kbaseapps/BBTools"
+    GIT_COMMIT_HASH = "4602c41baed008aba9aa121d52acd3f64f155d2e"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -73,7 +73,8 @@ class BBTools:
            parameter "qual_score_mode" of Long
         :returns: instance of type "BBMapAppOutput" -> structure: parameter
            "report_name" of String, parameter "report_ref" of String,
-           parameter "run_command" of String
+           parameter "run_command" of String, parameter "coverage" of list of
+           mapping from String to Double
         """
         # ctx is the context object
         # return variables are: output
@@ -118,8 +119,10 @@ class BBTools:
            absolute path to a file), parameter "unmapped_reads_paths" of list
            of type "file_path" (A file_path - absolute path to a file),
            parameter "bam_paths" of list of type "file_path" (A file_path -
-           absolute path to a file), parameter "output_directory" of String,
-           parameter "run_log" of String, parameter "run_command" of String
+           absolute path to a file), parameter "coverage_paths" of list of
+           type "file_path" (A file_path - absolute path to a file),
+           parameter "output_directory" of String, parameter "run_log" of
+           String, parameter "run_command" of String
         """
         # ctx is the context object
         # return variables are: output

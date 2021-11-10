@@ -2,6 +2,7 @@
 package us.kbase.bbtools;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -21,76 +22,94 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "report_name",
     "report_ref",
-    "run_command"
+    "run_command",
+    "coverage"
 })
 public class BBMapAppOutput {
 
     @JsonProperty("report_name")
-    private String reportName;
+    private java.lang.String reportName;
     @JsonProperty("report_ref")
-    private String reportRef;
+    private java.lang.String reportRef;
     @JsonProperty("run_command")
-    private String runCommand;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private java.lang.String runCommand;
+    @JsonProperty("coverage")
+    private List<Map<String, Double>> coverage;
+    private Map<java.lang.String, Object> additionalProperties = new HashMap<java.lang.String, Object>();
 
     @JsonProperty("report_name")
-    public String getReportName() {
+    public java.lang.String getReportName() {
         return reportName;
     }
 
     @JsonProperty("report_name")
-    public void setReportName(String reportName) {
+    public void setReportName(java.lang.String reportName) {
         this.reportName = reportName;
     }
 
-    public BBMapAppOutput withReportName(String reportName) {
+    public BBMapAppOutput withReportName(java.lang.String reportName) {
         this.reportName = reportName;
         return this;
     }
 
     @JsonProperty("report_ref")
-    public String getReportRef() {
+    public java.lang.String getReportRef() {
         return reportRef;
     }
 
     @JsonProperty("report_ref")
-    public void setReportRef(String reportRef) {
+    public void setReportRef(java.lang.String reportRef) {
         this.reportRef = reportRef;
     }
 
-    public BBMapAppOutput withReportRef(String reportRef) {
+    public BBMapAppOutput withReportRef(java.lang.String reportRef) {
         this.reportRef = reportRef;
         return this;
     }
 
     @JsonProperty("run_command")
-    public String getRunCommand() {
+    public java.lang.String getRunCommand() {
         return runCommand;
     }
 
     @JsonProperty("run_command")
-    public void setRunCommand(String runCommand) {
+    public void setRunCommand(java.lang.String runCommand) {
         this.runCommand = runCommand;
     }
 
-    public BBMapAppOutput withRunCommand(String runCommand) {
+    public BBMapAppOutput withRunCommand(java.lang.String runCommand) {
         this.runCommand = runCommand;
         return this;
     }
 
+    @JsonProperty("coverage")
+    public List<Map<String, Double>> getCoverage() {
+        return coverage;
+    }
+
+    @JsonProperty("coverage")
+    public void setCoverage(List<Map<String, Double>> coverage) {
+        this.coverage = coverage;
+    }
+
+    public BBMapAppOutput withCoverage(List<Map<String, Double>> coverage) {
+        this.coverage = coverage;
+        return this;
+    }
+
     @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
+    public Map<java.lang.String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperties(String name, Object value) {
+    public void setAdditionalProperties(java.lang.String name, Object value) {
         this.additionalProperties.put(name, value);
     }
 
     @Override
-    public String toString() {
-        return ((((((((("BBMapAppOutput"+" [reportName=")+ reportName)+", reportRef=")+ reportRef)+", runCommand=")+ runCommand)+", additionalProperties=")+ additionalProperties)+"]");
+    public java.lang.String toString() {
+        return ((((((((((("BBMapAppOutput"+" [reportName=")+ reportName)+", reportRef=")+ reportRef)+", runCommand=")+ runCommand)+", coverage=")+ coverage)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

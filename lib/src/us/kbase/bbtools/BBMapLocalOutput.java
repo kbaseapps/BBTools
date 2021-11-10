@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "mapped_reads_paths",
     "unmapped_reads_paths",
     "bam_paths",
+    "coverage_paths",
     "output_directory",
     "run_log",
     "run_command"
@@ -35,6 +36,8 @@ public class BBMapLocalOutput {
     private List<String> unmappedReadsPaths;
     @JsonProperty("bam_paths")
     private List<String> bamPaths;
+    @JsonProperty("coverage_paths")
+    private List<String> coveragePaths;
     @JsonProperty("output_directory")
     private java.lang.String outputDirectory;
     @JsonProperty("run_log")
@@ -85,6 +88,21 @@ public class BBMapLocalOutput {
 
     public BBMapLocalOutput withBamPaths(List<String> bamPaths) {
         this.bamPaths = bamPaths;
+        return this;
+    }
+
+    @JsonProperty("coverage_paths")
+    public List<String> getCoveragePaths() {
+        return coveragePaths;
+    }
+
+    @JsonProperty("coverage_paths")
+    public void setCoveragePaths(List<String> coveragePaths) {
+        this.coveragePaths = coveragePaths;
+    }
+
+    public BBMapLocalOutput withCoveragePaths(List<String> coveragePaths) {
+        this.coveragePaths = coveragePaths;
         return this;
     }
 
@@ -145,7 +163,7 @@ public class BBMapLocalOutput {
 
     @Override
     public java.lang.String toString() {
-        return ((((((((((((((("BBMapLocalOutput"+" [mappedReadsPaths=")+ mappedReadsPaths)+", unmappedReadsPaths=")+ unmappedReadsPaths)+", bamPaths=")+ bamPaths)+", outputDirectory=")+ outputDirectory)+", runLog=")+ runLog)+", runCommand=")+ runCommand)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((((((((((((("BBMapLocalOutput"+" [mappedReadsPaths=")+ mappedReadsPaths)+", unmappedReadsPaths=")+ unmappedReadsPaths)+", bamPaths=")+ bamPaths)+", coveragePaths=")+ coveragePaths)+", outputDirectory=")+ outputDirectory)+", runLog=")+ runLog)+", runCommand=")+ runCommand)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

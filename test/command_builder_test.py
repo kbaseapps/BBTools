@@ -29,6 +29,7 @@ class CommandBuilderTest(unittest.TestCase):
     def tearDownClass(cls):
         pass
 
+    @unittest.skip("skipping test_build_options_good()")    # uncomment to skip
     def test_build_options_good(self):
         param_set = [{
             "a_string": "foo",
@@ -60,6 +61,7 @@ class CommandBuilderTest(unittest.TestCase):
             build_options({"not_a_param": "foo"}, self.available_params)
         self.assertIn("Can't parse unknown parameter", str(e.exception))
 
+    @unittest.skip("skipping test_build_options_invalid()")    # uncomment to skip
     def test_build_options_invalid(self):
         with self.assertRaises(ValueError) as e:
             build_options({"bad_type": "foo"}, self.available_params_bad)
@@ -68,6 +70,7 @@ class CommandBuilderTest(unittest.TestCase):
             build_options({"bad_string": "bar"}, self.available_params_bad)
         self.assertIn("allowed_values must be a list, received", str(e.exception))
 
+    @unittest.skip("skipping test_boolean_good()")    # uncomment to skip
     def test_boolean_good(self):
         for v in [1, "t", "1", "T"]:
             opts = build_options({"a_boolean": v}, self.available_params)
@@ -76,12 +79,14 @@ class CommandBuilderTest(unittest.TestCase):
             opts = build_options({"a_boolean": v}, self.available_params)
             self.assertIn("a_boolean=f", opts)
 
+    @unittest.skip("skipping test_boolean_bad()")    # uncomment to skip
     def test_boolean_bad(self):
         for v in [3, -1, "x"]:
             with self.assertRaises(ValueError) as e:
                 build_options({"a_boolean": v}, self.available_params)
             self.assertIn("The value of parameter a_boolean must be one of", str(e.exception))
 
+    @unittest.skip("skipping test_int_good()")    # uncomment to skip
     def test_int_good(self):
         for v in [0, 1, 123, 12345678, "35", "0"]:
             opts = build_options({"a_pos_int": v}, self.available_params)
@@ -90,6 +95,7 @@ class CommandBuilderTest(unittest.TestCase):
             opts = build_options({"an_int": v}, self.available_params)
             self.assertIn("an_int={}".format(v), opts)
 
+    @unittest.skip("skipping test_int_bad()")    # uncomment to skip
     def test_int_bad(self):
         for v in [-1, -2, -50, -3657482]:
             with self.assertRaises(ValueError) as e:
@@ -100,6 +106,7 @@ class CommandBuilderTest(unittest.TestCase):
                 build_options({"a_pos_int": v}, self.available_params)
             self.assertIn("must be numerical", str(e.exception))
 
+    @unittest.skip("skipping test_float_good()")    # uncomment to skip
     def test_float_good(self):
         for v in [0.0, 1.1, 123.23, 12345678.456, "35.0", "0.0"]:
             opts = build_options({"a_pos_float": v}, self.available_params)
@@ -108,6 +115,7 @@ class CommandBuilderTest(unittest.TestCase):
             opts = build_options({"a_float": v}, self.available_params)
             self.assertIn("a_float={}".format(v), opts)
 
+    @unittest.skip("skipping test_float_bad()")    # uncomment to skip
     def test_float_bad(self):
         for v in [-1.1, -123.534, -12345678.134, "-365.0"]:
             with self.assertRaises(ValueError) as e:
@@ -118,6 +126,7 @@ class CommandBuilderTest(unittest.TestCase):
                 build_options({"a_float": v}, self.available_params)
             self.assertIn("must be numerical", str(e.exception))
 
+    @unittest.skip("skipping test_string_good()")    # uncomment to skip
     def test_string_good(self):
         for v in ["a", "foo", "antidisestablishmentarianism", "foo bar"]:
             opts = build_options({"a_string": v}, self.available_params)
@@ -127,6 +136,7 @@ class CommandBuilderTest(unittest.TestCase):
             opts = build_options({"a_filtered_string": v}, self.available_params)
             self.assertIn("a_filtered_string={}".format(v), opts)
 
+    @unittest.skip("skipping test_string_bad()")    # uncomment to skip
     def test_string_bad(self):
         p_name = "a_filtered_string"
         for v in ["d", "e"]:
@@ -138,6 +148,7 @@ class CommandBuilderTest(unittest.TestCase):
             build_options({"a_string": " "}, self.available_params)
         self.assertIn("cannot be an empty string or whitespace", str(e.exception))
 
+    @unittest.skip("skipping test_list_good()")    # uncomment to skip
     def test_list_good(self):
         data = [{
             "i": ["a", "b", "c"],
@@ -150,6 +161,7 @@ class CommandBuilderTest(unittest.TestCase):
             opts = build_options({"a_list": p["i"]}, self.available_params)
             self.assertIn("a_list={}".format(p["o"]), opts)
 
+    @unittest.skip("skipping test_list_bad()")    # uncomment to skip
     def test_list_bad(self):
         with self.assertRaises(ValueError) as e:
             build_options({"a_list": ["a", " ", "c"]}, self.available_params)

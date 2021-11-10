@@ -64,13 +64,14 @@ module BBTools {
         string report_name;
         string report_ref;
 	string run_command;
+	list<mapping<string,float>> coverage;
     } BBMapAppOutput;
 
 
     /* BBMap Local IO
     */
     typedef structure {
-	list<file_path>  in_assembly_paths;  /* must be fasta */
+	list<file_path>  in_assembly_paths; /* must be fasta */
 	file_path        in_readslib_path;  /* single reads lib (for now) */
 	string           out_file_basename;
     } BBMapLocalParams;
@@ -79,6 +80,7 @@ module BBTools {
 	list<file_path>  mapped_reads_paths;
 	list<file_path>  unmapped_reads_paths;
 	list<file_path>  bam_paths;
+	list<file_path>  coverage_paths;
         string output_directory;
         string run_log;
         string run_command;

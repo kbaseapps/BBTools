@@ -38,6 +38,13 @@ class MemEstimatorTest(unittest.TestCase):
         cls.scratch = cls.cfg['scratch']
         cls.callback_url = os.environ['SDK_CALLBACK_URL']
 
+    def getImpl(self):
+        return self.__class__.serviceImpl
+
+    def getContext(self):
+        return self.__class__.ctx
+
+    @unittest.skip("skipping test_mem_estimator_ok_unit()")    # uncomment to skip
     def test_mem_estimator_ok_unit(self):
         in_file = os.path.join('data','reads','interleaved.fastq')
         params = {
@@ -48,6 +55,7 @@ class MemEstimatorTest(unittest.TestCase):
         self.assertGreater(estimate["estimate"], 0)
         self.assertGreater(estimate["size"], 0)
 
+    @unittest.skip("skipping test_mem_estimator_ok_pair()")    # uncomment to skip
     def test_mem_estimator_ok_pair(self):
         params = {
             "reads_file": os.path.join('data','reads','small.forward.fq'),
@@ -58,6 +66,7 @@ class MemEstimatorTest(unittest.TestCase):
         self.assertGreater(estimate["estimate"], 0)
         self.assertGreater(estimate["size"], 0)
 
+    @unittest.skip("skipping test_mem_estimator_pair_dups()")    # uncomment to skip
     def test_mem_estimator_pair_dups(self):
         in_file = os.path.join('data','reads','interleaved.fastq')
         params = {
@@ -68,6 +77,7 @@ class MemEstimatorTest(unittest.TestCase):
             MemEstimatorRunner(params)
         self.assertIn("If two files are present, they must be different.", str(e.exception))
 
+    @unittest.skip("skipping test_mem_estimator_bad_file()")    # uncomment to skip
     def test_mem_estimator_bad_file(self):
         in_file = os.path.join('data','reads','bad_reads.txt')
         params = {
@@ -80,12 +90,7 @@ class MemEstimatorTest(unittest.TestCase):
         self.assertNotIn("Correct 31-mers", str(e.exception))
         self.assertNotIn("Unique 31-mers", str(e.exception))
 
-    def getImpl(self):
-        return self.__class__.serviceImpl
-
-    def getContext(self):
-        return self.__class__.ctx
-
+    @unittest.skip("skipping test_mem_estimator_e2e()")    # uncomment to skip
     def test_mem_estimator_e2e(self):
         impl = self.getImpl()
         ctx = self.getContext()
@@ -107,6 +112,7 @@ class MemEstimatorTest(unittest.TestCase):
         self.assertIn("size", res)
         self.assertGreater(res["size"], 0)
 
+    @unittest.skip("skipping test_bad_inputs()")    # uncomment to skip
     def test_bad_inputs(self):
         impl = self.getImpl()
         ctx = self.getContext()

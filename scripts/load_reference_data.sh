@@ -2,7 +2,7 @@
 
 # data directory is always mounted in the /data
 
-BBMAP_VERSION=38.73
+BBMAP_VERSION=38.94
 
 check_exists() {
     if ! [ -d $1 ] ; then
@@ -46,7 +46,7 @@ echo "Done expanding RQCFilterData"
 date
 echo "Fetching BBMap $BBMAP_VERSION"
 BBMAP=BBMap_$BBMAP_VERSION.tar.gz
-safe_execute "wget -O $BBMAP https://sourceforge.net/projects/bbmap/files/$BBMAP/download" "failed to download $BBMAP"
+safe_execute "wget --no-check-certificate -O $BBMAP https://sourceforge.net/projects/bbmap/files/$BBMAP/download" "failed to download $BBMAP"
 safe_execute "tar -xf $BBMAP -C /data" "failed to expand $BBMAP"
 check_exists /data/bbmap
 if [ $fail -eq 1 ] ; then

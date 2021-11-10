@@ -133,7 +133,7 @@ class BBToolsTest(unittest.TestCase):
         return self.__class__.ctx
 
         
-    # HIDE @unittest.skip('skip test_RQCFilter_basic_app()')  # Uncomment to skip
+    @unittest.skip('skip test_RQCFilter_basic_app()')  # Uncomment to skip
     def test_RQCFilter_basic_app(self):
         # get the test reads library
         lib_info = self.getPairedEndLibInfo('interleaved.fastq')
@@ -186,7 +186,7 @@ class BBToolsTest(unittest.TestCase):
         print('result:')
         pprint(res)
 
-    # HIDE @unittest.skip('skip test_RQCFilter_app_jgi_parameters()')  # Uncomment to skip
+    @unittest.skip('skip test_RQCFilter_app_jgi_parameters()')  # Uncomment to skip
     def test_RQCFilter_app_jgi_parameters(self):
         lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         io_params = {
@@ -221,22 +221,22 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('run_command', res)
         self.assertIn('rqcfilter2.sh', res['run_command'])
 
-    # HIDE @unittest.skip('skip test_RQCFilter_app_bad_parameters()')  # Uncomment to skip
+    @unittest.skip('skip test_RQCFilter_app_bad_parameters()')  # Uncomment to skip
     def test_RQCFilter_app_bad_parameters(self):
         pass
 
-    # HIDE @unittest.skip('skip test_RQCFilter_app_missing_parameters()')  # Uncomment to skip
+    @unittest.skip('skip test_RQCFilter_app_missing_parameters()')  # Uncomment to skip
     def test_RQCFilter_app_missing_parameters(self):
         pass
 
-    # HIDE @unittest.skip('skip test_RQCFilter_local_mem_req()')  # Uncomment to skip
+    @unittest.skip('skip test_RQCFilter_local_mem_req()')  # Uncomment to skip
     def test_RQCFilter_local_mem_req(self):
         lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         io_params = {
             "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
         }
         bbtools = self.getImpl()
-        res = bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 5 })
+        res = bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 5 })[0]
         self.assertIn('output_directory', res)
         self.assertIn('filtered_fastq_file', res)
         self.assertIn('run_log', res)
@@ -244,7 +244,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('rqcfilter2.sh', res['run_command'])
         self.assertIn('-Xmx5g', res['run_command'])
 
-    # HIDE @unittest.skip('skip test_RQCFilter_local_bad_mem_param()')  # Uncomment to skip
+    @unittest.skip('skip test_RQCFilter_local_bad_mem_param()')  # Uncomment to skip
     def test_RQCFilter_local_bad_mem_param(self):
         lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         io_params = {
@@ -261,7 +261,7 @@ class BBToolsTest(unittest.TestCase):
             bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 0 })
         self.assertIn("The value of maxmem must be an integer > 0.", str(e.exception))
 
-    # HIDE @unittest.skip('skip test_RQCFilter_run_local_reads_upa()')  # Uncomment to skip
+    @unittest.skip('skip test_RQCFilter_run_local_reads_upa()')  # Uncomment to skip
     def test_RQCFilter_run_local_reads_upa(self):
         lib_info = self.getPairedEndLibInfo('interleaved.fastq')
         print(lib_info)
@@ -283,7 +283,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('run_command', res)
         self.assertIn('rqcfilter2.sh', res['run_command'])
 
-    # HIDE @unittest.skip('skip test_RQCFilter_run_local_reads_file()')  # Uncomment to skip
+    @unittest.skip('skip test_RQCFilter_run_local_reads_file()')  # Uncomment to skip
     def test_RQCFilter_run_local_reads_file(self):
         test_fastq_file_local = os.path.join('data', 'reads', 'interleaved.fastq')
         test_fastq_file_scratch = os.path.join(self.scratch, os.path.basename(test_fastq_file_local))
@@ -307,7 +307,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('rqcfilter2.sh', res['run_command'])
 
 
-    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_mapped_reads_01()')  # Uncomment to skip
+    @unittest.skip('skip test_BBMap_run_local_reads_file_mapped_reads_01()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_mapped_reads_01(self):
         lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
@@ -344,7 +344,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('bbmap.sh', res['run_command'])
 
 
-    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_unmapped_reads_01()')  # Uncomment to skip
+    @unittest.skip('skip test_BBMap_run_local_reads_file_unmapped_reads_01()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_unmapped_reads_01(self):
         lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
@@ -381,7 +381,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('bbmap.sh', res['run_command'])
 
 
-    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_split_reads_01()')  # Uncomment to skip
+    @unittest.skip('skip test_BBMap_run_local_reads_file_split_reads_01()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_split_reads_01(self):
         lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
@@ -421,7 +421,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('bbmap.sh', res['run_command'])
 
 
-    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_split_reads_02()')  # Uncomment to skip
+    @unittest.skip('skip test_BBMap_run_local_reads_file_split_reads_02()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_split_reads_02(self):
         lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
@@ -471,7 +471,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('bbmap.sh', res['run_command'])
 
 
-    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_split_reads_03()')  # Uncomment to skip
+    @unittest.skip('skip test_BBMap_run_local_reads_file_split_reads_03()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_split_reads_03(self):
         lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
@@ -521,7 +521,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('bbmap.sh', res['run_command'])
 
 
-    # HIDE @unittest.skip('skip test_BBMap_run_local_reads_file_bam_01()')  # Uncomment to skip
+    @unittest.skip('skip test_BBMap_run_local_reads_file_bam_01()')  # Uncomment to skip
     def test_BBMap_run_local_reads_file_bam_01(self):
         lib_name = 'seven_species_nonuniform_32.inter.fastq'
         test_reads_file_local = os.path.join('data', 'reads', lib_name)
@@ -558,7 +558,7 @@ class BBToolsTest(unittest.TestCase):
         self.assertIn('bbmap.sh', res['run_command'])
 
 
-    # HIDE @unittest.skip('skip test_BBTools_get_version()')  # Uncomment to skip
+    @unittest.skip('skip test_BBTools_get_version()')  # Uncomment to skip
     def test_BBTools_get_version(self):
         version = self.getImpl().bbtools_version(self.ctx)[0]
         ver_file = "/kb/module/bbmap_version"

@@ -66,7 +66,8 @@ class BBTools(object):
            parameter "qual_score_mode" of Long
         :returns: instance of type "BBMapAppOutput" -> structure: parameter
            "report_name" of String, parameter "report_ref" of String,
-           parameter "run_command" of String
+           parameter "run_command" of String, parameter "coverage" of list of
+           mapping from String to Double
         """
         return self._client.call_method('BBTools.run_BBMap',
                                         [io_params, run_params], self._service_ver, context)
@@ -100,8 +101,10 @@ class BBTools(object):
            absolute path to a file), parameter "unmapped_reads_paths" of list
            of type "file_path" (A file_path - absolute path to a file),
            parameter "bam_paths" of list of type "file_path" (A file_path -
-           absolute path to a file), parameter "output_directory" of String,
-           parameter "run_log" of String, parameter "run_command" of String
+           absolute path to a file), parameter "coverage_paths" of list of
+           type "file_path" (A file_path - absolute path to a file),
+           parameter "output_directory" of String, parameter "run_log" of
+           String, parameter "run_command" of String
         """
         return self._client.call_method('BBTools.run_BBMap_local',
                                         [io_params, run_params], self._service_ver, context)
