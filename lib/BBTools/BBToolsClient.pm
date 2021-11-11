@@ -154,7 +154,8 @@ BBMapAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
 	report_ref has a value which is a string
 	run_command has a value which is a string
-	coverage has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a float
+	coverage has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a reference to a hash where the key is a string and the value is a float
+	read_align_stats has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a float
 
 </pre>
 
@@ -197,7 +198,8 @@ BBMapAppOutput is a reference to a hash where the following keys are defined:
 	report_name has a value which is a string
 	report_ref has a value which is a string
 	run_command has a value which is a string
-	coverage has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a float
+	coverage has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a reference to a hash where the key is a string and the value is a float
+	read_align_stats has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a float
 
 
 =end text
@@ -303,8 +305,8 @@ BBMapLocalOutput is a reference to a hash where the following keys are defined:
 	unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
 	bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
 	coverage_paths has a value which is a reference to a list where each element is a BBTools.file_path
-	output_directory has a value which is a string
-	run_log has a value which is a string
+	output_directory has a value which is a BBTools.file_path
+	run_log has a value which is a BBTools.file_path
 	run_command has a value which is a string
 
 </pre>
@@ -346,8 +348,8 @@ BBMapLocalOutput is a reference to a hash where the following keys are defined:
 	unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
 	bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
 	coverage_paths has a value which is a reference to a list where each element is a BBTools.file_path
-	output_directory has a value which is a string
-	run_log has a value which is a string
+	output_directory has a value which is a BBTools.file_path
+	run_log has a value which is a BBTools.file_path
 	run_command has a value which is a string
 
 
@@ -1238,7 +1240,8 @@ a reference to a hash where the following keys are defined:
 report_name has a value which is a string
 report_ref has a value which is a string
 run_command has a value which is a string
-coverage has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a float
+coverage has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a reference to a hash where the key is a string and the value is a float
+read_align_stats has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a float
 
 </pre>
 
@@ -1250,7 +1253,8 @@ a reference to a hash where the following keys are defined:
 report_name has a value which is a string
 report_ref has a value which is a string
 run_command has a value which is a string
-coverage has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a float
+coverage has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a reference to a hash where the key is a string and the value is a float
+read_align_stats has a value which is a reference to a list where each element is a reference to a hash where the key is a string and the value is a float
 
 
 =end text
@@ -1314,8 +1318,8 @@ mapped_reads_paths has a value which is a reference to a list where each element
 unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
 bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
 coverage_paths has a value which is a reference to a list where each element is a BBTools.file_path
-output_directory has a value which is a string
-run_log has a value which is a string
+output_directory has a value which is a BBTools.file_path
+run_log has a value which is a BBTools.file_path
 run_command has a value which is a string
 
 </pre>
@@ -1329,8 +1333,8 @@ mapped_reads_paths has a value which is a reference to a list where each element
 unmapped_reads_paths has a value which is a reference to a list where each element is a BBTools.file_path
 bam_paths has a value which is a reference to a list where each element is a BBTools.file_path
 coverage_paths has a value which is a reference to a list where each element is a BBTools.file_path
-output_directory has a value which is a string
-run_log has a value which is a string
+output_directory has a value which is a BBTools.file_path
+run_log has a value which is a BBTools.file_path
 run_command has a value which is a string
 
 

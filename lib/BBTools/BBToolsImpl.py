@@ -25,7 +25,7 @@ class BBTools:
     ######################################### noqa
     VERSION = "1.1.0"
     GIT_URL = "https://github.com/kbaseapps/BBTools"
-    GIT_COMMIT_HASH = "4602c41baed008aba9aa121d52acd3f64f155d2e"
+    GIT_COMMIT_HASH = "f2788fb0b9d0480be633ec925b0f5a87ad2580ad"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -74,7 +74,8 @@ class BBTools:
         :returns: instance of type "BBMapAppOutput" -> structure: parameter
            "report_name" of String, parameter "report_ref" of String,
            parameter "run_command" of String, parameter "coverage" of list of
-           mapping from String to Double
+           mapping from String to mapping from String to Double, parameter
+           "read_align_stats" of list of mapping from String to Double
         """
         # ctx is the context object
         # return variables are: output
@@ -121,8 +122,10 @@ class BBTools:
            parameter "bam_paths" of list of type "file_path" (A file_path -
            absolute path to a file), parameter "coverage_paths" of list of
            type "file_path" (A file_path - absolute path to a file),
-           parameter "output_directory" of String, parameter "run_log" of
-           String, parameter "run_command" of String
+           parameter "output_directory" of type "file_path" (A file_path -
+           absolute path to a file), parameter "run_log" of type "file_path"
+           (A file_path - absolute path to a file), parameter "run_command"
+           of String
         """
         # ctx is the context object
         # return variables are: output

@@ -86,11 +86,11 @@
               "options": [
 		{
                   "value": "0",
-                  "display": "DON'T save mapped reads library object"
+                  "display": "DON'T save unmapped reads library object"
                 },
 		{
                   "value": "1",
-                  "display": "DO save mapped reads library object"
+                  "display": "DO save unmapped reads library object"
                 }
               ]
             }
@@ -126,27 +126,27 @@
               "options": [
 		{
                   "value": "BLAH BLAH BLAH",
-                  "display": "Bacteria and Archaea - high accuracy, slow speed: "
+                  "display": "Bacteria and Archaea [high accuracy, slow speed]"
                 },
 		{
                   "value": "",
-                  "display": "Bacteria and Archaea - default mode: "
+                  "display": "Bacteria and Archaea [default mode]"
                 },
 		{
                   "value": "BLAH BLAH BLAH",
-                  "display": "Bacteria and Archaea - lower accuracy but faster: "
+                  "display": "Bacteria and Archaea [lower accuracy but faster]"
                 },
 		{
                   "value": "BLAH BLAH BLAH",
-                  "display": "Eukaryotes - high accuracy, slower speed: "
+                  "display": "Eukaryotes [high accuracy, slower speed]"
                 },
 		{
                   "value": "BLAH BLAH BLAH",
-                  "display": "Eukaryotes - default mode: "
+                  "display": "Eukaryotes [default mode]"
                 },
 		{
                   "value": "BLAH BLAH BLAH",
-                  "display": "Eukaryotes - lower accuracy but faster: "
+                  "display": "Eukaryotes [lower accuracy but faster]"
                 }
               ]
             }
@@ -184,7 +184,7 @@
             "optional": false,
             "advanced": true,
             "allow_multiple": false,
-            "default_values": 0.9,
+            "default_values": "0.9",
             "field_type": "text",
             "text_options": {
 		"validate_as": "float",

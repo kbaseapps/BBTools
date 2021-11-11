@@ -23,7 +23,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "report_name",
     "report_ref",
     "run_command",
-    "coverage"
+    "coverage",
+    "read_align_stats"
 })
 public class BBMapAppOutput {
 
@@ -34,7 +35,9 @@ public class BBMapAppOutput {
     @JsonProperty("run_command")
     private java.lang.String runCommand;
     @JsonProperty("coverage")
-    private List<Map<String, Double>> coverage;
+    private List<Map<String, Map<String, Double>>> coverage;
+    @JsonProperty("read_align_stats")
+    private List<Map<String, Double>> readAlignStats;
     private Map<java.lang.String, Object> additionalProperties = new HashMap<java.lang.String, Object>();
 
     @JsonProperty("report_name")
@@ -83,17 +86,32 @@ public class BBMapAppOutput {
     }
 
     @JsonProperty("coverage")
-    public List<Map<String, Double>> getCoverage() {
+    public List<Map<String, Map<String, Double>>> getCoverage() {
         return coverage;
     }
 
     @JsonProperty("coverage")
-    public void setCoverage(List<Map<String, Double>> coverage) {
+    public void setCoverage(List<Map<String, Map<String, Double>>> coverage) {
         this.coverage = coverage;
     }
 
-    public BBMapAppOutput withCoverage(List<Map<String, Double>> coverage) {
+    public BBMapAppOutput withCoverage(List<Map<String, Map<String, Double>>> coverage) {
         this.coverage = coverage;
+        return this;
+    }
+
+    @JsonProperty("read_align_stats")
+    public List<Map<String, Double>> getReadAlignStats() {
+        return readAlignStats;
+    }
+
+    @JsonProperty("read_align_stats")
+    public void setReadAlignStats(List<Map<String, Double>> readAlignStats) {
+        this.readAlignStats = readAlignStats;
+    }
+
+    public BBMapAppOutput withReadAlignStats(List<Map<String, Double>> readAlignStats) {
+        this.readAlignStats = readAlignStats;
         return this;
     }
 
@@ -109,7 +127,7 @@ public class BBMapAppOutput {
 
     @Override
     public java.lang.String toString() {
-        return ((((((((((("BBMapAppOutput"+" [reportName=")+ reportName)+", reportRef=")+ reportRef)+", runCommand=")+ runCommand)+", coverage=")+ coverage)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((((((((("BBMapAppOutput"+" [reportName=")+ reportName)+", reportRef=")+ reportRef)+", runCommand=")+ runCommand)+", coverage=")+ coverage)+", readAlignStats=")+ readAlignStats)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

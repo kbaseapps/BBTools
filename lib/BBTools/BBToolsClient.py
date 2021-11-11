@@ -67,7 +67,8 @@ class BBTools(object):
         :returns: instance of type "BBMapAppOutput" -> structure: parameter
            "report_name" of String, parameter "report_ref" of String,
            parameter "run_command" of String, parameter "coverage" of list of
-           mapping from String to Double
+           mapping from String to mapping from String to Double, parameter
+           "read_align_stats" of list of mapping from String to Double
         """
         return self._client.call_method('BBTools.run_BBMap',
                                         [io_params, run_params], self._service_ver, context)
@@ -103,8 +104,10 @@ class BBTools(object):
            parameter "bam_paths" of list of type "file_path" (A file_path -
            absolute path to a file), parameter "coverage_paths" of list of
            type "file_path" (A file_path - absolute path to a file),
-           parameter "output_directory" of String, parameter "run_log" of
-           String, parameter "run_command" of String
+           parameter "output_directory" of type "file_path" (A file_path -
+           absolute path to a file), parameter "run_log" of type "file_path"
+           (A file_path - absolute path to a file), parameter "run_command"
+           of String
         """
         return self._client.call_method('BBTools.run_BBMap_local',
                                         [io_params, run_params], self._service_ver, context)

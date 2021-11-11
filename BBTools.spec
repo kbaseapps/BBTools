@@ -64,7 +64,8 @@ module BBTools {
         string report_name;
         string report_ref;
 	string run_command;
-	list<mapping<string,float>> coverage;
+	list<mapping<string,mapping<string,float>>> coverage;
+	list<mapping<string,float>> read_align_stats;
     } BBMapAppOutput;
 
 
@@ -81,9 +82,9 @@ module BBTools {
 	list<file_path>  unmapped_reads_paths;
 	list<file_path>  bam_paths;
 	list<file_path>  coverage_paths;
-        string output_directory;
-        string run_log;
-        string run_command;
+        file_path  output_directory;
+        file_path  run_log;
+        string     run_command;
     } BBMapLocalOutput;
 
 
