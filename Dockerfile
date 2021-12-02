@@ -31,7 +31,7 @@ COPY ./ /kb/module
 
 RUN BBMAP_VERSION=$(cat /kb/module/bbmap_version) \
     && BBMAP=BBMap_$BBMAP_VERSION.tar.gz \
-    && wget -O $BBMAP https://sourceforge.net/projects/bbmap/files/$BBMAP/download \
+    && wget --no-check-certificate -O $BBMAP https://sourceforge.net/projects/bbmap/files/$BBMAP/download \
     && tar -xf $BBMAP \
     && rm $BBMAP
 

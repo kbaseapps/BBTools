@@ -432,6 +432,9 @@ RQCFilterParams is a reference to a hash where the following keys are defined:
 	maxns has a value which is an int
 	minavgquality has a value which is an int
 	minlength has a value which is an int
+	trimhdist has a value which is an int
+	trimhdist2 has a value which is an int
+	mink has a value which is an int
 	mlf has a value which is a float
 	removemouse has a value which is a BBTools.boolean
 	removecat has a value which is a BBTools.boolean
@@ -473,6 +476,9 @@ RQCFilterParams is a reference to a hash where the following keys are defined:
 	maxns has a value which is an int
 	minavgquality has a value which is an int
 	minlength has a value which is an int
+	trimhdist has a value which is an int
+	trimhdist2 has a value which is an int
+	mink has a value which is an int
 	mlf has a value which is a float
 	removemouse has a value which is a BBTools.boolean
 	removecat has a value which is a BBTools.boolean
@@ -578,6 +584,9 @@ RQCFilterParams is a reference to a hash where the following keys are defined:
 	maxns has a value which is an int
 	minavgquality has a value which is an int
 	minlength has a value which is an int
+	trimhdist has a value which is an int
+	trimhdist2 has a value which is an int
+	mink has a value which is an int
 	mlf has a value which is a float
 	removemouse has a value which is a BBTools.boolean
 	removecat has a value which is a BBTools.boolean
@@ -619,6 +628,9 @@ RQCFilterParams is a reference to a hash where the following keys are defined:
 	maxns has a value which is an int
 	minavgquality has a value which is an int
 	minlength has a value which is an int
+	trimhdist has a value which is an int
+	trimhdist2 has a value which is an int
+	mink has a value which is an int
 	mlf has a value which is a float
 	removemouse has a value which is a BBTools.boolean
 	removecat has a value which is a BBTools.boolean
@@ -1369,6 +1381,9 @@ minavgquality - 5 - (maq) Reads with average quality (before trimming) below thi
 minlength - 45 - (ml) Reads shorter than this after trimming will be discarded.  Pairs will be discarded only if both are shorter.
 mlf - 0.333 - (minlengthfraction) Reads shorter than this fraction of original length after trimming will be discarded.
 
+trimhdist - 1 - Hamming distance used for trimming.
+trimhdist2 - same as trimhdist - Hamming distance used for trimming with short kmers.  If unset, trimhdist will be used.
+mink - 11 - Minimum kmer length for short kmers when trimming.
 
 Mapping parameters (for vertebrate contaminants):
 -------------------------------------------------
@@ -1415,6 +1430,9 @@ trimq has a value which is an int
 maxns has a value which is an int
 minavgquality has a value which is an int
 minlength has a value which is an int
+trimhdist has a value which is an int
+trimhdist2 has a value which is an int
+mink has a value which is an int
 mlf has a value which is a float
 removemouse has a value which is a BBTools.boolean
 removecat has a value which is a BBTools.boolean
@@ -1444,6 +1462,9 @@ trimq has a value which is an int
 maxns has a value which is an int
 minavgquality has a value which is an int
 minlength has a value which is an int
+trimhdist has a value which is an int
+trimhdist2 has a value which is an int
+mink has a value which is an int
 mlf has a value which is a float
 removemouse has a value which is a BBTools.boolean
 removecat has a value which is a BBTools.boolean

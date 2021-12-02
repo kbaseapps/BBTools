@@ -47,7 +47,7 @@ parameters :
 
     trimfragadapter:
         ui-name    : Trim Illumina adapter sequences, including TruSeq and Nextera
-        short-hint : Check box to set the trimfragadapter option 
+        short-hint : Check box to set the trimfragadapter option
 
     qtrim:
         ui-name    : Trim low quality bases read ends to remove bases with quality below minq
@@ -77,7 +77,6 @@ parameters :
         placeholder : |
             e.g Escherichia_coli
 
-
     dedupe:
         ui-name    : Remove duplicate reads
         short-hint : Check box to set the remove duplicates RQCFilter flag (dedupe)
@@ -86,6 +85,24 @@ parameters :
         ui-name    : Remove optical duplicates
         short-hint : Check box to set the remove optical duplicates RQCFilter flag (opticaldupes) (Clumpify optical flag)
 
+    trimhdist:
+        ui-name    : trimhdist - trim hamming distance
+        short-hint : (optional, default 1) Hamming distance used for trimming. Should be a positive integer - 1 is default and recommended
+    trimhdist2:
+        ui-name    : trimhdist2 - trimhdist for short kmers
+        short-hint : (optional, default is the same as trimhdist) Hamming distance used for trimming with short kmers. If unset, trimhdist will be used
+    trimq:
+        ui-name    : trimq - Trim quality threshold
+        short-hint : (optional, default 10) Sets the trim quality threshold. Must also set qtrim for direction
+    minlength:
+        ui-name    : ml - Minimum length reads
+        short-hint : (optional, default 45) Reads shorter than this after trimming will be discarded. Pairs will be discarded only if both are shorter.
+    minlenfrac:
+        ui-name    : mlf - Minimum length fraction
+        short-hint : (optional, default 0.3333) Reads shorter than this fraction of original length after trimming will be discarded.
+    mink:
+        ui-name    : mink - minimum short kmer length
+        short-hint : (optional, default 11) Minimum kmer length for short kmers when trimming.
 
 description : |
     Data preprocessing pipeline for raw reads developed by DOE JGI. see: http://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/data-preprocessing/ for the 11 steps in the process.

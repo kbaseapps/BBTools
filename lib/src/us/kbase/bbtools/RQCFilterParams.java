@@ -38,6 +38,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * minavgquality - 5 - (maq) Reads with average quality (before trimming) below this will be discarded.
  * minlength - 45 - (ml) Reads shorter than this after trimming will be discarded.  Pairs will be discarded only if both are shorter.
  * mlf - 0.333 - (minlengthfraction) Reads shorter than this fraction of original length after trimming will be discarded.
+ * trimhdist - 1 - Hamming distance used for trimming.
+ * trimhdist2 - same as trimhdist - Hamming distance used for trimming with short kmers.  If unset, trimhdist will be used.
+ * mink - 11 - Minimum kmer length for short kmers when trimming.
  * Mapping parameters (for vertebrate contaminants):
  * -------------------------------------------------
  * removemouse - f - (mouse) Remove mouse reads via mapping.
@@ -76,6 +79,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "maxns",
     "minavgquality",
     "minlength",
+    "trimhdist",
+    "trimhdist2",
+    "mink",
     "mlf",
     "removemouse",
     "removecat",
@@ -107,6 +113,12 @@ public class RQCFilterParams {
     private Long minavgquality;
     @JsonProperty("minlength")
     private Long minlength;
+    @JsonProperty("trimhdist")
+    private Long trimhdist;
+    @JsonProperty("trimhdist2")
+    private Long trimhdist2;
+    @JsonProperty("mink")
+    private Long mink;
     @JsonProperty("mlf")
     private Double mlf;
     @JsonProperty("removemouse")
@@ -239,6 +251,51 @@ public class RQCFilterParams {
 
     public RQCFilterParams withMinlength(Long minlength) {
         this.minlength = minlength;
+        return this;
+    }
+
+    @JsonProperty("trimhdist")
+    public Long getTrimhdist() {
+        return trimhdist;
+    }
+
+    @JsonProperty("trimhdist")
+    public void setTrimhdist(Long trimhdist) {
+        this.trimhdist = trimhdist;
+    }
+
+    public RQCFilterParams withTrimhdist(Long trimhdist) {
+        this.trimhdist = trimhdist;
+        return this;
+    }
+
+    @JsonProperty("trimhdist2")
+    public Long getTrimhdist2() {
+        return trimhdist2;
+    }
+
+    @JsonProperty("trimhdist2")
+    public void setTrimhdist2(Long trimhdist2) {
+        this.trimhdist2 = trimhdist2;
+    }
+
+    public RQCFilterParams withTrimhdist2(Long trimhdist2) {
+        this.trimhdist2 = trimhdist2;
+        return this;
+    }
+
+    @JsonProperty("mink")
+    public Long getMink() {
+        return mink;
+    }
+
+    @JsonProperty("mink")
+    public void setMink(Long mink) {
+        this.mink = mink;
+    }
+
+    public RQCFilterParams withMink(Long mink) {
+        this.mink = mink;
         return this;
     }
 
@@ -464,7 +521,7 @@ public class RQCFilterParams {
 
     @Override
     public java.lang.String toString() {
-        return ((((((((((((((((((((((((((((((((((((((((((((("RQCFilterParams"+" [library=")+ library)+", trimfragadapter=")+ trimfragadapter)+", qtrim=")+ qtrim)+", trimq=")+ trimq)+", maxns=")+ maxns)+", minavgquality=")+ minavgquality)+", minlength=")+ minlength)+", mlf=")+ mlf)+", removemouse=")+ removemouse)+", removecat=")+ removecat)+", removedog=")+ removedog)+", removehuman=")+ removehuman)+", removemicrobes=")+ removemicrobes)+", taxlist=")+ taxlist)+", rna=")+ rna)+", phix=")+ phix)+", clumpify=")+ clumpify)+", dedupe=")+ dedupe)+", opticaldupes=")+ opticaldupes)+", khist=")+ khist)+", maxmem=")+ maxmem)+", additionalProperties=")+ additionalProperties)+"]");
+        return ((((((((((((((((((((((((((((((((((((((((((((((((((("RQCFilterParams"+" [library=")+ library)+", trimfragadapter=")+ trimfragadapter)+", qtrim=")+ qtrim)+", trimq=")+ trimq)+", maxns=")+ maxns)+", minavgquality=")+ minavgquality)+", minlength=")+ minlength)+", trimhdist=")+ trimhdist)+", trimhdist2=")+ trimhdist2)+", mink=")+ mink)+", mlf=")+ mlf)+", removemouse=")+ removemouse)+", removecat=")+ removecat)+", removedog=")+ removedog)+", removehuman=")+ removehuman)+", removemicrobes=")+ removemicrobes)+", taxlist=")+ taxlist)+", rna=")+ rna)+", phix=")+ phix)+", clumpify=")+ clumpify)+", dedupe=")+ dedupe)+", opticaldupes=")+ opticaldupes)+", khist=")+ khist)+", maxmem=")+ maxmem)+", additionalProperties=")+ additionalProperties)+"]");
     }
 
 }

@@ -216,6 +216,78 @@
                 "checked_value": 1,
                 "unchecked_value": 0
             }
+        },
+        {
+            "id": "trimhdist",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": ["1"],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "int",
+                "min_int": "0"
+            }
+        },
+        {
+            "id": "trimhdist2",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": [""],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "int",
+                "min_int": "0"
+            }
+        },
+        {
+            "id": "trimq",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": ["10"],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "int",
+                "min_int": "0"
+            }
+        },
+        {
+            "id": "minlength",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": ["45"],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "int",
+                "min_int": "1"
+            }
+        },
+        {
+            "id": "minlenfrac",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": ["0.3333"],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "float",
+                "min_float": "0.0"
+            }
+        },
+        {
+            "id": "mink",
+            "optional": true,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": ["11"],
+            "field_type": "text",
+            "text_options": {
+                "validate_as": "int",
+                "min_int": "1"
+            }
         }
     ],
     "behavior": {
@@ -298,6 +370,36 @@
                 {
                     "input_parameter": "opticaldupes",
                     "target_property": "opticaldupes",
+                    "target_argument_position": 1
+                },
+                {
+                    "input_parameter": "trimhdist",
+                    "target_property": "trimhdist",
+                    "target_argument_position": 1
+                },
+                {
+                    "input_parameter": "trimhdist2",
+                    "target_property": "trimhdist2",
+                    "target_argument_position": 1
+                },
+                {
+                    "input_parameter": "trimq",
+                    "target_property": "trimq",
+                    "target_argument_position": 1
+                },
+                {
+                    "input_parameter": "minlength",
+                    "target_property": "minlength",
+                    "target_argument_position": 1
+                },
+                {
+                    "input_parameter": "minlenfrac",
+                    "target_property": "mlf",
+                    "target_argument_position": 1
+                },
+                {
+                    "input_parameter": "mink",
+                    "target_property": "mink",
                     "target_argument_position": 1
                 }
             ],

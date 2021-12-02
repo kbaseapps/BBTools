@@ -143,7 +143,11 @@ class BBTools(object):
            after trimming will be discarded.  Pairs will be discarded only if
            both are shorter. mlf - 0.333 - (minlengthfraction) Reads shorter
            than this fraction of original length after trimming will be
-           discarded. Mapping parameters (for vertebrate contaminants):
+           discarded. trimhdist - 1 - Hamming distance used for trimming.
+           trimhdist2 - same as trimhdist - Hamming distance used for
+           trimming with short kmers.  If unset, trimhdist will be used. mink
+           - 11 - Minimum kmer length for short kmers when trimming. Mapping
+           parameters (for vertebrate contaminants):
            ------------------------------------------------- removemouse - f
            - (mouse) Remove mouse reads via mapping. removecat - f - (cat)
            Remove cat reads via mapping. removedog - f - (dog) Remove dog
@@ -174,24 +178,25 @@ class BBTools(object):
            0 for false, 1 for true. @range (0, 1)), parameter "qtrim" of
            String, parameter "trimq" of Long, parameter "maxns" of Long,
            parameter "minavgquality" of Long, parameter "minlength" of Long,
-           parameter "mlf" of Double, parameter "removemouse" of type
-           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
-           parameter "removecat" of type "boolean" (A boolean - 0 for false,
-           1 for true. @range (0, 1)), parameter "removedog" of type
-           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
-           parameter "removehuman" of type "boolean" (A boolean - 0 for
-           false, 1 for true. @range (0, 1)), parameter "removemicrobes" of
-           type "boolean" (A boolean - 0 for false, 1 for true. @range (0,
-           1)), parameter "taxlist" of list of String, parameter "rna" of
-           type "boolean" (A boolean - 0 for false, 1 for true. @range (0,
-           1)), parameter "phix" of type "boolean" (A boolean - 0 for false,
-           1 for true. @range (0, 1)), parameter "clumpify" of type "boolean"
-           (A boolean - 0 for false, 1 for true. @range (0, 1)), parameter
-           "dedupe" of type "boolean" (A boolean - 0 for false, 1 for true.
-           @range (0, 1)), parameter "opticaldupes" of type "boolean" (A
+           parameter "trimhdist" of Long, parameter "trimhdist2" of Long,
+           parameter "mink" of Long, parameter "mlf" of Double, parameter
+           "removemouse" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "removecat" of type "boolean" (A
            boolean - 0 for false, 1 for true. @range (0, 1)), parameter
-           "khist" of type "boolean" (A boolean - 0 for false, 1 for true.
-           @range (0, 1)), parameter "maxmem" of Long
+           "removedog" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "removehuman" of type "boolean" (A
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "removemicrobes" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "taxlist" of list of String,
+           parameter "rna" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "phix" of type "boolean" (A
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "clumpify" of type "boolean" (A boolean - 0 for false, 1 for true.
+           @range (0, 1)), parameter "dedupe" of type "boolean" (A boolean -
+           0 for false, 1 for true. @range (0, 1)), parameter "opticaldupes"
+           of type "boolean" (A boolean - 0 for false, 1 for true. @range (0,
+           1)), parameter "khist" of type "boolean" (A boolean - 0 for false,
+           1 for true. @range (0, 1)), parameter "maxmem" of Long
         :returns: instance of type "RQCFilterAppOutput" -> structure:
            parameter "report_name" of String, parameter "report_ref" of
            String, parameter "run_command" of String
@@ -235,7 +240,11 @@ class BBTools(object):
            after trimming will be discarded.  Pairs will be discarded only if
            both are shorter. mlf - 0.333 - (minlengthfraction) Reads shorter
            than this fraction of original length after trimming will be
-           discarded. Mapping parameters (for vertebrate contaminants):
+           discarded. trimhdist - 1 - Hamming distance used for trimming.
+           trimhdist2 - same as trimhdist - Hamming distance used for
+           trimming with short kmers.  If unset, trimhdist will be used. mink
+           - 11 - Minimum kmer length for short kmers when trimming. Mapping
+           parameters (for vertebrate contaminants):
            ------------------------------------------------- removemouse - f
            - (mouse) Remove mouse reads via mapping. removecat - f - (cat)
            Remove cat reads via mapping. removedog - f - (dog) Remove dog
@@ -266,24 +275,25 @@ class BBTools(object):
            0 for false, 1 for true. @range (0, 1)), parameter "qtrim" of
            String, parameter "trimq" of Long, parameter "maxns" of Long,
            parameter "minavgquality" of Long, parameter "minlength" of Long,
-           parameter "mlf" of Double, parameter "removemouse" of type
-           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
-           parameter "removecat" of type "boolean" (A boolean - 0 for false,
-           1 for true. @range (0, 1)), parameter "removedog" of type
-           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
-           parameter "removehuman" of type "boolean" (A boolean - 0 for
-           false, 1 for true. @range (0, 1)), parameter "removemicrobes" of
-           type "boolean" (A boolean - 0 for false, 1 for true. @range (0,
-           1)), parameter "taxlist" of list of String, parameter "rna" of
-           type "boolean" (A boolean - 0 for false, 1 for true. @range (0,
-           1)), parameter "phix" of type "boolean" (A boolean - 0 for false,
-           1 for true. @range (0, 1)), parameter "clumpify" of type "boolean"
-           (A boolean - 0 for false, 1 for true. @range (0, 1)), parameter
-           "dedupe" of type "boolean" (A boolean - 0 for false, 1 for true.
-           @range (0, 1)), parameter "opticaldupes" of type "boolean" (A
+           parameter "trimhdist" of Long, parameter "trimhdist2" of Long,
+           parameter "mink" of Long, parameter "mlf" of Double, parameter
+           "removemouse" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "removecat" of type "boolean" (A
            boolean - 0 for false, 1 for true. @range (0, 1)), parameter
-           "khist" of type "boolean" (A boolean - 0 for false, 1 for true.
-           @range (0, 1)), parameter "maxmem" of Long
+           "removedog" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "removehuman" of type "boolean" (A
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "removemicrobes" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "taxlist" of list of String,
+           parameter "rna" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "phix" of type "boolean" (A
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "clumpify" of type "boolean" (A boolean - 0 for false, 1 for true.
+           @range (0, 1)), parameter "dedupe" of type "boolean" (A boolean -
+           0 for false, 1 for true. @range (0, 1)), parameter "opticaldupes"
+           of type "boolean" (A boolean - 0 for false, 1 for true. @range (0,
+           1)), parameter "khist" of type "boolean" (A boolean - 0 for false,
+           1 for true. @range (0, 1)), parameter "maxmem" of Long
         :returns: instance of type "RQCFilterLocalOutput" (The output from
            the local function version of RQCFilter. output_directory: the
            path to the output directory containing all files generated by
