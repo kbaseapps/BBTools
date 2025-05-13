@@ -31,7 +31,7 @@ cd /data
 
 # Fetch the monster compilation of reference data that Brian Bushnell set up.
 echo "Downloading RQCFilterData from NERSC Portal"
-safe_execute "wget --no-verbose http://portal.nersc.gov/dna/microbial/assembly/bushnell/RQCFilterData.tar" "failed to download reference data!"
+safe_execute "wget --no-verbose https://portal.nersc.gov/dna/microbial/assembly/bushnell/RQCFilterData.tar" "failed to download reference data!"
 safe_execute "tar -xf RQCFilterData.tar -C /data" "failed to untar reference data!"
 safe_execute "rm -f RQCFilterData.tar" "failed to remove reference data!"
 check_exists /data/RQCFilterData
