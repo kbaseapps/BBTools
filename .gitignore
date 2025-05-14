@@ -2,3 +2,8 @@ test_local
 sdk.cfg
 *.py.bak-*
 .DS_Store
+/bin/
+/.classpath
+/.settings/
+/.project
+/.pydevproject
