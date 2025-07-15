@@ -6,7 +6,7 @@ from pprint import pprint
 
 from BBTools.utils.BBToolsRunner import BBToolsRunner
 from installed_clients.KBaseReportClient import KBaseReport
-from commandbuilder import build_options
+from .commandbuilder import build_options
 from .file_util import (
     download_interleaved_reads,
     upload_interleaved_reads,
@@ -132,6 +132,10 @@ class RQCFilterRunner:
                 raise ValueError('The value of maxmem must be an integer > 0.')
 
         options = build_options(app_params, available_params)
+        
+        # Don't use JNI per BB. Obsoleted in later versions
+        # Causing test failures in the current version (38.73)
+        options.append("jni=f")
 
         # setup input/output paths
         options.append('in={}'.format(reads_file))

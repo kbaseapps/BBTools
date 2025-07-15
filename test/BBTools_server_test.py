@@ -236,7 +236,7 @@ class BBToolsTest(unittest.TestCase):
             "read_library_ref": "{}/{}/{}".format(lib_info[6], lib_info[0], lib_info[4]),
         }
         bbtools = self.getImpl()
-        res = bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 5 })
+        res = bbtools.run_RQCFilter_local(self.ctx, io_params, { "maxmem": 5 })[0]
         self.assertIn('output_directory', res)
         self.assertIn('filtered_fastq_file', res)
         self.assertIn('run_log', res)

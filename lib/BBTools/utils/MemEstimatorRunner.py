@@ -38,8 +38,8 @@ class MemEstimatorRunner(object):
         if self.file2:
             cmd.append("in2="+self.file2)
         cmd.append("cardinality")
-        process = subprocess.Popen(cmd, stderr=subprocess.PIPE)
-        output = str(process.communicate()[1])
+        process = subprocess.Popen(cmd, stderr=subprocess.PIPE, text=True)
+        output = process.communicate()[1]
 
         m = re.search(r'Unique 31-mers:\s*(\d+)', output)
         if m is not None:
