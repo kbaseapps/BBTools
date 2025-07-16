@@ -7,7 +7,7 @@ from pprint import pprint
 
 from BBTools.utils.BBToolsRunner import BBToolsRunner
 from installed_clients.KBaseReportClient import KBaseReport
-from commandbuilder import build_options
+from .commandbuilder import build_options
 from .file_util import (
     download_assemblies,
     download_assembly,

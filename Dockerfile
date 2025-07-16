@@ -1,18 +1,9 @@
-FROM kbase/kbase:sdkbase2.latest
-MAINTAINER KBase Developer
-# -----------------------------------------
-# In this section, you can install any system dependencies required
-# to run your App.  For instance, you could place an apt-get update or
-# install line here, a git checkout to download code, or run any other
-# installation scripts.
+FROM kbase/sdkpython:3.8.10
 
-# Here we install a python coverage tool and an
-# https library that is out of date in the base image.
+RUN apt update && apt install -y wget
 
-# update security libraries in the base image
-ENV NSLOTS 4
-
-# -----------------------------------------
+# TODO what is this for?
+ENV NSLOTS=4
 
 WORKDIR /kb/module
 
@@ -22,10 +13,6 @@ COPY ./ /kb/module
 
 # add SAMTools (don't need yet)
 #RUN apt-get update && apt-get install -y samtools
-
-# needed for python3 base image
-#RUN apt-get update && apt-get install -y wget gcc
-
 
 # install BBTools
 
@@ -38,6 +25,9 @@ RUN BBMAP_VERSION=$(cat /kb/module/bbmap_version) \
 # build BBTools small C-lib
 RUN cd /kb/module/bbmap/jni \
     && make -f makefile.linux
+	
+# Per BB, don't use this, removed in later versions. Causing test failures
+RUN sed -i 's/jni=t//g' /kb/module/bbmap/rqcfilter2.sh
 
 # copy local ref files
 RUN mkdir /global

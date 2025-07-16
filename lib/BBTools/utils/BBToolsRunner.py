@@ -19,8 +19,8 @@ class BBToolsRunner:
         """
         command = [os.path.join(self.BBTOOLS_PATH, command)] + options
 
-        print('In working directory: ' + ' '.join(command))
-        print('Running: ' + ' '.join(command))
+        print('In working directory: ' + self.scratch_dir)
+        print('Running: ' + ' '.join(command), flush=True)  # otherwise interleaves with BB out
 
         p = subprocess.Popen(command, cwd=self.scratch_dir, shell=False)
         exitCode = p.wait()
