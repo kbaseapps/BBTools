@@ -1,3 +1,7 @@
+### Version 1.0.2
+__Changes__
+- Modifying to allow greater maxmem
+
 ### Version 1.0.1
 __Changes__
 - Added config options and html results to BBMap

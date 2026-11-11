@@ -121,7 +121,7 @@ class RQCFilterRunner:
         # it should be removed from the build options list, as it's a special
         # command sent to java to set memory requirements
         #mem = 50
-        mem = 5
+        mem = 10
         if 'maxmem' in app_params:
             try:
                 mem = int(app_params['maxmem'])
