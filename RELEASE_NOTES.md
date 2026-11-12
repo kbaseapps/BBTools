@@ -1,3 +1,7 @@
+### Version 1.0.3
+__Changes__
+- Increasing memory further
+
 ### Version 1.0.2
 __Changes__
 - Modifying to allow greater maxmem
