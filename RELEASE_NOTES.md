@@ -1,3 +1,8 @@
+### Version 1.0.4
+__Changes__
+- Pre-build the human Bloom filter (bloom.serial) during reference data init so RQCFilter does not rebuild it every run
+- Bump data-version to 0.4 to trigger re-init
+
 ### Version 1.0.3
 __Changes__
 - Increasing memory further
