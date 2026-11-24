@@ -1,7 +1,6 @@
 ### Version 1.0.4
 __Changes__
-- Pre-build the human Bloom filter (bloom.serial) during reference data init so RQCFilter does not rebuild it every run
-- Bump data-version to 0.4 to trigger re-init
+- Fix RQCFilter hanging indefinitely with human removal on (without microbe removal): pass bloomserial=f so BBMap never tries to write bloom.serial to the read-only /data mount, which deadlocks BBTools 38.73
 
 ### Version 1.0.3
 __Changes__
