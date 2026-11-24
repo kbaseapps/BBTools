@@ -59,36 +59,6 @@ echo "Cleaning up"
 rm $BBMAP
 rm -rf /data/bbmap
 
-# Pre-build the human Bloom filter. RQCFilter's human-removal step looks for
-# human_genome/ref/index/1/bloom.serial and, if it's missing, rebuilds the filter
-# on every run and tries (and fails) to write it back, since /data is read-only
-# at job time. /data is writable here, so build it once.
-#
-# These settings must match what RQCFilter passes to BBMap: build=1, k=<mapk>
-# (the wrapper forces mapk=13), bloomk=29, bloomhashes=1, bloomminhits=6.
-# A cached filter is loaded without checking its settings, so a mismatch would
-# fail silently. The filter's size scales with free heap, so BLOOM_MEM must not
-# exceed the -Xmx jobs run with (RQCFilterRunner default: 32), or jobs may OOM
-# loading it.
-date
-BLOOM_MEM=${BLOOM_MEM:-32}
-HUMAN_PATH=/data/RQCFilterData/human_genome
-BLOOM_FILE=$HUMAN_PATH/ref/index/1/bloom.serial
-echo "Building human Bloom filter at $BLOOM_FILE with -Xmx${BLOOM_MEM}g"
-rm -f $BLOOM_FILE
-/kb/module/bbmap/bbmap.sh path=$HUMAN_PATH build=1 k=13 jni=f \
-    bloomfilter bloomk=29 bloomhashes=1 bloomminhits=6 bloomserial forceanalyze \
-    -Xmx${BLOOM_MEM}g
-bloom_ret=$?
-if [ $bloom_ret != 0 ] || ! [ -s $BLOOM_FILE ] ; then
-    # Not fatal: RQCFilter still works without the cache, it just rebuilds the
-    # filter each run. Remove any partial file so jobs don't load a bad one.
-    echo "WARNING: failed to build $BLOOM_FILE (exit code $bloom_ret); jobs will rebuild it each run."
-    rm -f $BLOOM_FILE
-else
-    echo "Built $BLOOM_FILE"
-fi
-
 date
 
 echo "Success.  Writing __READY__ file."

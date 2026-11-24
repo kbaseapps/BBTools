@@ -137,6 +137,13 @@ class RQCFilterRunner:
         # Causing test failures in the current version (38.73)
         options.append("jni=f")
 
+        # Don't load or save the cached Bloom filter (bloom.serial). In BBTools 38.73,
+        # if that write fails (e.g. /data is read-only), the writer thread dies without
+        # decrementing ReadWrite's active-thread count, and BBMap then waits forever in
+        # waitForWritingToFinish() after mapping. The filter is still used; it's just
+        # rebuilt in memory each run.
+        options.append("bloomserial=f")
+
         # setup input/output paths
         options.append('in={}'.format(reads_file))
         options.append('path={}'.format(output_dir))
